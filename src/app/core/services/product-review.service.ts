@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ProductReview } from '../pages/apps/product-review/product-review.model';
+import { ProductReview } from '../../pages/apps/product-review/product-review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,16 @@ export class ProductReviewService {
 
 
   private apiUrl = environment.backEndUrl;
-  private data = '/course-reviews/';
+  private data = '/product-reviews/';
 
   constructor(private http: HttpClient) {}
 
   index(page: number = 1) {
-    return this.http.get(`${this.apiUrl}/course-reviews-all?page=${page}`);
+    return this.http.get(`${this.apiUrl}/product-reviews?page=${page}`);
   }
 
   getAllProducts() {
-    return this.http.get(`${this.apiUrl}/courses`);
+    return this.http.get(`${this.apiUrl}/products`);
   }
 
   store(body: ProductReview) {
@@ -28,7 +28,7 @@ export class ProductReviewService {
 
   update(body: ProductReview) {
     return this.http.put(
-      `${this.apiUrl}/course-reviews-update/${body.id}`,
+      `${this.apiUrl}/product-reviews-update/${body.id}`,
       body
     );
   }

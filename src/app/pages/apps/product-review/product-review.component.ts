@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductReview } from './product-review.model';
 import { Product } from '../products/product.model';
-import { ProductReviewService } from 'src/app/core/product-review.service';
+import { ProductReviewService } from 'src/app/core/services/product-review.service';
 
 @Component({
   selector: 'app-product-review',
