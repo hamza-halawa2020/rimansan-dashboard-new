@@ -1,49 +1,50 @@
 {
   "MENUITEMS": {
     "MENU": {
-      "TEXT": "MENU"
+      "TEXT": "Menu"
     },
     "DASHBOARD": {
       "TEXT": "Dashboards",
       "LIST": {
         "ANALYTICS": "Analytics",
-        "ECOMMERCE": "Ecommerce"
+        "ECOMMERCE": "E-commerce"
       }
     },
     "APPS": {
       "TEXT": "Apps",
       "LIST": {
         "CALENDAR": "Calendar",
-        "SIDEBARBANNER": "SideBarBanner",
-        "ADDRESS": "Address",
+        "SIDEBARBANNER": "Sidebar Banner",
+        "ADDRESS": "Address Management",
         "CHAT": "Chat",
         "EVENT": "Event",
         "COUPONS": "Coupons",
         "USER": "User",
         "USERS": "Users",
-        "CLIENTS": "clients",
-        "FAQS": "faqs",
-        "INSTRUCTORS": "instructors",
+        "CLIENTS": "Clients",
+        "FAQS": "FAQs",
+        "INSTRUCTORS": "Instructors",
         "PRODUCTS": "Products",
+        "PRODUCT_REVIEW": "Product Review",
         "POSTS": "Posts",
         "CATEGORIES": "Categories",
         "MAIN_SLIDER": "Main Slider",
         "COUNTRIES": "Countries",
         "CITIES": "Cities",
-        "ADDREESES": "Addreeses",
+        "ADDRESSES": "Addresses",
         "SHIPMENTS": "Shipments",
         "TAGS": "Tags",
         "CERTIFICATIONS": "Certifications",
-        "ADS": "Ads",
+        "ADS": "Advertisements",
         "CONTACTS": "Contacts",
         "LEARNING": "Learning",
         "COURSES": "Courses",
-        "COURSE-REVIEW": "Course Review",
+        "COURSE_REVIEW": "Course Review",
         "KANBANBOARD": "Kanban Board",
         "INVOICES": "Invoices",
         "LISTVIEW": "List View",
         "OVERVIEW": "Overview",
-        "CREATEINVOICE": "Create Invoice"
+        "CREATE_INVOICE": "Create Invoice"
       }
     },
     "PAGES": {
@@ -54,15 +55,15 @@
       "LIST": {
         "SIGNIN": "Sign In",
         "SIGNUP": "Sign Up",
-        "PASSWORDRESET": "Password Reset",
-        "PASSWORDCREATE": "Password Create",
-        "LOCKSCREEN": "Lock Screen",
+        "PASSWORD_RESET": "Password Reset",
+        "PASSWORD_CREATE": "Password Create",
+        "LOCK_SCREEN": "Lock Screen",
         "LOGOUT": "Logout",
-        "SUCCESSMESSAGE": "Success Message",
-        "TWOSTEPVERIFICATION": "Two Step Verification",
+        "SUCCESS_MESSAGE": "Success Message",
+        "TWO_STEP_VERIFICATION": "Two-Step Verification",
         "ERRORS": "Errors",
-        "404ERROR": "404 Error",
-        "500": "500",
+        "404_ERROR": "404 Error",
+        "500_ERROR": "500 Error",
         "OFFLINE": "Offline Page"
       }
     },
@@ -70,25 +71,25 @@
       "TEXT": "More"
     },
     "EXTRAPAGES": {
-      "TEXT": "Pages",
+      "TEXT": "Extra Pages",
       "LIST": {
         "STARTER": "Starter",
         "PROFILE": "Profile",
-        "PROFILESETTINGS": "Profile Settings",
+        "PROFILE_SETTINGS": "Profile Settings",
         "TIMELINE": "Timeline",
         "FAQS": "FAQs",
         "PRICING": "Pricing",
         "MAINTENANCE": "Maintenance",
-        "COMINGSOON": "Coming Soon",
-        "PRIVACYPOLICY": "Privacy Policy",
-        "TERMS&CONDITIONS": "Term & Conditions"
+        "COMING_SOON": "Coming Soon",
+        "PRIVACY_POLICY": "Privacy Policy",
+        "TERMS_CONDITIONS": "Terms & Conditions"
       }
     },
     "COMPONENTS": {
       "TEXT": "Components"
     },
-    "BOOTSTRAPUI1": {
-      "TEXT": "Bootstrap UI1",
+    "BOOTSTRAP_UI": {
+      "TEXT": "Bootstrap UI",
       "LIST": {
         "ALERTS": "Alerts",
         "BADGES": "Badges",
@@ -100,36 +101,20 @@
         "GRID": "Grid",
         "IMAGES": "Images",
         "TABS": "Tabs",
-        "ACCORDION&COLLAPSE": "Accordion & Collapse",
+        "ACCORDION_COLLAPSE": "Accordion & Collapse",
         "MODALS": "Modals"
       }
     },
-    "BOOTSTRAPUI2": {
-      "TEXT": "Bootstrap UI2",
+    "ADVANCE_UI": {
+      "TEXT": "Advanced UI",
       "LIST": {
-        "MEDIAOBJECT": "Media object",
-        "EMBEDVIDEO": "Embed Video",
-        "TYPOGRAPHY": "Typography",
-        "LISTS": "Lists",
-        "LINKS": "Links",
-        "GENERAL": "General",
-        "UTILITIES": "Utilities",
-        "OFFCANVAS": "Offcanvas",
-        "PLACEHOLDERS": "Placeholders",
-        "PROGRESS": "Progress",
-        "NOTIFICATIONS": "Notifications"
-      }
-    },
-    "ADVANCEUI": {
-      "TEXT": "Advance UI",
-      "LIST": {
-        "SWEETALERTS": "Sweet Alerts",
-        "NESTABLELIST": "Nestable List",
+        "SWEET_ALERTS": "Sweet Alerts",
+        "NESTABLE_LIST": "Nestable List",
         "SCROLLBAR": "Scrollbar",
-        "SWIPERSLIDER": "Swiper Slider",
-        "RATTINGS": "Ratings",
+        "SWIPER_SLIDER": "Swiper Slider",
+        "RATINGS": "Ratings",
         "HIGHLIGHT": "Highlight",
-        "SCROLLSPY": "ScrollSpy"
+        "SCROLL_SPY": "Scroll Spy"
       }
     },
     "WIDGETS": {
@@ -138,31 +123,31 @@
     "FORMS": {
       "TEXT": "Forms",
       "LIST": {
-        "BASICELEMENTS": "Basic Elements",
-        "FORMSELECT": "Form Select",
-        "CHECKBOXS&RADIOS": "Checkboxs & Radios",
+        "BASIC_ELEMENTS": "Basic Elements",
+        "FORM_SELECT": "Form Select",
+        "CHECKBOX_RADIOS": "Checkboxes & Radios",
         "PICKERS": "Pickers",
-        "INPUTMASKS": "Input Masks",
+        "INPUT_MASKS": "Input Masks",
         "ADVANCED": "Advanced",
-        "RANGESLIDER": "Range Slider",
+        "RANGE_SLIDER": "Range Slider",
         "VALIDATION": "Validation",
         "WIZARD": "Wizard",
         "EDITORS": "Editors",
-        "FILEUPLOADS": "File Uploads",
-        "FORMLAYOUTS": "Form Layouts"
+        "FILE_UPLOADS": "File Uploads",
+        "FORM_LAYOUTS": "Form Layouts"
       }
     },
     "TABLES": {
       "TEXT": "Tables",
       "LIST": {
-        "BASICTABLES": "Basic Tables",
-        "GRIDJS": "Grid Js",
-        "LISTJS": "List Js",
-        "DATATABLES": "Datatables"
+        "BASIC_TABLES": "Basic Tables",
+        "GRID_JS": "Grid JS",
+        "LIST_JS": "List JS",
+        "DATA_TABLES": "Data Tables"
       }
     },
     "CHARTS": {
-      "TEXT": "Apexcharts",
+      "TEXT": "Charts",
       "LIST": {
         "LINE": "Line",
         "AREA": "Area",
@@ -170,16 +155,16 @@
         "BAR": "Bar",
         "MIXED": "Mixed",
         "TIMELINE": "Timeline",
-        "CANDLSTICK": "Candlstick",
+        "CANDLESTICK": "Candlestick",
         "BOXPLOT": "Boxplot",
         "BUBBLE": "Bubble",
         "SCATTER": "Scatter",
         "HEATMAP": "Heatmap",
         "TREEMAP": "Treemap",
         "PIE": "Pie",
-        "RADIALBAR": "Radialbar",
+        "RADIAL_BAR": "Radial Bar",
         "RADAR": "Radar",
-        "POLARAREA": "Polar Area"
+        "POLAR_AREA": "Polar Area"
       }
     },
     "ICONS": {
@@ -199,8 +184,8 @@
         "LEAFLET": "Leaflet"
       }
     },
-    "MULTILEVEL": {
-      "TEXT": "Multi Level",
+    "MULTI_LEVEL": {
+      "TEXT": "Multi-Level",
       "LIST": {
         "LEVEL1": {
           "1": "Level 1.1",

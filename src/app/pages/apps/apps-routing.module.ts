@@ -25,6 +25,7 @@ import { PostsComponent } from './posts/posts.component';
 import { PostCommentComponent } from './post-comment/post-comment.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductReviewComponent } from './product-review/product-review.component';
 
 const routes: Routes = [
   {
@@ -115,6 +116,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent,
+  },
+  {
+    path: 'product-review',
+    component: ProductReviewComponent,
   },
   {
     path: 'products/:id',

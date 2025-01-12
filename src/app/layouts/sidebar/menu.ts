@@ -9,7 +9,7 @@ export const MENU: MenuItem[] = [
   {
     id: 2,
     label: 'MENUITEMS.DASHBOARD.TEXT',
-    icon: 'ti ti-brand-google-home',
+    icon: 'ti ti-home',
     subItems: [
       {
         id: 3,
@@ -28,7 +28,7 @@ export const MENU: MenuItem[] = [
   {
     id: 24,
     label: 'MENUITEMS.APPS.LIST.ADDRESS',
-    icon: 'ri-basketball-fill',
+    icon: 'ti ti-map-pin',
     subItems: [
       {
         id: 1,
@@ -49,8 +49,8 @@ export const MENU: MenuItem[] = [
         parentId: 24,
       },
       {
-        id: 3,
-        label: 'MENUITEMS.APPS.LIST.ADDREESES',
+        id: 4,
+        label: 'MENUITEMS.APPS.LIST.ADDRESS',
         link: '/apps/addreeses',
         parentId: 24,
       },
@@ -59,28 +59,28 @@ export const MENU: MenuItem[] = [
   {
     id: 10,
     label: 'MENUITEMS.APPS.LIST.SIDEBARBANNER',
-    icon: 'ti ti-calendar',
+    icon: 'ti ti-layout-sidebar-right',
     link: '/apps/ad-side-bar-banners',
     parentId: 8,
   },
   {
     id: 23,
     label: 'MENUITEMS.APPS.LIST.CATEGORIES',
-    icon: 'ti ti-list',
+    icon: 'ti ti-list-check',
     link: '/apps/categories',
     parentId: 8,
   },
   {
     id: 23,
     label: 'MENUITEMS.APPS.LIST.CERTIFICATIONS',
-    icon: 'ti ti-tags',
+    icon: 'ti ti-certificate',
     link: '/apps/certifications',
     parentId: 8,
   },
   {
     id: 23,
     label: 'MENUITEMS.APPS.LIST.CLIENTS',
-    icon: 'bi bi-people-fill',
+    icon: 'ti ti-users',
     link: '/apps/clients',
     parentId: 8,
   },
@@ -94,14 +94,14 @@ export const MENU: MenuItem[] = [
   {
     id: 11,
     label: 'MENUITEMS.APPS.LIST.COUPONS',
-    icon: 'ti ti-gift',
+    icon: 'ti ti-tag',
     link: '/apps/coupons',
     parentId: 8,
   },
   {
     id: 2,
     label: 'MENUITEMS.APPS.LIST.COURSES',
-    icon: 'ti ti-brand-google-home',
+    icon: 'ti ti-book',
     subItems: [
       {
         id: 9,
@@ -110,8 +110,8 @@ export const MENU: MenuItem[] = [
         parentId: 8,
       },
       {
-        id: 9,
-        label: 'MENUITEMS.APPS.LIST.COURSE-REVIEW',
+        id: 10,
+        label: 'MENUITEMS.APPS.LIST.COURSE_REVIEW',
         link: '/apps/course-review',
         parentId: 8,
       },
@@ -120,63 +120,75 @@ export const MENU: MenuItem[] = [
   {
     id: 9,
     label: 'MENUITEMS.APPS.LIST.EVENT',
-    icon: 'bi bi-bookmark-fill',
+    icon: 'ti ti-calendar-event',
     link: '/apps/events',
     parentId: 8,
   },
   {
     id: 9,
     label: 'MENUITEMS.APPS.LIST.FAQS',
-    icon: 'ti ti-calendar',
+    icon: 'ti ti-help',
     link: '/apps/faqs',
     parentId: 8,
   },
   {
     id: 9,
     label: 'MENUITEMS.APPS.LIST.INSTRUCTORS',
-    icon: 'ti ti-calendar',
+    icon: 'ti ti-school',
     link: '/apps/instructors',
     parentId: 8,
   },
   {
     id: 9,
     label: 'MENUITEMS.APPS.LIST.MAIN_SLIDER',
-    icon: 'ti ti-calendar',
+    icon: 'ti ti-slideshow',
     link: '/apps/main-sliders',
     parentId: 8,
   },
   {
     id: 9,
     label: 'MENUITEMS.APPS.LIST.POSTS',
-    icon: 'ti ti-calendar',
+    icon: 'ti ti-article',
     link: '/apps/posts',
     parentId: 8,
   },
   {
-    id: 9,
+    id: 2,
     label: 'MENUITEMS.APPS.LIST.PRODUCTS',
-    icon: 'ti ti-calendar',
-    link: '/apps/products',
-    parentId: 8,
+    icon: 'ti ti-shopping-cart',
+    subItems: [
+      {
+        id: 9,
+        label: 'MENUITEMS.APPS.LIST.PRODUCTS',
+        link: '/apps/products',
+        parentId: 8,
+      },
+      {
+        id: 10,
+        label: 'MENUITEMS.APPS.LIST.PRODUCT_REVIEW',
+        link: '/apps/product-review',
+        parentId: 8,
+      },
+    ],
   },
   {
     id: 23,
     label: 'MENUITEMS.APPS.LIST.TAGS',
-    icon: 'ti ti-tags',
+    icon: 'ti ti-tag',
     link: '/apps/tags',
     parentId: 8,
   },
   {
     id: 23,
     label: 'MENUITEMS.APPS.LIST.USERS',
-    icon: 'ti ti-users',
+    icon: 'ti ti-user',
     link: '/apps/users',
     parentId: 8,
   },
   {
     id: 142,
     label: 'MENUITEMS.CHARTS.TEXT',
-    icon: 'ti ti-chart-donut',
+    icon: 'ti ti-chart-pie',
     subItems: [
       {
         id: 143,
@@ -279,6 +291,7 @@ export const MENU: MenuItem[] = [
   {
     id: 161,
     label: 'MENUITEMS.ICONS.TEXT',
+    icon: 'ti ti-icons',
     link: '/icons/bootstrap',
     parentId: 159,
   },

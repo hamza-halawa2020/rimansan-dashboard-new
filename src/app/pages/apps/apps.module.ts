@@ -65,6 +65,7 @@ import { PostsComponent } from './posts/posts.component';
 import { PostCommentComponent } from './post-comment/post-comment.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductReviewComponent } from './product-review/product-review.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     CategoriesComponent,
     InstructorsComponent,
     ProductsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductReviewComponent
   ],
   imports: [
     CommonModule,
