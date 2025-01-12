@@ -64,6 +64,7 @@ import { MainSlidersComponent } from './main-sliders/main-sliders.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostCommentComponent } from './post-comment/post-comment.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ProductsComponent } from './products/products.component';
     CategoriesComponent,
     InstructorsComponent,
     ProductsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     CommonModule,
