@@ -61,7 +61,7 @@ export class EventDetailsComponent {
         return;
       }
     }
-    console.log(this.imageFile);
+    // console.log(this.imageFile);
   }
 
   addImage(id: any): void {
@@ -69,7 +69,7 @@ export class EventDetailsComponent {
     for (let file of this.imageFile) {
       formData.append('image[]', file);
     }
-    console.log(formData);
+    // console.log(formData);
     this.eventsService.update(id, formData).subscribe(
       (response: any) => {
         this.successMessage = 'Images uploaded successfully!';

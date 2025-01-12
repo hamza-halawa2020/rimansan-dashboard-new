@@ -117,7 +117,7 @@ const routes: Routes = [
     component: ProductsComponent,
   },
   {
-    path: 'products:/id',
+    path: 'products/:id',
     component: ProductDetailsComponent,
   },
 ];

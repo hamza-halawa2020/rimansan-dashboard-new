@@ -47,14 +47,14 @@ export class ProfileSettingsComponent {
 
       this.userService.update(data).subscribe(
         (response) => {
-          console.log('User updated successfully:', response);
+          // console.log('User updated successfully:', response);
         },
         (error) => {
-          console.error('Update failed:', error);
+          // console.error('Update failed:', error);
         }
       );
     } else {
-      console.log('Form is invalid. Please fill all the required fields.');
+      // console.log('Form is invalid. Please fill all the required fields.');
     }
   }
 

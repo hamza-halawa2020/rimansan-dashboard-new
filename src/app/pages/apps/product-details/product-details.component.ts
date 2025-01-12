@@ -10,12 +10,9 @@ import { Product } from '../products/product.model';
   styleUrl: './product-details.component.scss',
 })
 export class ProductDetailsComponent {
-
-
-
     productDetails: Product | null = null;
     id: any;
-    image = environment.imgUrl + 'product/';
+    image = environment.imgUrl + 'products/';
     imageFile: File[] = [];
     showAddImageForm = false;
     additionalImages: any;
@@ -64,7 +61,7 @@ export class ProductDetailsComponent {
           return;
         }
       }
-      console.log(this.imageFile);
+      // console.log(this.imageFile);
     }
   
     addImage(id: any): void {
@@ -95,24 +92,24 @@ export class ProductDetailsComponent {
       );
     }
   
-    // deleteImage(imageId: string): void {
-    //   this.productService.deleteImage(this.id, imageId).subscribe(
-    //     (response: any) => {
-    //       this.successMessage = 'Image deleted successfully!';
-    //       setTimeout(() => (this.errorMessage = ''), 3000);
+    deleteImage(imageId: string): void {
+      this.productService.deleteImage(this.id, imageId).subscribe(
+        (response: any) => {
+          this.successMessage = 'Image deleted successfully!';
+          setTimeout(() => (this.errorMessage = ''), 3000);
   
-    //       this.additionalImages = this.additionalImages.filter(
-    //         (img: any) => img.id !== imageId
-    //       );
-    //     },
-    //     (error: any) => {
-    //       console.error('Failed to delete image:', error);
-    //       (this.errorMessage = 'Failed to delete the image. Please try again.'),
-    //         'danger' + this.extractErrorMessage(error);
-    //       setTimeout(() => (this.errorMessage = ''), 3000);
-    //     }
-    //   );
-    // }
+          this.additionalImages = this.additionalImages.filter(
+            (img: any) => img.id !== imageId
+          );
+        },
+        (error: any) => {
+          // console.error('Failed to delete image:', error);
+          (this.errorMessage = 'Failed to delete the image. Please try again.'),
+            'danger' + this.extractErrorMessage(error);
+          setTimeout(() => (this.errorMessage = ''), 3000);
+        }
+      );
+    }
   }
   
 

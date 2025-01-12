@@ -28,7 +28,6 @@ export class ProductsComponent {
   ngOnInit(): void {
     this.index();
     this.getAllCategories();
-    this.getAllTags();
   }
 
   onFileSelected(product: any): void {
@@ -53,11 +52,7 @@ export class ProductsComponent {
     });
   }
 
-  getAllTags() {
-    this.ProductsService.getAllTags().subscribe((data) => {
-      // console.log(this.countries);
-    });
-  }
+
 
   addProduct(): void {
     if (!this.selectedFile) {

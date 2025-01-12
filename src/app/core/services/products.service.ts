@@ -15,13 +15,7 @@ export class ProductsService {
     return this.http.get(`${this.apiUrl}/categories`);
   }
 
-  getAllTags() {
-    return this.http.get(`${this.apiUrl}/tags`);
-  }
-  getAllInstructors() {
-    return this.http.get(`${this.apiUrl}/instructors`);
-  }
-  index(page: number = 1) {
+ index(page: number = 1) {
     return this.http.get(`${this.apiUrl}/products?page=${page}`);
   }
 
@@ -35,9 +29,15 @@ export class ProductsService {
   show(id: number) {
     return this.http.get(`${this.apiUrl}${this.data}${id}`);
   }
-  deleteComment(eventId: string, commentId: string) {
+  deleteComment(productId: string, commentId: string) {
     return this.http.delete(
-      `${this.apiUrl}${this.data}${eventId}/comments/${commentId}`
+      `${this.apiUrl}${this.data}${productId}/comments/${commentId}`
+    );
+  }
+
+  deleteImage(productId: string, imageId: string) {
+    return this.http.delete(
+      `${this.apiUrl}${this.data}${productId}/images/${imageId}`
     );
   }
 

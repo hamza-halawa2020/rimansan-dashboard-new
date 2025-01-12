@@ -11,7 +11,7 @@ export interface Product {
   category?: string;
   admin_id?: number;
   admin?: string;
-  productImages?: string;
+  productImages?: string[];
   productReviews?: string;
   created_at?: Date | string;
 }
