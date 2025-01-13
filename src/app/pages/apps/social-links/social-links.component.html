@@ -1,8 +1,8 @@
 <!-- Start Breadcrumbs -->
-<app-breadcrumbs title="Tags"></app-breadcrumbs>
+<app-breadcrumbs title="SocialLinks"></app-breadcrumbs>
 <!-- End Breadcrumbs -->
 
-<div *ngIf="tags">
+<div *ngIf="socialLinks">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
     <!--end side content-->
     <div class="city-content w-100 pb-0">
@@ -19,7 +19,7 @@
           class="btn btn-success w-100"
           (click)="createCounryModal.show()"
         >
-          <i class="ri-add-line align-bottom"></i> Add New Tag
+          <i class="ri-add-line align-bottom"></i> Add New SocialLink
         </button>
       </div>
 
@@ -31,29 +31,29 @@
                 <tr>
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
-                  <th scope="col">Tag</th>
+                  <th scope="col">SocialLink</th>
                   <th scope="col">CreatedAt</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
 
               <tbody id="city-list">
-                <tr *ngFor="let data of tags; let i = index">
+                <tr *ngFor="let data of socialLinks; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
-                  <td>{{ data.name || "No Tag" }}</td>
+                  <td>{{ data.name || "No SocialLink" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
                       <button
                         class="btn btn-sm btn-subtle-danger remove-list"
-                        (click)="removeTagItemModal.show()"
+                        (click)="removeSocialLinkItemModal.show()"
                       >
                         <i class="ri-delete-bin-5-fill align-bottom"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateTag.show()"
+                        (click)="updateSocialLink.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -63,8 +63,8 @@
                   <!-- removeFileItemModal -->
                   <div
                     bsModal
-                    #removeTagItemModal="bs-modal"
-                    id="removeTagItemModal"
+                    #removeSocialLinkItemModal="bs-modal"
+                    id="removeSocialLinkItemModal"
                     class="modal fade zoomIn"
                     tabindex="-1"
                     aria-hidden="true"
@@ -75,7 +75,7 @@
                           <button
                             type="button"
                             class="btn-close"
-                            (click)="removeTagItemModal.hide()"
+                            (click)="removeSocialLinkItemModal.hide()"
                             id="close-removecitymodal"
                           ></button>
                         </div>
@@ -95,7 +95,7 @@
                             <button
                               type="button"
                               class="btn w-sm btn-light"
-                              (click)="removeTagItemModal.hide()"
+                              (click)="removeSocialLinkItemModal.hide()"
                             >
                               Close
                             </button>
@@ -103,7 +103,7 @@
                               type="button"
                               class="btn w-sm btn-danger"
                               id="remove-cityitem"
-                              (click)="deleteTag(data.id)"
+                              (click)="deleteSocialLink(data.id)"
                             >
                               Yes, Delete It!
                             </button>
@@ -118,36 +118,36 @@
                   <!-- update Modal -->
                   <div
                     bsModal
-                    #updateTag="bs-modal"
+                    #updateSocialLink="bs-modal"
                     class="modal fade"
-                    id="updateTag"
+                    id="updateSocialLink"
                     tabindex="-1"
-                    aria-labelledby="updateTagLabel"
+                    aria-labelledby="updateSocialLinkLabel"
                     aria-hidden="true"
                   >
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
-                          <h5 class="modal-title" id="updateTagLabel">
-                            UpdateTag Info
+                          <h5 class="modal-title" id="updateSocialLinkLabel">
+                            UpdateSocialLink Info
                           </h5>
                           <button
                             type="button"
                             class="btn-close"
-                            (click)="updateTag.hide()"
+                            (click)="updateSocialLink.hide()"
                           ></button>
                         </div>
                         <div class="modal-body">
                           <div class="mb-3">
                             <label for="city-title-input" class="form-label"
-                              >Tag</label
+                              >SocialLink</label
                             >
                             <input
                               type="text"
                               id="city-title-input"
                               class="form-control"
                               placeholder="{{ data.name }}"
-                              [(ngModel)]="newTag.name"
+                              [(ngModel)]="newSocialLink.name"
                             />
                           </div>
 
@@ -155,17 +155,17 @@
                             <button
                               type="button"
                               class="btn btn-ghost-success"
-                              (click)="updateTag.hide()"
+                              (click)="updateSocialLink.hide()"
                             >
                               <i class="ri-close-fill align-bottom"></i> Close
                             </button>
                             <button
                               type="submit"
                               class="btn btn-primary"
-                              id="addNewTag"
-                              (click)="editTag(data.id)"
+                              id="addNewSocialLink"
+                              (click)="editSocialLink(data.id)"
                             >
-                              Update Tag
+                              Update SocialLink
                             </button>
                           </div>
                         </div>
@@ -224,15 +224,15 @@
         <div class="modal-body">
           <div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">Tag</label>
+              <label for="Counryname-input" class="form-label">SocialLink</label>
 
               <input
                 type="text"
                 class="form-control"
-                id="Tagname-input"
+                id="SocialLinkname-input"
                 autocomplete="off"
-                placeholder="Enter Tag name"
-                [(ngModel)]="newTag.name"
+                placeholder="Enter SocialLink name"
+                [(ngModel)]="newSocialLink.name"
               />
             </div>
 
@@ -247,10 +247,10 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="addTag()"
+                (click)="addSocialLink()"
                 (click)="createCounryModal.hide()"
               >
-                Add Tag
+                Add SocialLink
               </button>
             </div>
           </div>

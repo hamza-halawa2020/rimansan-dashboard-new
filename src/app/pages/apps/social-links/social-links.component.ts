@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-import { TagsService } from 'src/app/core/services/tags.service';
-import { Tag } from './tag.model';
+import { Social } from './social.model';
+import { SocialLinksService } from 'src/app/core/services/social-links.service';
 
 @Component({
-  selector: 'app-tags',
-  templateUrl: './tags.component.html',
-  styleUrl: './tags.component.scss',
+  selector: 'app-social-links',
+  templateUrl: './social-links.component.html',
+  styleUrl: './social-links.component.scss'
 })
-export class TagsComponent {
+export class SocialLinksComponent {
+
+
   totalPages: number = 0;
   currentPage: number = 1;
-  tags: Tag[] = [];
-  newTag: Tag = {};
+  socialLinks: Social[] = [];
+  newSocialLink: Social = {};
   successMessage: string = '';
   errorMessage: string = '';
-  constructor(private tagsService: TagsService) {}
+  constructor(private socialLinksService: SocialLinksService) {}
 
   ngOnInit(): void {
     this.index();
@@ -26,12 +28,12 @@ export class TagsComponent {
     }
     return errorMessage;
   }
-  addTag(): void {
-    this.tagsService.store(this.newTag).subscribe(
+  addSocialLink(): void {
+    this.socialLinksService.store(this.newSocialLink).subscribe(
       () => {
         this.index();
-        this.newTag = {};
-        this.successMessage = 'Tag added successfully!';
+        this.newSocialLink = {};
+        this.successMessage = 'SocialLink added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
@@ -44,8 +46,8 @@ export class TagsComponent {
   }
 
   index(): void {
-    this.tagsService.index().subscribe((data) => {
-      this.tags = Object.values(data)[0];
+    this.socialLinksService.index().subscribe((data) => {
+      this.socialLinks = Object.values(data)[0];
       // console.log(this.countries);
     });
   }
@@ -64,12 +66,12 @@ export class TagsComponent {
     }
   }
 
-  deleteTag(id: number | undefined): void {
+  deleteSocialLink(id: number | undefined): void {
     if (!id) return;
-    this.tagsService.delete(id).subscribe(
+    this.socialLinksService.delete(id).subscribe(
       () => {
         this.index();
-        this.successMessage = 'Tag deleted successfully!';
+        this.successMessage = 'SocialLink deleted successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
@@ -81,12 +83,12 @@ export class TagsComponent {
     );
   }
 
-  editTag(id: number | undefined): void {
-    this.tagsService.update({ id, ...this.newTag }).subscribe(
+  editSocialLink(id: number | undefined): void {
+    this.socialLinksService.update({ id, ...this.newSocialLink }).subscribe(
       () => {
         this.index();
-        this.newTag = {};
-        this.successMessage = 'Tag updated successfully!';
+        this.newSocialLink = {};
+        this.successMessage = 'SocialLink updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {

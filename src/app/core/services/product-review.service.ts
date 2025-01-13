@@ -15,7 +15,7 @@ export class ProductReviewService {
   constructor(private http: HttpClient) {}
 
   index(page: number = 1) {
-    return this.http.get(`${this.apiUrl}/product-reviews?page=${page}`);
+    return this.http.get(`${this.apiUrl}/product-reviews-all?page=${page}`);
   }
 
   getAllProducts() {

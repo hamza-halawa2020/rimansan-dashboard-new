@@ -180,6 +180,13 @@ export const MENU: MenuItem[] = [
   },
   {
     id: 23,
+    label: 'MENUITEMS.APPS.LIST.Social_links',
+    icon: 'ti ti-tag',
+    link: '/apps/social-links',
+    parentId: 8,
+  },
+  {
+    id: 23,
     label: 'MENUITEMS.APPS.LIST.USERS',
     icon: 'ti ti-user',
     link: '/apps/users',
