@@ -31,8 +31,11 @@
                 <tr>
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
-                  <th scope="col">SocialLink</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Url</th>
+                  <th scope="col">Icon</th>
                   <th scope="col">CreatedAt</th>
+                  <th scope="col">CreatedBy</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -41,7 +44,16 @@
                 <tr *ngFor="let data of socialLinks; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
-                  <td>{{ data.name || "No SocialLink" }}</td>
+                  <td>{{ data.name || "No name" }}</td>
+                  <td>{{ data.url || "No url" }}</td>
+                  <td>
+                    <img
+                      src="{{ image + data.icon }}"
+                      alt="{{ data.icon }}"
+                      height="25px"
+                    />
+                  </td>
+                  <td>{{ data.admin || "No admin" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -139,15 +151,45 @@
                         </div>
                         <div class="modal-body">
                           <div class="mb-3">
-                            <label for="city-title-input" class="form-label"
-                              >SocialLink</label
+                            <label for="Counryname-input" class="form-label"
+                              >Name</label
                             >
+
                             <input
                               type="text"
-                              id="city-title-input"
                               class="form-control"
-                              placeholder="{{ data.name }}"
+                              id="SocialLinkname-input"
+                              autocomplete="off"
+                              placeholder="Enter SocialLink name"
                               [(ngModel)]="newSocialLink.name"
+                            />
+                          </div>
+
+                          <div class="mb-4">
+                            <label for="Counryname-input" class="form-label"
+                              >Url</label
+                            >
+
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="SocialLinkname-input"
+                              autocomplete="off"
+                              placeholder="Enter SocialLink url"
+                              [(ngModel)]="newSocialLink.url"
+                            />
+                          </div>
+                          <div class="col">
+                            <label for="Eventname-input" class="form-label"
+                              >Icon</label
+                            >
+                            <input
+                              type="file"
+                              class="form-control"
+                              id="Eventname-input"
+                              autocomplete="off"
+                              placeholder="Enter Event image"
+                              (change)="onFileSelected($event)"
                             />
                           </div>
 
@@ -224,7 +266,7 @@
         <div class="modal-body">
           <div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">SocialLink</label>
+              <label for="Counryname-input" class="form-label">Name</label>
 
               <input
                 type="text"
@@ -233,6 +275,30 @@
                 autocomplete="off"
                 placeholder="Enter SocialLink name"
                 [(ngModel)]="newSocialLink.name"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="Counryname-input" class="form-label">Url</label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="SocialLinkname-input"
+                autocomplete="off"
+                placeholder="Enter SocialLink url"
+                [(ngModel)]="newSocialLink.url"
+              />
+            </div>
+            <div class="col">
+              <label for="Eventname-input" class="form-label">Icon</label>
+              <input
+                type="file"
+                class="form-control"
+                id="Eventname-input"
+                autocomplete="off"
+                placeholder="Enter Event image"
+                (change)="onFileSelected($event)"
               />
             </div>
 

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Social } from './social.model';
 import { SocialLinksService } from 'src/app/core/services/social-links.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-social-links',
   templateUrl: './social-links.component.html',
-  styleUrl: './social-links.component.scss'
+  styleUrl: './social-links.component.scss',
 })
 export class SocialLinksComponent {
-
+  image = environment.imgUrl + 'socials/';
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -16,6 +17,8 @@ export class SocialLinksComponent {
   newSocialLink: Social = {};
   successMessage: string = '';
   errorMessage: string = '';
+  selectedFile: File | null = null;
+
   constructor(private socialLinksService: SocialLinksService) {}
 
   ngOnInit(): void {
@@ -28,8 +31,27 @@ export class SocialLinksComponent {
     }
     return errorMessage;
   }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      // console.log('File selected:', this.selectedFile);
+    }
+  }
+
   addSocialLink(): void {
-    this.socialLinksService.store(this.newSocialLink).subscribe(
+    if (!this.selectedFile) {
+      this.errorMessage = 'Please select an image to upload.';
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('icon', this.selectedFile);
+    formData.append('name', this.newSocialLink.name || '');
+    formData.append('url', this.newSocialLink.url || '');
+
+    this.socialLinksService.store(formData).subscribe(
       () => {
         this.index();
         this.newSocialLink = {};
@@ -84,7 +106,24 @@ export class SocialLinksComponent {
   }
 
   editSocialLink(id: number | undefined): void {
-    this.socialLinksService.update({ id, ...this.newSocialLink }).subscribe(
+    if (!id) {
+      this.errorMessage = 'Invalid banner ID';
+      // console.error('Invalid banner ID:', id);
+      return;
+    }
+
+    const formData = new FormData();
+    if (this.selectedFile) {
+      formData.append('icon', this.selectedFile);
+    }
+    if (this.newSocialLink.name) {
+      formData.append('name', this.newSocialLink.name || '');
+    }
+    if (this.newSocialLink.url) {
+      formData.append('url', this.newSocialLink.url || '');
+    }
+
+    this.socialLinksService.update(id, formData).subscribe(
       () => {
         this.index();
         this.newSocialLink = {};

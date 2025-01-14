@@ -15,8 +15,11 @@ export class UserProfileService {
   profile() {
     return this.http.get(`${this.apiUrl}/profile`);
   }
-  store(body: string) {
+  store(body: FormData) {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
+  }
+  updateUser(id: number, body: FormData) {
+    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
   }
   show(id: any) {
     const url = `${this.apiUrl}${this.data}${id}`;

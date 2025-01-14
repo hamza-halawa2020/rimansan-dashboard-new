@@ -13,8 +13,12 @@ export interface Address {
 export interface User {
   id?: number;
   name?: string;
+  slug?: string;
   email?: string;
+  image?: string;
   phone?: string;
+  type?: string;
   addresses?: Address[];
+  email_verified_at?: Date | string;
   created_at?: Date | string;
 }
