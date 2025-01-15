@@ -22,8 +22,8 @@
         <tr *ngFor="let data of addreeses; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ data.id }}</td>
-          <td>{{ data.user }}</td>
-          <td>{{ data.client }}</td>
+          <td>{{ data.user?.name }}</td>
+          <td>{{ data.client?.name }}</td>
           <td>{{ data.address || "No Addreese" }}</td>
           <td>{{ data.country || "No Country" }}</td>
           <td>{{ data.city || "No Country" }}</td>

@@ -67,6 +67,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductReviewComponent } from './product-review/product-review.component';
 import { SocialLinksComponent } from './social-links/social-links.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     ProductsComponent,
     ProductDetailsComponent,
     ProductReviewComponent,
-    SocialLinksComponent
+    SocialLinksComponent,
+    OrdersComponent
   ],
   imports: [
     CommonModule,

@@ -193,6 +193,13 @@ export const MENU: MenuItem[] = [
     parentId: 8,
   },
   {
+    id: 23,
+    label: 'MENUITEMS.APPS.LIST.ORDERS',
+    icon: 'ti ti-order',
+    link: '/apps/orders',
+    parentId: 8,
+  },
+  {
     id: 142,
     label: 'MENUITEMS.CHARTS.TEXT',
     icon: 'ti ti-chart-pie',
