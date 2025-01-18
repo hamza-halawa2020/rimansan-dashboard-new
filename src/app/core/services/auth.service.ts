@@ -11,12 +11,12 @@ import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 
 // Action
-import {
-  loginFailure,
-  logout,
-  logoutSuccess,
-  RegisterSuccess,
-} from '../../store/actions/authentication.actions';
+// import {
+//   loginFailure,
+//   logout,
+//   logoutSuccess,
+//   RegisterSuccess,
+// } from '../../store/actions/authentication.actions';
 
 // Firebase
 import firebase from 'firebase/compat/app';
@@ -95,12 +95,12 @@ export class AuthenticationService {
       .pipe(
         map((response: any) => {
           const user = response;
-          this.store.dispatch(RegisterSuccess({ user }));
+          // this.store.dispatch(RegisterSuccess({ user }));
           return user;
         }),
         catchError((error: any) => {
           const errorMessage = 'Login failed'; // Customize the error message as needed
-          this.store.dispatch(loginFailure({ error: errorMessage }));
+          // this.store.dispatch(loginFailure({ error: errorMessage }));
           return throwError(errorMessage);
         })
       );
@@ -137,13 +137,13 @@ export class AuthenticationService {
   }
 
   logout(): Observable<void> {
-    this.store.dispatch(logout());
+    // this.store.dispatch(logout());
     // Perform any additional logout logic, e.g., calling an API to invalidate the token
 
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
     this.currentUserSubject.next(null!);
-    this.store.dispatch(logoutSuccess());
+    // this.store.dispatch(logoutSuccess());
 
     // Return an Observable<void> indicating the successful logout
     return of(undefined).pipe(

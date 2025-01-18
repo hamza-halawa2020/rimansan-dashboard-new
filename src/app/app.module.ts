@@ -22,16 +22,16 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { rootReducer } from 'src/app/store/reducers';
-import { AuthenticationEffects } from './store/effects/authentication.effects';
+// import { AuthenticationEffects } from './store/effects/authentication.effects';
 
 // Component
 import { AppComponent } from './app.component';
 
 // Store Effect
 import { InvoiceEffects } from './store/effects/invoce.effects';
-import { ContactEffects } from './store/effects/contact.effect';
-import { CalendarEffects } from './store/effects/calendar.effects';
-import { FileEffects } from './store/effects/filemanager.effect';
+// import { ContactEffects } from './store/effects/contact.effect';
+// import { CalendarEffects } from './store/effects/calendar.effects';
+// import { FileEffects } from './store/effects/filemanager.effect';
 import { ToDoEffects } from './store/effects/to-do.effect';
 import { KanbanEffects } from './store/effects/kanban.effect';
 
@@ -59,11 +59,11 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutsModule,
     StoreModule.forRoot(rootReducer),
     EffectsModule.forRoot([
-      AuthenticationEffects,
+      // AuthenticationEffects,
       InvoiceEffects,
-      ContactEffects,
-      CalendarEffects,
-      FileEffects,
+      // ContactEffects,
+      // CalendarEffects,
+      // FileEffects,
       ToDoEffects,
       KanbanEffects,
     ]),

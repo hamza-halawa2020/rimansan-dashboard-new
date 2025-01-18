@@ -1,33 +1,33 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from "@ngrx/store";
 import * as fromLayout from "./layout-reducers";
-import { authenticationReducer, AuthenticationState } from './authentication.reducer';
-import { InvoiceReducer, InvoiceState } from "./invoice-reducer";
-import { ContactReducer, ContactState } from "./contact-reducer";
-import { CalendarState, calendarReducer } from "./calendar.reducer";
-import { FileReducer, FileState } from "./filemanager-reducer";
+// import { authenticationReducer, AuthenticationState } from './authentication.reducer';
+// import { InvoiceReducer, InvoiceState } from "./invoice-reducer";
+// import { ContactReducer, ContactState } from "./contact-reducer";
+// import { CalendarState, calendarReducer } from "./calendar.reducer";
+// import { FileReducer, FileState } from "./filemanager-reducer";
 import { ToDoReducer, ToDoState } from "./to-do-reducer";
-import { KanbanReducer, KanbanState } from "./kanban-reducer";
+// import { KanbanReducer, KanbanState } from "./kanban-reducer";
 
 export interface RootReducerState {
     layout: fromLayout.LayoutState;
-    authentication: AuthenticationState;
-    invoice: InvoiceState;
-    contact: ContactState;
-    calendar: CalendarState;
-    files: FileState;
+    // authentication: AuthenticationState;
+    // invoice: InvoiceState;
+    // contact: ContactState;
+    // calendar: CalendarState;
+    // files: FileState;
     todo: ToDoState;
-    kanban:KanbanState
+    // kanban:KanbanState
 }
 
 export const rootReducer: ActionReducerMap<RootReducerState> = {
     layout: fromLayout.layoutReducer,
-    authentication: authenticationReducer,
-    invoice: InvoiceReducer,
-    contact: ContactReducer,
-    calendar: calendarReducer,
-    files: FileReducer,
+    // authentication: authenticationReducer,
+    // invoice: InvoiceReducer,
+    // contact: ContactReducer,
+    // calendar: calendarReducer,
+    // files: FileReducer,
     todo: ToDoReducer,
-    kanban:KanbanReducer
+    // kanban:KanbanReducer
 }
 
 // Create a selector to retrieve the initial Layout state
@@ -45,13 +45,13 @@ export const getSidebarImage = createSelector(getLayoutState, fromLayout.getSide
 export const getPreloader = createSelector(getLayoutState, fromLayout.getPreloader)
 
 // Create a selector to retrieve the initial Authentication state
-export const getAuthenticationState = (state: RootReducerState) => state.authentication;
+// export const getAuthenticationState = (state: RootReducerState) => state.authentication;
 
-// Select the isLoggedIn property from the authentication state
-export const selectIsLoggedIn = createSelector(getAuthenticationState, (state: AuthenticationState) => state.isLoggedIn);
+// // Select the isLoggedIn property from the authentication state
+// export const selectIsLoggedIn = createSelector(getAuthenticationState, (state: AuthenticationState) => state.isLoggedIn);
 
-// Select the user property from the authentication state
-export const selectUser = createSelector(getAuthenticationState, (state: AuthenticationState) => state.user);
+// // Select the user property from the authentication state
+// export const selectUser = createSelector(getAuthenticationState, (state: AuthenticationState) => state.user);
 
-// Select the error property from the authentication state
-export const selectError = createSelector(getAuthenticationState, (state: AuthenticationState) => state.error);
+// // Select the error property from the authentication state
+// export const selectError = createSelector(getAuthenticationState, (state: AuthenticationState) => state.error);
