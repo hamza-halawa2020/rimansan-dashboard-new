@@ -2,24 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Simplebar
-import { SimplebarAngularModule } from 'simplebar-angular';
-
-// Count To
-import { CountUpModule } from 'ngx-countup';
-
-// Flat Picker
-import { FlatpickrModule } from 'angularx-flatpickr';
-
-// Emoji Picker
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
-
-//  Drag and drop
-import { DndModule } from 'ngx-drag-drop';
-
-// chart
-import { NgApexchartsModule } from 'ng-apexcharts';
-
 // Drag-Drop
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTableModule } from '@angular/material/table';
@@ -40,8 +22,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 // Component
 import { ContactsComponent } from './contacts/contacts.component';
-
-// Component
 import { UserComponent } from './user/user.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { TagsComponent } from './tags/tags.component';
@@ -104,7 +84,6 @@ import { PaymentsComponent } from './payments/payments.component';
   imports: [
     CommonModule,
     AppsRoutingModule,
-    SimplebarAngularModule,
     FormsModule,
     RatingModule,
     ReactiveFormsModule,
@@ -113,16 +92,11 @@ import { PaymentsComponent } from './payments/payments.component';
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     AccordionModule.forRoot(),
-    FlatpickrModule.forRoot(),
     PaginationModule,
-    NgApexchartsModule,
     ProgressbarModule,
     DragDropModule,
     MatTableModule,
     SharedModule,
-    DndModule,
-    CountUpModule,
-    PickerModule,
     AlertModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
