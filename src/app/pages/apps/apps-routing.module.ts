@@ -28,6 +28,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductReviewComponent } from './product-review/product-review.component';
 import { SocialLinksComponent } from './social-links/social-links.component';
 import { OrdersComponent } from './orders/orders.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 const routes: Routes = [
   {
@@ -134,6 +135,10 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersComponent,
+  },
+  {
+    path: 'payments',
+    component: PaymentsComponent,
   },
 ];
 

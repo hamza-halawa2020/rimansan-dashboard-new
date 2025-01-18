@@ -3,6 +3,19 @@
 <!-- End Breadcrumbs -->
 
 <div *ngIf="orders">
+  <div class="col">
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <button class="btn btn-success w-100" (click)="exportPendingOrders()">
+      <i class="ri-add-line align-bottom"></i> Export Pending Orders To Excel
+    </button>
+  </div>
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
     <div class="order-content w-100 pb-0">
       <div
@@ -17,7 +30,7 @@
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
                   <th scope="col">Order Number</th>
-
+                  <th scope="col">Status</th>
                   <th scope="col">User Data</th>
                   <th scope="col">Client Data</th>
                   <th scope="col">Address</th>
@@ -27,7 +40,6 @@
                   <th scope="col">Total Price</th>
                   <th scope="col">Notes</th>
                   <th scope="col">Payment Method</th>
-                  <th scope="col">Status</th>
                   <th scope="col">Changed By</th>
                   <th scope="col">Created At</th>
                 </tr>
@@ -39,30 +51,66 @@
                   <td>{{ data.id }}</td>
                   <td>{{ data.order_number || "No order_number" }}</td>
 
+                  <!-- Change Status Form -->
+                  <td>
+                    {{ data.status || "No status" }}
+                    <form
+                      #statusForm="ngForm"
+                      (ngSubmit)="
+                        changeStatus(data.id, statusForm.value.status)
+                      "
+                    >
+                      <div class="input-group">
+                        <select
+                          class="form-select"
+                          name="status"
+                          [(ngModel)]="data.status"
+                          required
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Canceled">Canceled</option>
+                          <option value="Returned">Returned</option>
+                          <option value="Awaiting Payment">
+                            Awaiting Payment
+                          </option>
+                          <option value="Shipped">Shipped</option>
+                          <option value="Delivered">Delivered</option>
+                        </select>
+                        <button
+                          type="submit"
+                          class="btn btn-primary"
+                          [disabled]="statusForm.invalid"
+                        >
+                          <i class="ri-check-line"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </td>
+
                   <!-- user data -->
                   <td>
-                    <div *ngIf="data.address">
+                    <div *ngIf="data.user">
                       <strong>User Name:</strong>
-                      {{ data.address?.user?.name || "N/A" }}<br />
+                      {{ data.user?.name || "N/A" }}<br />
                       <strong>User Email:</strong>
-                      {{ data.address?.user?.email || "N/A" }}<br />
+                      {{ data.user?.email || "N/A" }}<br />
                       <strong>User Phone:</strong>
-                      {{ data.address?.user?.phone || "N/A" }}<br />
+                      {{ data.user?.phone || "N/A" }}<br />
                     </div>
-                    <div *ngIf="!data.address">No address data</div>
+                    <div *ngIf="!data.user">No user data</div>
                   </td>
 
                   <!-- client data -->
                   <td>
-                    <div *ngIf="data.address">
+                    <div *ngIf="data.client">
                       <strong>Client Name:</strong>
-                      {{ data.address?.client?.name || "N/A" }}<br />
+                      {{ data.client?.name || "N/A" }}<br />
                       <strong>Client Email:</strong>
-                      {{ data.address?.client?.email || "N/A" }}<br />
+                      {{ data.client?.email || "N/A" }}<br />
                       <strong>Client Phone:</strong>
-                      {{ data.address?.client?.phone || "N/A" }}<br />
+                      {{ data.client?.phone || "N/A" }}<br />
                     </div>
-                    <div *ngIf="!data.address">No address data</div>
+                    <div *ngIf="!data.client">No client data</div>
                   </td>
 
                   <!-- user data -->
@@ -109,7 +157,6 @@
                   </td>
                   <td>{{ data.notes || "No notes" }}</td>
                   <td>{{ data.payment_method || "No payment_method" }}</td>
-                  <td>{{ data.status || "No status" }}</td>
 
                   <!-- Admin Data -->
                   <td>

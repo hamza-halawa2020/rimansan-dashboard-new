@@ -16,12 +16,14 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.DASHBOARD.LIST.ANALYTICS',
         link: '/',
         parentId: 2,
+        icon: 'ti ti-chart-line', // Icon for analytics
       },
       {
         id: 5,
         label: 'MENUITEMS.DASHBOARD.LIST.ECOMMERCE',
         link: '/ecommerce',
         parentId: 2,
+        icon: 'ti ti-shopping-cart', // Icon for ecommerce
       },
     ],
   },
@@ -35,24 +37,28 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.APPS.LIST.COUNTRIES',
         link: '/apps/countries',
         parentId: 24,
+        icon: 'ti ti-world', // Icon for countries
       },
       {
         id: 2,
         label: 'MENUITEMS.APPS.LIST.CITIES',
         link: '/apps/cities',
         parentId: 24,
+        icon: 'ti ti-building', // Icon for cities
       },
       {
         id: 3,
         label: 'MENUITEMS.APPS.LIST.SHIPMENTS',
         link: '/apps/shipments',
         parentId: 24,
+        icon: 'ti ti-truck', // Icon for shipments
       },
       {
         id: 4,
         label: 'MENUITEMS.APPS.LIST.ADDRESS',
-        link: '/apps/addreeses',
+        link: '/apps/addresses',
         parentId: 24,
+        icon: 'ti ti-map', // Icon for addresses
       },
     ],
   },
@@ -108,12 +114,14 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.APPS.LIST.COURSES',
         link: '/apps/courses',
         parentId: 8,
+        icon: 'ti ti-book', // Icon for courses
       },
       {
         id: 10,
         label: 'MENUITEMS.APPS.LIST.COURSE_REVIEW',
         link: '/apps/course-review',
         parentId: 8,
+        icon: 'ti ti-star', // Icon for course reviews
       },
     ],
   },
@@ -162,12 +170,14 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.APPS.LIST.PRODUCTS',
         link: '/apps/products',
         parentId: 8,
+        icon: 'ti ti-shopping-cart', // Icon for products
       },
       {
         id: 10,
         label: 'MENUITEMS.APPS.LIST.PRODUCT_REVIEW',
         link: '/apps/product-review',
         parentId: 8,
+        icon: 'ti ti-star', // Icon for product reviews
       },
     ],
   },
@@ -180,8 +190,8 @@ export const MENU: MenuItem[] = [
   },
   {
     id: 23,
-    label: 'MENUITEMS.APPS.LIST.Social_links',
-    icon: 'ti ti-tag',
+    label: 'MENUITEMS.APPS.LIST.SOCIAL_LINKS',
+    icon: 'ti ti-share',
     link: '/apps/social-links',
     parentId: 8,
   },
@@ -195,8 +205,15 @@ export const MENU: MenuItem[] = [
   {
     id: 23,
     label: 'MENUITEMS.APPS.LIST.ORDERS',
-    icon: 'ti ti-order',
+    icon: 'ti ti-shopping-cart',
     link: '/apps/orders',
+    parentId: 8,
+  },
+  {
+    id: 23,
+    label: 'MENUITEMS.APPS.LIST.PAYMENTS',
+    icon: 'ti ti-credit-card',
+    link: '/apps/payments',
     parentId: 8,
   },
   {
@@ -209,96 +226,112 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.CHARTS.LIST.LINE',
         link: '/charts/apex-line',
         parentId: 142,
+        icon: 'ti ti-chart-line', // Icon for line chart
       },
       {
         id: 144,
         label: 'MENUITEMS.CHARTS.LIST.AREA',
         link: '/charts/apex-area',
         parentId: 142,
+        icon: 'ti ti-chart-area', // Icon for area chart
       },
       {
         id: 145,
         label: 'MENUITEMS.CHARTS.LIST.COLUMN',
         link: '/charts/apex-column',
         parentId: 142,
+        icon: 'ti ti-chart-bar', // Icon for column chart
       },
       {
         id: 146,
         label: 'MENUITEMS.CHARTS.LIST.BAR',
         link: '/charts/apex-bar',
         parentId: 142,
+        icon: 'ti ti-chart-bar', // Icon for bar chart
       },
       {
         id: 147,
         label: 'MENUITEMS.CHARTS.LIST.MIXED',
         link: '/charts/apex-mixed',
         parentId: 142,
+        icon: 'ti ti-chart-line', // Icon for mixed chart
       },
       {
         id: 148,
         label: 'MENUITEMS.CHARTS.LIST.TIMELINE',
         link: '/charts/apex-timeline',
         parentId: 142,
+        icon: 'ti ti-timeline', // Icon for timeline chart
       },
       {
         id: 149,
-        label: 'MENUITEMS.CHARTS.LIST.CANDLSTICK',
+        label: 'MENUITEMS.CHARTS.LIST.CANDLESTICK',
         link: '/charts/apex-candlestick',
         parentId: 142,
+        icon: 'ti ti-candle', // Icon for candlestick chart
       },
       {
         id: 150,
         label: 'MENUITEMS.CHARTS.LIST.BOXPLOT',
         link: '/charts/apex-boxplot',
         parentId: 142,
+        icon: 'ti ti-box', // Icon for boxplot chart
       },
       {
         id: 151,
         label: 'MENUITEMS.CHARTS.LIST.BUBBLE',
         link: '/charts/apex-bubble',
         parentId: 142,
+        icon: 'ti ti-bubble', // Icon for bubble chart
       },
       {
         id: 152,
         label: 'MENUITEMS.CHARTS.LIST.SCATTER',
         link: '/charts/apex-scatter',
         parentId: 142,
+        icon: 'ti ti-scatter', // Icon for scatter chart
       },
       {
         id: 153,
         label: 'MENUITEMS.CHARTS.LIST.HEATMAP',
         link: '/charts/apex-heatmap',
         parentId: 142,
+        icon: 'ti ti-heatmap', // Icon for heatmap chart
       },
       {
         id: 154,
         label: 'MENUITEMS.CHARTS.LIST.TREEMAP',
         link: '/charts/apex-treemap',
         parentId: 142,
+        icon: 'ti ti-tree', // Icon for treemap chart
       },
       {
         id: 155,
         label: 'MENUITEMS.CHARTS.LIST.PIE',
         link: '/charts/apex-pie',
         parentId: 142,
+        icon: 'ti ti-chart-pie', // Icon for pie chart
       },
       {
         id: 156,
         label: 'MENUITEMS.CHARTS.LIST.RADIALBAR',
         link: '/charts/apex-radialbar',
         parentId: 142,
+        icon: 'ti ti-chart-donut', // Icon for radial bar chart
       },
       {
         id: 157,
         label: 'MENUITEMS.CHARTS.LIST.RADAR',
         link: '/charts/apex-radar',
         parentId: 142,
+        icon: 'ti ti-radar', // Icon for radar chart
       },
       {
         id: 158,
         label: 'MENUITEMS.CHARTS.LIST.POLARAREA',
         link: '/charts/apex-polar',
         parentId: 142,
+        icon: 'ti ti-chart-polar', // Icon for polar area chart
       },
     ],
   },

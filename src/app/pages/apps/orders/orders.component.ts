@@ -54,6 +54,47 @@ export class OrdersComponent {
     });
   }
 
+  changeStatus(orderId: number | undefined, newStatus: string): void {
+    if (!orderId) {
+      this.errorMessage = 'Order ID is missing. Cannot update status.';
+      setTimeout(() => (this.errorMessage = ''), 3000);
+      return;
+    }
+
+    this.ordersService.updateStatus(orderId, newStatus).subscribe(
+      () => {
+        this.index();
+        this.successMessage = 'Order status updated successfully!';
+        setTimeout(() => (this.successMessage = ''), 3000);
+      },
+      (error) => {
+        this.errorMessage =
+          'Failed to update order status: ' + this.extractErrorMessage(error);
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
+  }
+
+  exportPendingOrders(): void {
+    this.ordersService.exportPendingOrders().subscribe(
+      (response: Blob) => {
+        const blobUrl = window.URL.createObjectURL(response);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = 'pending-orders.xlsx';
+        link.click();
+        window.URL.revokeObjectURL(blobUrl);
+        this.successMessage = 'File Downloaded successfully!';
+        setTimeout(() => (this.successMessage = ''), 3000);
+      },
+      (error) => {
+        this.errorMessage =
+          'Error exporting pending orders: ' + this.extractErrorMessage(error);
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
+  }
+
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
