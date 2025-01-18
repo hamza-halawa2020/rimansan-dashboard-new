@@ -28,12 +28,12 @@ import { rootReducer } from 'src/app/store/reducers';
 import { AppComponent } from './app.component';
 
 // Store Effect
-import { InvoiceEffects } from './store/effects/invoce.effects';
+// import { InvoiceEffects } from './store/effects/invoce.effects';
 // import { ContactEffects } from './store/effects/contact.effect';
 // import { CalendarEffects } from './store/effects/calendar.effects';
 // import { FileEffects } from './store/effects/filemanager.effect';
 import { ToDoEffects } from './store/effects/to-do.effect';
-import { KanbanEffects } from './store/effects/kanban.effect';
+// import { KanbanEffects } from './store/effects/kanban.effect';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -60,12 +60,12 @@ export function createTranslateLoader(http: HttpClient): any {
     StoreModule.forRoot(rootReducer),
     EffectsModule.forRoot([
       // AuthenticationEffects,
-      InvoiceEffects,
+      // InvoiceEffects,
       // ContactEffects,
       // CalendarEffects,
       // FileEffects,
       ToDoEffects,
-      KanbanEffects,
+      // KanbanEffects,
     ]),
   ],
   providers: [
