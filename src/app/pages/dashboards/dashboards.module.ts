@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // chart
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 // Page Route
 import { DashboardsRoutingModule } from './dashboards-routing.module';
@@ -26,14 +26,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 // Component
 import { IndexComponent } from './index/index.component';
-import { EcommerceComponent } from './ecommerce/ecommerce.component';
-
 
 @NgModule({
-  declarations: [
-    IndexComponent,
-    EcommerceComponent
-  ],
+  declarations: [IndexComponent],
   imports: [
     CommonModule,
     DashboardsRoutingModule,
@@ -47,7 +42,7 @@ import { EcommerceComponent } from './ecommerce/ecommerce.component';
     PaginationModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class DashboardsModule { }
+export class DashboardsModule {}

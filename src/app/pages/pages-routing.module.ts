@@ -13,17 +13,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'icons',
-    loadChildren: () =>
-      import('./icons/icons.module').then((m) => m.IconsModule),
-  },
-  {
-    path: 'charts',
-    loadChildren: () =>
-      import('./charts/charts.module').then((m) => m.ChartsModule),
-  },
-
-  {
     path: 'pages',
     loadChildren: () =>
       import('./extrapages/extrapages.module').then((m) => m.ExtrapagesModule),
