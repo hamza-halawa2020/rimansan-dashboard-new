@@ -39,7 +39,7 @@ export class FaqsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding faqs', error);
+        // console.error('Error adding faqs', error);
         this.errorMessage = 'Failed to add faqs.';
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
@@ -77,7 +77,7 @@ export class FaqsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting city', error);
+        // console.error('Error deleting city', error);
         this.errorMessage =
           'Failed to delete city' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -94,7 +94,7 @@ export class FaqsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating faqs', error);
+        // console.error('Error updating faqs', error);
         this.errorMessage =
           this.extractErrorMessage(error) || 'Failed to update faqs.';
         setTimeout(() => (this.errorMessage = ''), 3000);

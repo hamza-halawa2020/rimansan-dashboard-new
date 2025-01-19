@@ -45,7 +45,7 @@ export class CourseReviewComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        console.error('Failed to add Course', error);
+        // console.error('Failed to add Course', error);
         this.errorMessage =
           'Failed to add Course. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -87,7 +87,7 @@ export class CourseReviewComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting Course', error);
+        // console.error('Error deleting Course', error);
         this.errorMessage =
           'Failed to delete Course' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -107,7 +107,7 @@ export class CourseReviewComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Course status', error);
+        // console.error('Error updating Course status', error);
         this.errorMessage =
           'Error updating Course status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

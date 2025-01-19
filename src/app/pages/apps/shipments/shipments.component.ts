@@ -50,7 +50,7 @@ export class ShipmentsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding vity', error);
+        // console.error('Error adding vity', error);
         this.errorMessage =
           'Failed to add shipment' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -96,7 +96,7 @@ export class ShipmentsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting shipment', error);
+        // console.error('Error deleting shipment', error);
         this.errorMessage =
           'Failed to delete shipment' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -113,7 +113,7 @@ export class ShipmentsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating shipment', error);
+        // console.error('Error updating shipment', error);
         this.errorMessage =
           'Error updating shipment' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

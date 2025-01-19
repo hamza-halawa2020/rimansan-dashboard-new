@@ -47,7 +47,7 @@ export class MainSlidersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating data status', error);
+        // console.error('Error updating data status', error);
         this.errorMessage =
           'Error updating data status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -84,7 +84,7 @@ export class MainSlidersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding mainSlider', error);
+        // console.error('Error adding mainSlider', error);
         this.errorMessage = 'Failed to add mainSlider.';
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
@@ -124,7 +124,7 @@ export class MainSlidersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting city', error);
+        // console.error('Error deleting city', error);
         this.errorMessage =
           'Failed to delete city' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -165,7 +165,7 @@ export class MainSlidersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating mainSlider', error);
+        // console.error('Error updating mainSlider', error);
         this.errorMessage =
           this.extractErrorMessage(error) || 'Failed to update mainSlider.';
         setTimeout(() => (this.errorMessage = ''), 3000);

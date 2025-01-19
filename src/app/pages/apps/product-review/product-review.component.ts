@@ -47,7 +47,7 @@ export class ProductReviewComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        console.error('Failed to add Product', error);
+        // console.error('Failed to add Product', error);
         this.errorMessage =
           'Failed to add Product. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -89,7 +89,7 @@ export class ProductReviewComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting Product', error);
+        // console.error('Error deleting Product', error);
         this.errorMessage =
           'Failed to delete Product' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -109,7 +109,7 @@ export class ProductReviewComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Product status', error);
+        // console.error('Error updating Product status', error);
         this.errorMessage =
           'Error updating Product status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

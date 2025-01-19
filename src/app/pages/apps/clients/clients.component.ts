@@ -38,7 +38,7 @@ export class ClientsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding vity', error);
+        // console.error('Error adding vity', error);
         this.errorMessage =
           'Failed to add client' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -79,7 +79,7 @@ export class ClientsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting client', error);
+        // console.error('Error deleting client', error);
         this.errorMessage =
           'Failed to delete client' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -96,7 +96,7 @@ export class ClientsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating client', error);
+        // console.error('Error updating client', error);
         this.errorMessage =
           'Error updating client' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

@@ -35,7 +35,7 @@ export class TagsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding vity', error);
+        // console.error('Error adding vity', error);
         this.errorMessage =
           'Failed to add city' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -73,7 +73,7 @@ export class TagsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting city', error);
+        // console.error('Error deleting city', error);
         this.errorMessage =
           'Failed to delete city' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -90,7 +90,7 @@ export class TagsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating city', error);
+        // console.error('Error updating city', error);
         this.errorMessage =
           'Error updating city' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

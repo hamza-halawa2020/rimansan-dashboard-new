@@ -80,7 +80,7 @@ export class PostsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        console.error('Failed to add Post', error);
+        // console.error('Failed to add Post', error);
         this.errorMessage =
           'Failed to add Post. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -118,7 +118,7 @@ export class PostsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting Post', error);
+        // console.error('Error deleting Post', error);
         this.errorMessage =
           'Failed to delete Post' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -161,7 +161,7 @@ export class PostsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Post:', error);
+        // console.error('Error updating Post:', error);
         this.errorMessage =
           'Error updating Post: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -183,7 +183,7 @@ export class PostsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Post status', error);
+        // console.error('Error updating Post status', error);
         this.errorMessage =
           'Error updating Post status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

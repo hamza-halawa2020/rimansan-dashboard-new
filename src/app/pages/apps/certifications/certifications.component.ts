@@ -58,7 +58,7 @@ export class CertificationsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding vity', error);
+        // console.error('Error adding vity', error);
         this.errorMessage =
           'Failed to add certificate' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -106,7 +106,7 @@ export class CertificationsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting certificate', error);
+        // console.error('Error deleting certificate', error);
         this.errorMessage =
           'Failed to delete certificate' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -141,7 +141,7 @@ export class CertificationsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating certificate', error);
+        // console.error('Error updating certificate', error);
         this.errorMessage =
           'Error updating certificate' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

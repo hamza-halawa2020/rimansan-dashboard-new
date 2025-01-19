@@ -46,7 +46,7 @@ export class AddSidebarBannersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating data status', error);
+        // console.error('Error updating data status', error);
         this.errorMessage =
           'Error updating data status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -81,7 +81,7 @@ export class AddSidebarBannersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding sidebar banner', error);
+        // console.error('Error adding sidebar banner', error);
         this.errorMessage = 'Failed to add sidebar banner.';
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
@@ -121,7 +121,7 @@ export class AddSidebarBannersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting city', error);
+        // console.error('Error deleting city', error);
         this.errorMessage =
           'Failed to delete city' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -156,7 +156,7 @@ export class AddSidebarBannersComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating sidebar banner', error);
+        // console.error('Error updating sidebar banner', error);
         this.errorMessage =
           this.extractErrorMessage(error) || 'Failed to update sidebar banner.';
         setTimeout(() => (this.errorMessage = ''), 3000);

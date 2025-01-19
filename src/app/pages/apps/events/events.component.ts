@@ -80,7 +80,7 @@ export class EventsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        console.error('Failed to add Event', error);
+        // console.error('Failed to add Event', error);
         this.errorMessage =
           'Failed to add Event. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -118,7 +118,7 @@ export class EventsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting Event', error);
+        // console.error('Error deleting Event', error);
         this.errorMessage =
           'Failed to delete Event' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -161,7 +161,7 @@ export class EventsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Event:', error);
+        // console.error('Error updating Event:', error);
         this.errorMessage =
           'Error updating Event: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -183,7 +183,7 @@ export class EventsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Event status', error);
+        // console.error('Error updating Event status', error);
         this.errorMessage =
           'Error updating Event status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

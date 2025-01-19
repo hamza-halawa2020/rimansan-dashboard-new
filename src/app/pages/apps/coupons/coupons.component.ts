@@ -36,7 +36,7 @@ export class CouponsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        console.error('Failed to add coupon', error);
+        // console.error('Failed to add coupon', error);
         this.errorMessage =
           'Failed to add coupon. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -75,7 +75,7 @@ export class CouponsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting coupon', error);
+        // console.error('Error deleting coupon', error);
         this.errorMessage =
           'Failed to delete coupon' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -92,7 +92,7 @@ export class CouponsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Coupon:', error);
+        // console.error('Error updating Coupon:', error);
         this.errorMessage =
           'Error updating Coupon: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -111,7 +111,7 @@ export class CouponsComponent {
           setTimeout(() => (this.successMessage = ''), 3000);
         },
         (error) => {
-          console.error('Error updating coupon status', error);
+          // console.error('Error updating coupon status', error);
           this.errorMessage =
             'Error updating coupon status: ' + this.extractErrorMessage(error);
           setTimeout(() => (this.errorMessage = ''), 3000);

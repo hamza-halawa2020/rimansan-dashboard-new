@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { User } from '../../store/models/auth.models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -22,6 +21,7 @@ export class AuthenticationService {
 
   constructor(
     private cookieService: CookieService,
+    private router: Router,
 
     private http: HttpClient,
     private store: Store
@@ -56,11 +56,23 @@ export class AuthenticationService {
     return this.cookieService.get('token');
   }
 
-  logout(): Observable<void> {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
-    this.currentUserSubject.next(null!);
+  logout() {
+    // Perform the logout API call
+    this.http
+      .post(`${this.apiUrl}/logout`, {}, { withCredentials: true })
+      .subscribe({
+        next: () => {
+          this.clearTokenAndRedirect();
+        },
+        error: (err) => {
+          // console.error('Logout failed:', err);
+          this.clearTokenAndRedirect();
+        },
+      });
+  }
 
-    return of(undefined).pipe(tap(() => {}));
+  private clearTokenAndRedirect() {
+    this.cookieService.delete('token', '/');
+    this.router.navigate(['/auth/login']);
   }
 }

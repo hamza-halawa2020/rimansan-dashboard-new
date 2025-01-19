@@ -83,7 +83,7 @@ export class EventDetailsComponent {
         this.showAddImageForm = false;
       },
       (error: any) => {
-        console.error('Failed:', error);
+        // console.error('Failed:', error);
         this.errorMessage =
           'Failed to upload images. Please try again.' +
           this.extractErrorMessage(error);
@@ -103,7 +103,7 @@ export class EventDetailsComponent {
         );
       },
       (error: any) => {
-        console.error('Failed to delete image:', error);
+        // console.error('Failed to delete image:', error);
         (this.errorMessage = 'Failed to delete the image. Please try again.'),
           'danger' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

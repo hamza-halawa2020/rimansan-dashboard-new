@@ -8,6 +8,7 @@ import { changeMode } from 'src/app/store/actions/layout-action';
 import { Profile } from 'src/app/pages/extrapages/profile/profile.model';
 import { environment } from 'src/environments/environment';
 import { UserProfileService } from 'src/app/core/services/user.service';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-topbar',
@@ -33,47 +34,25 @@ export class TopbarComponent {
     public languageService: LanguageService,
     private store: Store<RootReducerState>,
     public _cookiesService: CookieService,
-    private userService: UserProfileService
+    private userService: UserProfileService,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
     this.show();
 
     this.element = document.documentElement;
-    // Cookies wise Language set
-    this.cookieValue = this._cookiesService.get('lang');
-    const val = this.listLang.filter((x) => x.lang === this.cookieValue);
-    this.countryName = val.map((element) => element.text);
-    if (val.length === 0) {
-      if (this.flagvalue === undefined) {
-        this.valueset = 'assets/images/flags/us.svg';
-      }
-      this.countryName = 'English';
-    } else {
-      this.flagvalue = val.map((element) => element.flag);
-    }
   }
 
+  logout() {
+    this.authService.logout();
+  }
   show() {
     this.userService.profile().subscribe((data) => {
       this.userInfo = Object.values(data)[0];
       // console.log(this.userInfo);
     });
   }
-
-  /***
-   * Language Listing
-   */
-  listLang = [
-    { text: 'English', flag: 'assets/images/flags/us.svg', lang: 'en' },
-    { text: 'Española', flag: 'assets/images/flags/spain.svg', lang: 'sp' },
-    { text: 'Deutsche', flag: 'assets/images/flags/germany.svg', lang: 'gr' },
-    { text: 'Italiana', flag: 'assets/images/flags/italy.svg', lang: 'it' },
-    { text: 'русский', flag: 'assets/images/flags/russia.svg', lang: 'ru' },
-    { text: '中国人', flag: 'assets/images/flags/china.svg', lang: 'ch' },
-    { text: 'français', flag: 'assets/images/flags/french.svg', lang: 'fr' },
-    { text: 'Arabic', flag: 'assets/images/flags/ae.svg', lang: 'ar' },
-  ];
 
   windowScroll() {
     if (
@@ -128,15 +107,6 @@ export class TopbarComponent {
     }
   }
 
-  /***
-   * Language Value Set
-   */
-  setLanguage(text: string, lang: string, flag: string) {
-    this.countryName = text;
-    this.flagvalue = flag;
-    this.cookieValue = lang;
-    this.languageService.setLanguage(lang);
-  }
 
   /**
    * Toggle the menu bar when having mobile screen

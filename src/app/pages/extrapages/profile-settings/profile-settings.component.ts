@@ -15,6 +15,8 @@ export class ProfileSettingsComponent {
   fieldTextType!: boolean;
   fieldTextType1!: boolean;
   fieldTextType2!: boolean;
+  successMessage: string = '';
+  errorMessage: string = '';
   image = environment.imgUrl + 'users/';
 
   formGroups: FormGroup[] = [];
@@ -28,34 +30,55 @@ export class ProfileSettingsComponent {
     this.show();
 
     this.updateInfo = this.formBuilder.group({
+      id: [''],
       name: [''],
       email: ['', Validators.email],
       phone: [''],
-      // Add other fields as necessary
+      password: [''],
+      password_confirmation: [''],
+    });
+
+    // Load user data into the form
+    this.userService.profile().subscribe((data) => {
+      this.userInfo = Object.values(data)[0];
+      this.updateInfo.patchValue(this.userInfo); // Populate form with user data
     });
   }
 
   onSubmit() {
-    if (this.updateInfo.valid) {
-      const data = this.updateInfo.value;
+    // if (this.updateInfo.valid) {
+    const data = this.updateInfo.value;
 
-      // Ensure user id is included in the data object
-      if (!data.id) {
-        console.error('User ID is required for update.');
-        return;
-      }
-
-      this.userService.update(data).subscribe(
-        (response) => {
-          // console.log('User updated successfully:', response);
-        },
-        (error) => {
-          // console.error('Update failed:', error);
-        }
-      );
-    } else {
-      // console.log('Form is invalid. Please fill all the required fields.');
+    // Ensure user id is included in the data object
+    if (!data.id) {
+      this.errorMessage = 'User ID is required for update ';
+      setTimeout(() => (this.errorMessage = ''), 3000);
+      return;
     }
+
+    this.userService.update(data).subscribe(
+      (response) => {
+        this.successMessage = 'User updated successfully!';
+        setTimeout(() => (this.successMessage = ''), 3000);
+      },
+      (error) => {
+        this.errorMessage = 'Update failed. ' + this.extractErrorMessage(error);
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
+    // } else {
+    //   this.errorMessage =
+    //     'Form is invalid. Please fill all the required fields.';
+    //   setTimeout(() => (this.errorMessage = ''), 3000);
+    // }
+  }
+
+  extractErrorMessage(error: any): string {
+    let errorMessage = 'An error occurred';
+    if (error && error.error && error.error.errors) {
+      errorMessage = Object.values(error.error.errors).flat().join(', ');
+    }
+    return errorMessage;
   }
 
   show() {

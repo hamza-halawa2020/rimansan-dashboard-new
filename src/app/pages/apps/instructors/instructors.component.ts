@@ -59,7 +59,7 @@ export class InstructorsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        console.error('Failed to add Instructor', error);
+        // console.error('Failed to add Instructor', error);
         this.errorMessage =
           'Failed to add Instructor. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -97,7 +97,7 @@ export class InstructorsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting Instructor', error);
+        // console.error('Error deleting Instructor', error);
         this.errorMessage =
           'Failed to delete Instructor' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -140,7 +140,7 @@ export class InstructorsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating Instructor:', error);
+        // console.error('Error updating Instructor:', error);
         this.errorMessage =
           'Error updating Instructor: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);

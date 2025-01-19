@@ -28,7 +28,7 @@ export class CountriesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error adding country', error);
+        // console.error('Error adding country', error);
         this.errorMessage =
           'Failed to add country' + error.error.errors.name[0];
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -66,7 +66,7 @@ export class CountriesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error deleting country', error);
+        // console.error('Error deleting country', error);
         this.errorMessage =
           'Failed to delete country' + error.error.errors.name[0];
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -83,7 +83,7 @@ export class CountriesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        console.error('Error updating country', error);
+        // console.error('Error updating country', error);
         this.errorMessage =
           'Error updating country' + error.error.errors.name[0];
         setTimeout(() => (this.errorMessage = ''), 3000);

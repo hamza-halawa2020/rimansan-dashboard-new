@@ -62,7 +62,7 @@
 
 // Backgroun pattern
 .bg-pattern {
-    background: url("../../images/modal-bg.png") $modal-content-bg;
+    // background: url("../../images/modal-bg.png") $modal-content-bg;
 }
 
 // Fixed minimum width
@@ -128,7 +128,7 @@
     z-index: 1000;
 
     .btn {
-        writing-mode: vertical-rl;
+        // writing-mode: vertical-rl;
     }
 }
 
