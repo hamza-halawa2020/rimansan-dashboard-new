@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrdersService {
   private apiUrl = environment.backEndUrl;
-  private data = '/orders/';
+  private data = '/orders';
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +25,7 @@ export class OrdersService {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
   update(body: Order) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   updateStatus(orderId: number, status: string) {
@@ -34,7 +34,7 @@ export class OrdersService {
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

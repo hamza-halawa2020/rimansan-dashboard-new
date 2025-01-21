@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EventService } from 'src/app/core/services/event.service';
 import {
   RootReducerState,
   getLayoutTheme,
@@ -58,7 +57,6 @@ export class CustomizerComponent {
   initialAppState!: LayoutState;
 
   constructor(
-    private eventService: EventService,
     private router: Router,
     private store: Store<RootReducerState>
   ) {}

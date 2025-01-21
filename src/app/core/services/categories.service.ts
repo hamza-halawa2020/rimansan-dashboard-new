@@ -8,7 +8,7 @@ import { Category } from 'src/app/pages/apps/categories/category.model';
 })
 export class CategoriesService {
   private apiUrl = environment.backEndUrl;
-  private data = '/categories/';
+  private data = '/categories';
 
   constructor(private http: HttpClient) {}
 
@@ -20,11 +20,11 @@ export class CategoriesService {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
   update(body: Category) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

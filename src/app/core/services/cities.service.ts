@@ -7,8 +7,8 @@ import { City } from 'src/app/pages/apps/cities/city.model';
 })
 export class CitiesService {
   private apiUrl = environment.backEndUrl;
-  private data = '/cities/';
-  private countries = '/countries/';
+  private data = '/cities';
+  private countries = '/countries';
 
   constructor(private http: HttpClient) {}
 
@@ -23,11 +23,11 @@ export class CitiesService {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
   update(body: City) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PostsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/posts/';
+  private data = '/posts';
 
   constructor(private http: HttpClient) {}
 
@@ -30,19 +30,19 @@ export class PostsService {
   }
 
   update(id: number, body: FormData) {
-    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
   deleteComment(eventId: string, commentId: string) {
     return this.http.delete(
-      `${this.apiUrl}${this.data}${eventId}/comments/${commentId}`
+      `${this.apiUrl}${this.data}/${eventId}/comments/${commentId}`
     );
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

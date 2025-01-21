@@ -8,7 +8,7 @@ import { Course } from 'src/app/pages/apps/courses/course.model';
 })
 export class CoursesService {
   private apiUrl = environment.backEndUrl;
-  private data = '/courses/';
+  private data = '/courses';
 
   constructor(private http: HttpClient) {}
 
@@ -31,14 +31,14 @@ export class CoursesService {
   }
 
   update(id: number, body: FormData) {
-    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

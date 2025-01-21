@@ -7,7 +7,7 @@ import { Client } from 'src/app/pages/apps/clients/client.model';
 })
 export class ClientsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/clients/';
+  private data = '/clients';
 
   constructor(private http: HttpClient) {}
 
@@ -19,11 +19,11 @@ export class ClientsService {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
   update(body: Client) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

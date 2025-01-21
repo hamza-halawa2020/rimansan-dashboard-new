@@ -1,7 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { LanguageService } from 'src/app/core/services/language.service';
 import { RootReducerState, getLayoutMode } from 'src/app/store/reducers';
 import { Store } from '@ngrx/store';
 import { changeMode } from 'src/app/store/actions/layout-action';
@@ -31,7 +30,6 @@ export class TopbarComponent {
   @Output() mobileMenuButtonClicked = new EventEmitter();
   constructor(
     @Inject(DOCUMENT) private document: any,
-    public languageService: LanguageService,
     private store: Store<RootReducerState>,
     public _cookiesService: CookieService,
     private userService: UserProfileService,

@@ -8,7 +8,7 @@ import { Coupon } from 'src/app/pages/apps/coupons/coupon.model';
 })
 export class CouponsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/coupons/';
+  private data = '/coupons';
 
   constructor(private http: HttpClient) {}
 
@@ -21,14 +21,14 @@ export class CouponsService {
   }
 
   update(coupon: Coupon) {
-    return this.http.put(`${this.apiUrl}${this.data}${coupon.id}`, coupon);
+    return this.http.put(`${this.apiUrl}${this.data}/${coupon.id}`, coupon);
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

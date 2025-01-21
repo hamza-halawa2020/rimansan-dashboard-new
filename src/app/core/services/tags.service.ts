@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TagsService {
  private apiUrl = environment.backEndUrl;
-  private data = '/tags/';
+  private data = '/tags';
 
   constructor(private http: HttpClient) {}
 
@@ -20,11 +20,11 @@ export class TagsService {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
   update(body: Tag) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

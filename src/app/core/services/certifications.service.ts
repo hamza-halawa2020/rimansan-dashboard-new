@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Certificate } from 'src/app/pages/apps/certifications/certificate.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CertificationsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/certifications/';
+  private data = '/certifications';
 
   constructor(private http: HttpClient) {}
 
@@ -23,11 +22,11 @@ export class CertificationsService {
   }
 
   update(id: number, body: FormData) {
-    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

@@ -8,7 +8,7 @@ import { Country } from 'src/app/pages/apps/countries/country.model';
 })
 export class CountriesService {
   private apiUrl = environment.backEndUrl;
-  private data = '/countries/';
+  private data = '/countries';
 
   constructor(private http: HttpClient) {}
 
@@ -20,11 +20,11 @@ export class CountriesService {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
   update(body: Country) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

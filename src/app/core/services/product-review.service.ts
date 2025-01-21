@@ -10,7 +10,7 @@ export class ProductReviewService {
 
 
   private apiUrl = environment.backEndUrl;
-  private data = '/product-reviews/';
+  private data = '/product-reviews';
 
   constructor(private http: HttpClient) {}
 
@@ -33,11 +33,11 @@ export class ProductReviewService {
     );
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

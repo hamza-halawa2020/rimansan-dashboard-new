@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ContactsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/contacts/';
+  private data = '/contacts';
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class ContactsService {
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

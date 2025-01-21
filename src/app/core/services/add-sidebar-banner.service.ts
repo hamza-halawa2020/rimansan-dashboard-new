@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AddSidebarBannerService {
   private apiUrl = environment.backEndUrl;
-  private data = '/side-bar-banners/';
+  private data = '/side-bar-banners';
 
   constructor(private http: HttpClient) {}
 
@@ -20,11 +20,11 @@ export class AddSidebarBannerService {
   }
 
   update(id: number, body: FormData) {
-    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

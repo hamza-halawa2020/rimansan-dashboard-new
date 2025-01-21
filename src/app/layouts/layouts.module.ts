@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimplebarAngularModule } from 'simplebar-angular';
 
 // Language
-import { LanguageService } from '../core/services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 // Bootstap Component
@@ -45,6 +44,5 @@ import { HorizontalTopbarComponent } from './horizontal-topbar/horizontal-topbar
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [LanguageService],
 })
 export class LayoutsModule {}

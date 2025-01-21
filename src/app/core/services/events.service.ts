@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EventsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/events/';
+  private data = '/events';
 
   constructor(private http: HttpClient) {}
 
@@ -30,10 +30,10 @@ export class EventsService {
   }
 
   update(id: number, body: FormData) {
-    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
   deleteImage(eventId: string, imageId: string) {
     return this.http.delete(
@@ -42,7 +42,7 @@ export class EventsService {
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

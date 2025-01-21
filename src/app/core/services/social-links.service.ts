@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SocialLinksService {
  private apiUrl = environment.backEndUrl;
-  private data = '/social-links/';
+  private data = '/social-links';
 
   constructor(private http: HttpClient) {}
 
@@ -20,10 +20,10 @@ export class SocialLinksService {
   }
 
   update(id: number, body: FormData) {
-    return this.http.post(`${this.apiUrl}${this.data}${id}`, body);
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

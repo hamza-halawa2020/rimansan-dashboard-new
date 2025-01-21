@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PostCommentService {
   private apiUrl = environment.backEndUrl;
-  private data = '/comments/';
+  private data = '/comments';
 
   constructor(private http: HttpClient) {}
 
@@ -27,11 +27,11 @@ export class PostCommentService {
     return this.http.put(`${this.apiUrl}/comments-update/${body.id}`, body);
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

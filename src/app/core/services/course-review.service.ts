@@ -8,7 +8,7 @@ import { CourseReview } from 'src/app/pages/apps/course-review/course-review.mod
 })
 export class CourseReviewService {
   private apiUrl = environment.backEndUrl;
-  private data = '/course-reviews/';
+  private data = '/course-reviews';
 
   constructor(private http: HttpClient) {}
 
@@ -31,11 +31,11 @@ export class CourseReviewService {
     );
   }
   show(id: number) {
-    return this.http.get(`${this.apiUrl}${this.data}${id}`);
+    return this.http.get(`${this.apiUrl}${this.data}/${id}`);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }

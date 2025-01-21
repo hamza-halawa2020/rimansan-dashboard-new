@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FaqsService {
   private apiUrl = environment.backEndUrl;
-  private data = '/faqs/';
+  private data = '/faqs';
 
   constructor(private http: HttpClient) {}
 
@@ -21,11 +21,11 @@ export class FaqsService {
   }
 
   update(body: Faq) {
-    return this.http.put(`${this.apiUrl}${this.data}${body.id}`, body);
+    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
   }
 
   delete(id: number) {
-    const url = `${this.apiUrl}${this.data}${id}`;
+    const url = `${this.apiUrl}${this.data}/${id}`;
     return this.http.delete(url);
   }
 }
