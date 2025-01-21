@@ -495,13 +495,16 @@
               <label for="Coursename-input" class="form-label"
                 >certifications</label
               >
-              <ui-switch
-                uncheckedLabel="No"
-                [(ngModel)]="addNewCourse.certifications"
-                checkedLabel="Yes"
-                size="small"
-                class="me-2"
-              ></ui-switch>
+
+              <div class="form-check form-switch custom-switch me-2">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="customSwitch"
+                  [checked]="addNewCourse.certifications ? true : false"
+                  [(ngModel)]="addNewCourse.certifications"
+                />
+              </div>
             </div>
 
             <div class="hstack gap-2 justify-content-end">
