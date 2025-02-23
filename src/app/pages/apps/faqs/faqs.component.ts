@@ -49,8 +49,9 @@ export class FaqsComponent {
   index(): void {
     this.faqsService.index(this.currentPage).subscribe((response: any) => {
       this.faqs = response.data;
-      this.currentPage = response.meta.current_page;
-      this.totalPages = response.meta.last_page;
+
+      this.currentPage = response.meta?.current_page || 1;
+      this.totalPages = response.meta?.last_page || 1;
     });
   }
 

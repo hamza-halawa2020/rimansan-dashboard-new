@@ -58,11 +58,20 @@ export class ShipmentsComponent {
     );
   }
 
+  // index(): void {
+  //   this.shipmentsService.index(this.currentPage).subscribe((response: any) => {
+  //     this.shipments = response.data;
+
+  //     this.currentPage = response.meta.current_page;
+  //     this.totalPages = response.meta.last_page;
+  //   });
+  // }
+
   index(): void {
     this.shipmentsService.index(this.currentPage).subscribe((response: any) => {
       this.shipments = response.data;
-      this.currentPage = response.meta.current_page;
-      this.totalPages = response.meta.last_page;
+      this.currentPage = response.meta?.current_page || 1;
+      this.totalPages = response.meta?.last_page || 1;
     });
   }
 

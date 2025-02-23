@@ -62,8 +62,8 @@ export class CitiesComponent {
   index(): void {
     this.citiesService.index(this.currentPage).subscribe((data: any) => {
       this.cities = data.data;
-      this.currentPage = data.meta.current_page;
-      this.totalPages = data.meta.last_page;
+      this.currentPage = data.meta?.current_page || 1;
+      this.totalPages = data.meta?.last_page || 1;
     });
   }
 

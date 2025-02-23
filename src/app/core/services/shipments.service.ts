@@ -22,7 +22,7 @@ export class ShipmentsService {
 
   getCitiesByCountry(countryId: number) {
     return this.http.get(
-      `${this.apiUrl}${this.cities}/${this.countries}/${countryId}`
+      `${this.apiUrl}${this.cities}${this.countries}/${countryId}`
     );
   }
   store(body: Shipment) {

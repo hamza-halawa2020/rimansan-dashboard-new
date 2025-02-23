@@ -71,8 +71,8 @@ export class CertificationsComponent {
       .index(this.currentPage)
       .subscribe((response: any) => {
         this.certificates = response.data;
-        this.currentPage = response.meta.current_page;
-        this.totalPages = response.meta.last_page;
+        this.currentPage = response.meta?.current_page || 1;
+        this.totalPages = response.meta?.last_page || 1;
       });
   }
 
