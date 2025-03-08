@@ -5,4 +5,6 @@ export const environment = {
   // imgUrl: 'http://127.0.0.1:8000/images/',
   backEndUrl: 'https://new-backend.rimansan.net/public/api',
   imgUrl: 'https://new-backend.rimansan.net/public/images/',
+  i18nUrl: 'https://new-backend.rimansan.net/public/i18n/',
+
 };

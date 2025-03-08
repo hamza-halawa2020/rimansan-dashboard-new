@@ -203,4 +203,12 @@ export const MENU: MenuItem[] = [
     link: '/apps/social-links',
     parentId: 10,
   },
+  {
+    id: 29,
+    label: 'MENUITEMS.APPS.LIST.translate',
+    icon: 'ti ti-language',
+    link: '/apps/translates',
+    parentId: 10,
+  },
 ];
+

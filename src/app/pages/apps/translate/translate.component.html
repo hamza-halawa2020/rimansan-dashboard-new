@@ -1,0 +1,61 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Translations"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div *ngIf="translates">
+  <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
+    <div class="city-content w-100 pb-0">
+      <div class="col">
+        <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+        <div class="mb-3">
+          <label for="langSelect">Select Language:</label>
+          <select id="langSelect" class="form-select" [(ngModel)]="selectedLang" (change)="loadTranslations()">
+            <option value="en">English</option>
+            <option value="ar">Arabic</option>
+          </select>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Key" [(ngModel)]="newKey" />
+          <input type="text" class="form-control" placeholder="Value" [(ngModel)]="newValue" />
+          <button class="btn btn-success" (click)="addTranslate()">
+            <i class="ri-add-line align-bottom"></i> Add Translation
+          </button>
+        </div>
+
+        <button class="btn btn-primary mb-3" (click)="downloadFile(selectedLang)">
+          <i class="ri-download-line align-bottom"></i> Download {{ selectedLang }}.json
+        </button>
+      </div>
+
+      <div class="city-content position-relative px-4 mx-n4">
+        <div class="table-responsive">
+          <table class="table align-middle position-relative table-nowrap">
+            <thead class="table-active">
+              <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Key</th>
+                <th scope="col">Value</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of translates[selectedLang] | keyvalue; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.key }}</td>
+                <td>{{ item.value }}</td>
+                <td>
+                  <button class="btn btn-sm btn-subtle-danger" (click)="deleteTranslate(item.key)">
+                    <i class="ri-delete-bin-5-fill align-bottom"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

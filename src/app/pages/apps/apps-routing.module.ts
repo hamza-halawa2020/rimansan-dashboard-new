@@ -29,6 +29,7 @@ import { ProductReviewComponent } from './product-review/product-review.componen
 import { SocialLinksComponent } from './social-links/social-links.component';
 import { OrdersComponent } from './orders/orders.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { TranslateComponent } from './translate/translate.component';
 
 const routes: Routes = [
   {
@@ -132,13 +133,17 @@ const routes: Routes = [
     path: 'social-links',
     component: SocialLinksComponent,
   },
-  {
+  { 
     path: 'orders',
     component: OrdersComponent,
   },
   {
     path: 'payments',
     component: PaymentsComponent,
+  },
+  {
+    path: 'translates',
+    component: TranslateComponent,
   },
 ];
 

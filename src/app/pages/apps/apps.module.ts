@@ -49,6 +49,7 @@ import { ProductReviewComponent } from './product-review/product-review.componen
 import { SocialLinksComponent } from './social-links/social-links.component';
 import { OrdersComponent } from './orders/orders.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { TranslateComponent } from './translate/translate.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { PaymentsComponent } from './payments/payments.component';
     CitiesComponent,
     AddreesesComponent,
     ShipmentsComponent,
+    TranslateComponent,
     AddSidebarBannersComponent,
     CertificationsComponent,
     CategoriesComponent,
