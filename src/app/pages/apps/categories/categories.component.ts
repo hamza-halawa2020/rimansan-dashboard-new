@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Category } from './category.model';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -13,11 +15,31 @@ export class CategoriesComponent {
   newCategory: Category = {};
   successMessage: string = '';
   errorMessage: string = '';
+  image = environment.imgUrl + 'categories/';
+
+  imagePreview: string | null = null; // Add preview property
+
   constructor(private categoriesService: CategoriesService) {}
 
   ngOnInit(): void {
     this.index();
   }
+
+  // Handle image selection
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.newCategory.image = file;
+
+      // Generate preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -25,18 +47,27 @@ export class CategoriesComponent {
     }
     return errorMessage;
   }
+
   addCategory(): void {
-    this.categoriesService.store(this.newCategory).subscribe(
+    const formData = new FormData();
+    if (this.newCategory.name) {
+      formData.append('name', this.newCategory.name);
+    }
+    if (this.newCategory.image instanceof File) {
+      formData.append('image', this.newCategory.image);
+    }
+
+    this.categoriesService.store(formData).subscribe(
       () => {
         this.index();
         this.newCategory = {};
+        this.imagePreview = null;
         this.successMessage = 'Category added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding vity', error);
         this.errorMessage =
-          'Failed to add city' + this.extractErrorMessage(error);
+          'Failed to add category: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -45,7 +76,6 @@ export class CategoriesComponent {
   index(): void {
     this.categoriesService.index().subscribe((data) => {
       this.categories = Object.values(data)[0];
-      // console.log(this.countries);
     });
   }
 
@@ -72,26 +102,35 @@ export class CategoriesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting city', error);
         this.errorMessage =
-          'Failed to delete city' + this.extractErrorMessage(error);
+          'Failed to delete category: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
   editCategory(id: number | undefined): void {
-    this.categoriesService.update({ id, ...this.newCategory }).subscribe(
+    if (!id) return;
+
+    const formData = new FormData();
+    if (this.newCategory.name) {
+      formData.append('name', this.newCategory.name);
+    }
+    if (this.newCategory.image instanceof File) {
+      formData.append('image', this.newCategory.image);
+    }
+
+    this.categoriesService.update(id, formData).subscribe(
       () => {
         this.index();
         this.newCategory = {};
+        this.imagePreview = null;
         this.successMessage = 'Category updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating city', error);
         this.errorMessage =
-          'Error updating city' + this.extractErrorMessage(error);
+          'Error updating category: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

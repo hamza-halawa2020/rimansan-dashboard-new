@@ -16,11 +16,11 @@ export class CategoriesService {
     return this.http.get(`${this.apiUrl}/categories?page=${page}`);
   }
 
-  store(body: Category) {
+  store(body: FormData) {
     return this.http.post(`${this.apiUrl}${this.data}`, body);
   }
-  update(body: Category) {
-    return this.http.put(`${this.apiUrl}${this.data}/${body.id}`, body);
+  update(id: number, body: FormData) {
+    return this.http.post(`${this.apiUrl}${this.data}/${id}`, body);
   }
 
   delete(id: number) {

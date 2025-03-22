@@ -32,6 +32,7 @@
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
                   <th scope="col">Category</th>
+                  <th scope="col">Image</th>
                   <th scope="col">CreatedAt</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -42,6 +43,14 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
                   <td>{{ data.name || "No Category" }}</td>
+                  <td>
+                    <img
+                      src="{{ image + data.image }}"
+                      alt="{{ image + data.image }}"
+                      height="25px"
+                    />
+                  </td>
+
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -150,6 +159,18 @@
                               [(ngModel)]="newCategory.name"
                             />
                           </div>
+                          <div class="mb-4">
+                            <label for="category-image-input" class="form-label"
+                              >Category Image</label
+                            >
+                            <input
+                              type="file"
+                              class="form-control"
+                              id="edit-category-image-input"
+                              accept="image"
+                              (change)="onImageSelected($event)"
+                            />
+                          </div>
 
                           <div class="hstack gap-2 justify-content-end">
                             <button
@@ -199,7 +220,7 @@
     </div>
   </div>
 
-  <!-- Start Create Counry Modal -->
+  <!-- Start Create Category Modal -->
   <div
     bsModal
     #createCounryModal="bs-modal"
@@ -212,7 +233,9 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header p-3 bg-success-subtle">
-          <h5 class="modal-title" id="createCounryModalLabel">Create Counry</h5>
+          <h5 class="modal-title" id="createCounryModalLabel">
+            Create Category
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -224,8 +247,9 @@
         <div class="modal-body">
           <div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">Category</label>
-
+              <label for="Categoryname-input" class="form-label"
+                >Category Name</label
+              >
               <input
                 type="text"
                 class="form-control"
@@ -234,6 +258,26 @@
                 placeholder="Enter Category name"
                 [(ngModel)]="newCategory.name"
               />
+            </div>
+
+            <div class="mb-4">
+              <label for="category-image-input" class="form-label"
+                >Category Image</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="category-image-input"
+                accept="image/*"
+                (change)="onImageSelected($event)"
+              />
+              <!-- <div *ngIf="imagePreview" class="mt-2">
+                <img
+                  [src]="imagePreview"
+                  alt="Preview"
+                  style="max-width: 200px; max-height: 200px"
+                />
+              </div> -->
             </div>
 
             <div class="hstack gap-2 justify-content-end">
@@ -247,8 +291,7 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="addCategory()"
-                (click)="createCounryModal.hide()"
+                (click)="addCategory(); createCounryModal.hide()"
               >
                 Add Category
               </button>
@@ -257,9 +300,8 @@
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
-  <!-- End Create Counry Modal -->
+  <!-- End Create Category Modal -->
 
   <!-- /.modal -->
 </div>
