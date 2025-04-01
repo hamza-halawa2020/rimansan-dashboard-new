@@ -23,17 +23,40 @@ export class TranslateComponent implements OnInit {
     this.loadTranslations();
   }
 
+  // loadTranslations(): void {
+  //   this.translateService.getTranslations().subscribe({
+  //     next: (data) => {
+  //       this.translates = data || { ar: {}, en: {} };
+  //     },
+  //     error: (err: HttpErrorResponse) => {
+  //       console.error('Error loading translations:', err);
+  //       this.errorMessage = `Failed to load translations: ${err.status} - ${err.message}`;
+  //     },
+  //   });
+  // }
+
   loadTranslations(): void {
     this.translateService.getTranslations().subscribe({
-      next: (data) => {
-        this.translates = data || { ar: {}, en: {} };
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error('Error loading translations:', err);
-        this.errorMessage = `Failed to load translations: ${err.status} - ${err.message}`;
-      },
+        next: (data:any) => {
+            // التأكد من إن البيانات متعرفة وفيها ar و en
+            if (data && data.translations) {
+                this.translates = {
+                    ar: data.translations.ar || {},
+                    en: data.translations.en || {}
+                };
+            } else {
+                this.translates = { ar: {}, en: {} }; // قيمة افتراضية لو الـ API رجع حاجة غلط
+            }
+            console.log('Loaded translations:', this.translates);
+        },
+        error: (err: HttpErrorResponse) => {
+            console.error('Error loading translations:', err);
+            this.errorMessage = `Failed to load translations: ${err.status} - ${err.message}`;
+            this.translates = { ar: {}, en: {} }; // قيمة افتراضية في حالة الخطأ
+        },
     });
-  }
+}
+
 
   addTranslate(): void {
     if (this.newKey && this.newValue) {
