@@ -34,15 +34,15 @@
                 <tr>
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
-                  <th scope="col">title</th>
-                  <th scope="col">description</th>
-                  <th scope="col">stock</th>
-                  <th scope="col">priceBeforeDiscount</th>
-                  <th scope="col">discount</th>
-                  <th scope="col">priceAfterDiscount</th>
-                  <th scope="col">category</th>
-                  <th scope="col">createdBy</th>
-                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Price Before Discount</th>
+                  <th scope="col">Discount</th>
+                  <th scope="col">Price After Discount</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Created By</th>
+                  <th scope="col">Created At</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -53,28 +53,28 @@
                   <td>{{ data.id }}</td>
                   <td>
                     <a [routerLink]="['/apps/products', data.id]">
-                      {{ data.title || "No Product" }}
+                      {{ data.title || "No title" }}
                     </a>
                   </td>
-                  <td>{{ data.description || "No Product" }}</td>
+                  <td>{{ data.description || "No description" }}</td>
 
                   <td>
                     <div class="form-check form-switch custom-switch me-2">
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        id="customSwitch"
-                        [checked]="data.stock ? true : false"
+                        id="customSwitch{{i}}"
+                        [checked]="data.stock == true"
                         (change)="toggleStatus(data)"
                       />
                     </div>
                   </td>
 
-                  <td>{{ data.priceBeforeDiscount || "No Product" }}</td>
-                  <td>{{ data.discount || "No Product" }}</td>
-                  <td>{{ data.priceAfterDiscount || "No Product" }}</td>
-                  <td>{{ data.category || "No Product" }}</td>
-                  <td>{{ data.admin || "No Product" }}</td>
+                  <td>{{ data.priceBeforeDiscount || "No priceBeforeDiscount" }}</td>
+                  <td>{{ data.discount || "No discount" }}</td>
+                  <td>{{ data.priceAfterDiscount || "No priceAfterDiscount" }}</td>
+                  <td>{{ data.category || "No category" }}</td>
+                  <td>{{ data.admin || "No admin" }}</td>
 
                   <td>{{ data.created_at | date }}</td>
                   <td>
@@ -87,7 +87,7 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateProduct.show()"
+                        (click)="openUpdateModal(data)"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -117,9 +117,9 @@
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this product ?
+                                Are you sure you want to remove this product?
                               </p>
                             </div>
                           </div>
@@ -137,16 +137,14 @@
                               type="button"
                               class="btn w-sm btn-danger"
                               id="remove-productitem"
-                              (click)="deleteProduct(data.id)"
+                              (click)="deleteProduct(data.id); removeProductItemModal.hide()"
                             >
                               Yes, Delete It!
                             </button>
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
                   <!-- update Modal -->
@@ -163,7 +161,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateProductLabel">
-                            UpdateProduct Info
+                            Update Product Info
                           </h5>
                           <button
                             type="button"
@@ -175,7 +173,7 @@
                           <div class="row col">
                             <div class="col">
                               <label for="category-select" class="form-label"
-                                >Select category</label
+                                >Select Category</label
                               >
                               <select
                                 id="category-select"
@@ -194,13 +192,13 @@
 
                           <div class="row">
                             <div class="col">
-                              <label for="Productname-input" class="form-label"
-                                >title</label
+                              <label for="title-input" class="form-label"
+                                >Title</label
                               >
                               <input
                                 type="text"
                                 class="form-control"
-                                id="Productname-input"
+                                id="title-input"
                                 autocomplete="off"
                                 placeholder="Enter Product title"
                                 [(ngModel)]="addNewProduct.title"
@@ -208,30 +206,68 @@
                             </div>
                           </div>
                           <div class="col">
-                            <label for="Productname-input" class="form-label"
-                              >description</label
+                            <label for="description-input" class="form-label"
+                              >Description</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="Productname-input"
+                              id="description-input"
                               autocomplete="off"
                               placeholder="Enter Product description"
                               [(ngModel)]="addNewProduct.description"
                             />
                           </div>
-
                           <div class="col">
-                            <label for="Productname-input" class="form-label"
-                              >image</label
+                            <label for="priceBeforeDiscount-input" class="form-label"
+                              >Price Before Discount</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="priceBeforeDiscount-input"
+                              autocomplete="off"
+                              placeholder="Enter Product priceBeforeDiscount"
+                              [(ngModel)]="addNewProduct.priceBeforeDiscount"
+                              (ngModelChange)="updatePriceAfterDiscount()"
+                            />
+                          </div>
+                          <div class="col">
+                            <label for="discount-input" class="form-label"
+                              >Discount</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="discount-input"
+                              autocomplete="off"
+                              placeholder="Enter Product discount"
+                              [(ngModel)]="addNewProduct.discount"
+                              (ngModelChange)="updatePriceAfterDiscount()"
+                            />
+                          </div>
+                          <div class="col">
+                            <label for="priceAfterDiscount-display" class="form-label"
+                              >Price After Discount</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="priceAfterDiscount-display"
+                              [value]="priceAfterDiscount"
+                              readonly
+                            />
+                          </div>
+                          <div class="col">
+                            <label for="image-input" class="form-label"
+                              >Image</label
                             >
                             <input
                               type="file"
                               class="form-control"
-                              id="Productname-input"
+                              id="image-input"
                               autocomplete="off"
-                              placeholder="Enter Product image"
+                              multiple
                               (change)="onFileSelected($event)"
                             />
                           </div>
@@ -247,8 +283,8 @@
                             <button
                               type="submit"
                               class="btn btn-primary"
-                              id="addNewProduct"
-                              (click)="editProduct(data.id)"
+                              id="updateProductBtn"
+                              (click)="editProduct(addNewProduct.id); updateProduct.hide()"
                             >
                               Update Product
                             </button>
@@ -312,11 +348,11 @@
           <div>
             <div class="row col">
               <div class="col">
-                <label for="category-select" class="form-label"
-                  >Select category</label
+                <label for="create-category-select" class="form-label"
+                  >Select Category</label
                 >
                 <select
-                  id="category-select"
+                  id="create-category-select"
                   class="form-control"
                   [(ngModel)]="addNewProduct.category_id"
                 >
@@ -332,11 +368,11 @@
 
             <div class="row">
               <div class="col">
-                <label for="Productname-input" class="form-label">title</label>
+                <label for="create-title-input" class="form-label">Title</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="Productname-input"
+                  id="create-title-input"
                   autocomplete="off"
                   placeholder="Enter Product title"
                   [(ngModel)]="addNewProduct.title"
@@ -344,14 +380,13 @@
               </div>
             </div>
             <div class="col">
-              <label for="Productname-input" class="form-label"
-                >description</label
+              <label for="create-description-input" class="form-label"
+                >Description</label
               >
-
               <input
                 type="text"
                 class="form-control"
-                id="Productname-input"
+                id="create-description-input"
                 autocomplete="off"
                 placeholder="Enter Product description"
                 [(ngModel)]="addNewProduct.description"
@@ -359,41 +394,52 @@
             </div>
 
             <div class="col">
-              <label for="Productname-input" class="form-label"
-                >priceBeforeDiscount</label
+              <label for="create-priceBeforeDiscount-input" class="form-label"
+                >Price Before Discount</label
               >
-
               <input
-                type="text"
+                type="number"
                 class="form-control"
-                id="Productname-input"
+                id="create-priceBeforeDiscount-input"
                 autocomplete="off"
                 placeholder="Enter Product priceBeforeDiscount"
                 [(ngModel)]="addNewProduct.priceBeforeDiscount"
+                (ngModelChange)="updatePriceAfterDiscount()"
               />
             </div>
             <div class="col">
-              <label for="Productname-input" class="form-label">discount</label>
-
+              <label for="create-discount-input" class="form-label">Discount</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
-                id="Productname-input"
+                id="create-discount-input"
                 autocomplete="off"
                 placeholder="Enter Product discount"
                 [(ngModel)]="addNewProduct.discount"
+                (ngModelChange)="updatePriceAfterDiscount()"
+              />
+            </div>
+            <div class="col">
+              <label for="create-priceAfterDiscount-display" class="form-label"
+                >Price After Discount</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="create-priceAfterDiscount-display"
+                [value]="priceAfterDiscount"
+                readonly
               />
             </div>
 
             <div class="col">
-              <label for="Productname-input" class="form-label">image</label>
+              <label for="create-image-input" class="form-label">Image</label>
               <input
                 type="file"
                 multiple
                 class="form-control"
-                id="Productname-input"
+                id="create-image-input"
                 autocomplete="off"
-                placeholder="Enter Product image"
                 (change)="onFileSelected($event)"
               />
             </div>
@@ -410,9 +456,8 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                id="addNewCategory"
-                (click)="addProduct()"
-                (click)="createProductModal.hide()"
+                id="addNewProduct"
+                (click)="addProduct(); createProductModal.hide()"
               >
                 Add Product
               </button>
@@ -421,9 +466,6 @@
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
   <!-- End Create Product Modal -->
-
-  <!-- /.modal -->
 </div>
