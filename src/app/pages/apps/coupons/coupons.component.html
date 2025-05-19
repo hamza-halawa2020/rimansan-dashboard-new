@@ -95,7 +95,7 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateCoupon.show()"
+                        (click)="openEditCouponModal(data); updateCoupon.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -159,139 +159,120 @@
 
                   <!-- update Modal -->
                   <div
-                    bsModal
-                    #updateCoupon="bs-modal"
-                    class="modal fade"
-                    id="updateCoupon"
-                    tabindex="-1"
-                    aria-labelledby="updateCouponLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content border-0">
-                        <div class="modal-header p-3 bg-success-subtle">
-                          <h5 class="modal-title" id="updateCouponLabel">
-                            UpdateCoupon Info
-                          </h5>
-                          <button
-                            type="button"
-                            class="btn-close"
-                            (click)="updateCoupon.hide()"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="row mb-4">
-                            <div class="col">
-                              <label for="Couponname-input" class="form-label"
-                                >Name</label
-                              >
-
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="Couponname-input"
-                                autocomplete="off"
-                                placeholder="{{ data.name }}"
-                                [(ngModel)]="addNewCoupon.name"
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-4">
-                            <label for="Couponname-input" class="form-label"
-                              >Description</label
-                            >
-
+                  bsModal
+                  #updateCoupon="bs-modal"
+                  class="modal fade"
+                  id="updateCoupon"
+                  tabindex="-1"
+                  aria-labelledby="updateCouponLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0">
+                      <div class="modal-header p-3 bg-success-subtle">
+                        <h5 class="modal-title" id="updateCouponLabel">
+                          Update Coupon Info
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          (click)="updateCoupon.hide()"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row mb-4">
+                          <div class="col">
+                            <label for="Couponname-input" class="form-label">Name</label>
                             <input
                               type="text"
                               class="form-control"
                               id="Couponname-input"
                               autocomplete="off"
-                              placeholder="{{ data.name }}"
-                              [(ngModel)]="addNewCoupon.description"
+                              placeholder="Enter Coupon name"
+                              [(ngModel)]="editCouponData.name"
                             />
                           </div>
-                          <div class="row mb-4">
-                            <div class="col">
-                              <label for="Couponname-input" class="form-label"
-                                >discount</label
-                              >
-
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="Couponname-input"
-                                autocomplete="off"
-                                placeholder="{{ data.name }}"
-                                [(ngModel)]="addNewCoupon.discount"
-                              />
-                            </div>
-                            <div class="col">
-                              <label for="Couponname-input" class="form-label"
-                                >max_uses</label
-                              >
-
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="Couponname-input"
-                                autocomplete="off"
-                                placeholder="{{ data.name }}"
-                                [(ngModel)]="addNewCoupon.max_uses"
-                              />
-                            </div>
+                        </div>
+                        <div class="mb-4">
+                          <label for="Couponname-input" class="form-label">Description</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="Couponname-input"
+                            autocomplete="off"
+                            placeholder="Enter Coupon description"
+                            [(ngModel)]="editCouponData.description"
+                          />
+                        </div>
+                        <div class="row mb-4">
+                          <div class="col">
+                            <label for="Couponname-input" class="form-label">Discount</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Couponname-input"
+                              autocomplete="off"
+                              placeholder="Enter Coupon discount"
+                              [(ngModel)]="editCouponData.discount"
+                            />
                           </div>
-
-                          <div class="row mb-4">
-                            <div class="col">
-                              <label for="Couponname-input" class="form-label"
-                                >start_date</label
-                              >
-
-                              <input
-                                type="date"
-                                class="form-control"
-                                id="Couponname-input"
-                                autocomplete="off"
-                                placeholder="{{ data.name }}"
-                                [(ngModel)]="addNewCoupon.start_date"
-                              />
-                            </div>
-                            <div class="col">
-                              <label for="Couponname-input" class="form-label"
-                                >end_date</label
-                              >
-                              <input
-                                type="date"
-                                class="form-control"
-                                id="Couponname-input"
-                                autocomplete="off"
-                                placeholder="{{ data.name }}"
-                                [(ngModel)]="addNewCoupon.end_date"
-                              />
-                            </div>
+                          <div class="col">
+                            <label for="Couponname-input" class="form-label">Max Uses</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Couponname-input"
+                              autocomplete="off"
+                              placeholder="Enter Coupon max_uses"
+                              [(ngModel)]="editCouponData.max_uses"
+                            />
                           </div>
-
-                          <div class="hstack gap-2 justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-ghost-success"
-                              (click)="updateCoupon.hide()"
-                            >
-                              <i class="ri-close-fill align-bottom"></i> Close
-                            </button>
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
-                              id="addNewCoupon"
-                              (click)="editCoupon(data.id)"
-                            >
-                              Update Coupon
-                            </button>
+                        </div>
+                        <div class="row mb-4">
+                          <div class="col">
+                            <label for="Couponname-input" class="form-label">Start Date</label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="Couponname-input"
+                              autocomplete="off"
+                              placeholder="Enter Coupon start_date"
+                              [(ngModel)]="editCouponData.start_date"
+                            />
                           </div>
+                          <div class="col">
+                            <label for="Couponname-input" class="form-label">End Date</label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="Couponname-input"
+                              autocomplete="off"
+                              placeholder="Enter Coupon end_date"
+                              [(ngModel)]="editCouponData.end_date"
+                            />
+                          </div>
+                        </div>
+                        <div class="hstack gap-2 justify-content-end">
+                          <button
+                            type="button"
+                            class="btn btn-ghost-success"
+                            (click)="updateCoupon.hide()"
+                          >
+                            <i class="ri-close-fill align-bottom"></i> Close
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="addNewCoupon"
+                            (click)="editCoupon(data.id); updateCoupon.hide()"
+                          >
+                            Update Coupon
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                   <!--end update coupon-->
                 </tr>
               </tbody>

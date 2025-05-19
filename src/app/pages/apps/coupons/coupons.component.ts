@@ -12,6 +12,7 @@ export class CouponsComponent {
   currentPage: number = 1;
   coupons: Coupon[] = [];
   addNewCoupon: Coupon = {};
+  editCouponData: Coupon = {};
   successMessage: string = '';
   errorMessage: string = '';
   constructor(private couponsService: CouponsService) {}
@@ -36,7 +37,6 @@ export class CouponsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error: any) => {
-        // console.error('Failed to add coupon', error);
         this.errorMessage =
           'Failed to add coupon. ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -75,7 +75,6 @@ export class CouponsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting coupon', error);
         this.errorMessage =
           'Failed to delete coupon' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -83,16 +82,24 @@ export class CouponsComponent {
     );
   }
 
+
+openEditCouponModal(coupon: Coupon): void {
+  this.editCouponData = {
+    ...coupon,
+    start_date: coupon.start_date ? new Date(coupon.start_date).toISOString().split('T')[0] : '',
+    end_date: coupon.end_date ? new Date(coupon.end_date).toISOString().split('T')[0] : ''
+  };
+}
   editCoupon(id: number | undefined): void {
-    this.couponsService.update({ id, ...this.addNewCoupon }).subscribe(
+    if (!id) return;
+    this.couponsService.update({ id, ...this.editCouponData }).subscribe(
       () => {
         this.index();
-        this.addNewCoupon = {};
+        this.editCouponData = {};
         this.successMessage = 'Coupon updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating Coupon:', error);
         this.errorMessage =
           'Error updating Coupon: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
@@ -111,7 +118,6 @@ export class CouponsComponent {
           setTimeout(() => (this.successMessage = ''), 3000);
         },
         (error) => {
-          // console.error('Error updating coupon status', error);
           this.errorMessage =
             'Error updating coupon status: ' + this.extractErrorMessage(error);
           setTimeout(() => (this.errorMessage = ''), 3000);
