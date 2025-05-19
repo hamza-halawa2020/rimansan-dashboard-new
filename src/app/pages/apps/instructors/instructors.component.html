@@ -4,17 +4,14 @@
 
 <div *ngIf="instructors">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
-    <!--end side content-->
     <div class="instructor-content w-100 pb-0">
       <div class="col">
         <div *ngIf="successMessage" class="alert alert-success">
           {{ successMessage }}
         </div>
-
         <div *ngIf="errorMessage" class="alert alert-danger">
           {{ errorMessage }}
         </div>
-
         <button
           class="btn btn-success w-100"
           (click)="createInstructorModal.show()"
@@ -34,25 +31,24 @@
                 <tr>
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
-                  <th scope="col">name</th>
-                  <th scope="col">email</th>
-                  <th scope="col">phone</th>
-                  <th scope="col">image</th>
-                  <th scope="col">job_title</th>
-                  <th scope="col">description</th>
-                  <th scope="col">createdBy</th>
-                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Job Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Created By</th>
+                  <th scope="col">Created At</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-
               <tbody id="instructor-list">
                 <tr *ngFor="let data of instructors; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
-                  <td>{{ data.name || "No Instructor" }}</td>
-                  <td>{{ data.email || "No Instructor" }}</td>
-                  <td>{{ data.phone || "No Instructor" }}</td>
+                  <td>{{ data.name || "No Name" }}</td>
+                  <td>{{ data.email || "No Email" }}</td>
+                  <td>{{ data.phone || "No Phone" }}</td>
                   <td>
                     <img
                       src="{{ image + data.image }}"
@@ -60,10 +56,9 @@
                       height="25px"
                     />
                   </td>
-                  <td>{{ data.job_title || "No Instructor" }}</td>
-                  <td>{{ data.description || "No Instructor" }}</td>
-
-                  <td>{{ data.admin || "No Instructor" }}</td>
+                  <td>{{ data.job_title || "No Job Title" }}</td>
+                  <td>{{ data.description || "No Description" }}</td>
+                  <td>{{ data.admin || "No Admin" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -75,14 +70,15 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateInstructor.show()"
+                        (click)="
+                          openEditInstructorModal(data); updateInstructor.show()
+                        "
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
                     </div>
                   </td>
 
-                  <!-- removeFileItemModal -->
                   <div
                     bsModal
                     #removeInstructorItemModal="bs-modal"
@@ -105,10 +101,9 @@
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this instructor
-                                ?
+                                Are you sure you want to remove this instructor?
                               </p>
                             </div>
                           </div>
@@ -133,12 +128,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
-                  <!-- update Modal -->
                   <div
                     bsModal
                     #updateInstructor="bs-modal"
@@ -152,7 +144,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateInstructorLabel">
-                            UpdateInstructor Info
+                            Update Instructor Info
                           </h5>
                           <button
                             type="button"
@@ -163,92 +155,82 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col">
-                              <label
-                                for="Instructorname-input"
-                                class="form-label"
-                                >name</label
+                              <label for="name-input" class="form-label"
+                                >Name</label
                               >
                               <input
                                 type="text"
                                 class="form-control"
-                                id="Instructorname-input"
+                                id="name-input"
                                 autocomplete="off"
                                 placeholder="Enter Instructor name"
-                                [(ngModel)]="addNewInstructor.name"
+                                [(ngModel)]="editInstructorData.name"
                               />
                             </div>
                           </div>
                           <div class="col">
-                            <label for="Instructorname-input" class="form-label"
-                              >email</label
+                            <label for="email-input" class="form-label"
+                              >Email</label
                             >
-
                             <input
-                              type="text"
+                              type="email"
                               class="form-control"
-                              id="Instructorname-input"
+                              id="email-input"
                               autocomplete="off"
                               placeholder="Enter Instructor email"
-                              [(ngModel)]="addNewInstructor.email"
+                              [(ngModel)]="editInstructorData.email"
                             />
                           </div>
                           <div class="col">
-                            <label for="Instructorname-input" class="form-label"
-                              >phone</label
+                            <label for="phone-input" class="form-label"
+                              >Phone</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="Instructorname-input"
+                              id="phone-input"
                               autocomplete="off"
                               placeholder="Enter Instructor phone"
-                              [(ngModel)]="addNewInstructor.phone"
+                              [(ngModel)]="editInstructorData.phone"
                             />
                           </div>
                           <div class="col">
-                            <label for="Instructorname-input" class="form-label"
-                              >job_title</label
+                            <label for="job-title-input" class="form-label"
+                              >Job Title</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="Instructorname-input"
+                              id="job-title-input"
                               autocomplete="off"
-                              placeholder="Enter Instructor job_title"
-                              [(ngModel)]="addNewInstructor.job_title"
+                              placeholder="Enter Instructor job title"
+                              [(ngModel)]="editInstructorData.job_title"
                             />
                           </div>
                           <div class="col">
-                            <label for="Instructorname-input" class="form-label"
-                              >description</label
+                            <label for="description-input" class="form-label"
+                              >Description</label
                             >
-
-                            <input
-                              type="text"
+                            <textarea
                               class="form-control"
-                              id="Instructorname-input"
+                              id="description-input"
                               autocomplete="off"
                               placeholder="Enter Instructor description"
-                              [(ngModel)]="addNewInstructor.description"
-                            />
+                              [(ngModel)]="editInstructorData.description"
+                            ></textarea>
                           </div>
-
                           <div class="col">
-                            <label for="Instructorname-input" class="form-label"
-                              >image</label
+                            <label for="image-input" class="form-label"
+                              >Image</label
                             >
                             <input
                               type="file"
                               class="form-control"
-                              id="Instructorname-input"
-                              autocomplete="off"
-                              placeholder="Enter Instructor image"
+                              id="image-input"
+                              accept="image/*"
                               (change)="onFileSelected($event)"
                             />
                           </div>
-
                           <div class="hstack gap-2 justify-content-end">
                             <button
                               type="button"
@@ -260,8 +242,10 @@
                             <button
                               type="submit"
                               class="btn btn-primary"
-                              id="addNewInstructor"
-                              (click)="editInstructor(data.id)"
+                              id="updateInstructorBtn"
+                              (click)="
+                                editInstructor(data.id); updateInstructor.hide()
+                              "
                             >
                               Update Instructor
                             </button>
@@ -270,7 +254,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--end update instructor-->
                 </tr>
               </tbody>
             </table>
@@ -297,7 +280,6 @@
     </div>
   </div>
 
-  <!-- Start Create Instructor Modal -->
   <div
     bsModal
     #createInstructorModal="bs-modal"
@@ -325,13 +307,11 @@
           <div>
             <div class="row col">
               <div class="col">
-                <label for="Instructorname-input" class="form-label"
-                  >name</label
-                >
+                <label for="name-input" class="form-label">Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="Instructorname-input"
+                  id="name-input"
                   autocomplete="off"
                   placeholder="Enter Instructor name"
                   [(ngModel)]="addNewInstructor.name"
@@ -339,70 +319,60 @@
               </div>
             </div>
             <div class="col">
-              <label for="Instructorname-input" class="form-label">email</label>
-
+              <label for="email-input" class="form-label">Email</label>
               <input
-                type="text"
+                type="email"
                 class="form-control"
-                id="Instructorname-input"
+                id="email-input"
                 autocomplete="off"
                 placeholder="Enter Instructor email"
                 [(ngModel)]="addNewInstructor.email"
               />
             </div>
             <div class="col">
-              <label for="Instructorname-input" class="form-label">phone</label>
-
+              <label for="phone-input" class="form-label">Phone</label>
               <input
                 type="text"
                 class="form-control"
-                id="Instructorname-input"
+                id="phone-input"
                 autocomplete="off"
                 placeholder="Enter Instructor phone"
                 [(ngModel)]="addNewInstructor.phone"
               />
             </div>
             <div class="col">
-              <label for="Instructorname-input" class="form-label"
-                >job_title</label
-              >
-
+              <label for="job-title-input" class="form-label">Job Title</label>
               <input
                 type="text"
                 class="form-control"
-                id="Instructorname-input"
+                id="job-title-input"
                 autocomplete="off"
-                placeholder="Enter Instructor job_title"
+                placeholder="Enter Instructor job title"
                 [(ngModel)]="addNewInstructor.job_title"
               />
             </div>
             <div class="col">
-              <label for="Instructorname-input" class="form-label"
-                >description</label
+              <label for="description-input" class="form-label"
+                >Description</label
               >
-
-              <input
-                type="text"
+              <textarea
                 class="form-control"
-                id="Instructorname-input"
+                id="description-input"
                 autocomplete="off"
                 placeholder="Enter Instructor description"
                 [(ngModel)]="addNewInstructor.description"
-              />
+              ></textarea>
             </div>
-
             <div class="col">
-              <label for="Instructorname-input" class="form-label">image</label>
+              <label for="image-input" class="form-label">Image</label>
               <input
                 type="file"
                 class="form-control"
-                id="Instructorname-input"
-                autocomplete="off"
-                placeholder="Enter Instructor image"
+                id="image-input"
+                accept="image/*"
                 (change)="onFileSelected($event)"
               />
             </div>
-
             <div class="hstack gap-2 justify-content-end">
               <button
                 type="button"
@@ -411,13 +381,10 @@
               >
                 <i class="ri-close-line align-bottom"></i> Close
               </button>
-
               <button
-                type="submit"
+                type="button"
                 class="btn btn-primary"
-                id="addNewCategory"
-                (click)="addInstructor()"
-                (click)="createInstructorModal.hide()"
+                (click)="addInstructor(); createInstructorModal.hide()"
               >
                 Add Instructor
               </button>
@@ -426,9 +393,5 @@
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
-  <!-- End Create Instructor Modal -->
-
-  <!-- /.modal -->
 </div>

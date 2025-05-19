@@ -16,9 +16,11 @@ export class CertificationsComponent {
   certificates: Certificate[] = [];
   users: User[] = [];
   newCertificate: Certificate = {};
+  editCertificateData: Certificate = {};
+  selectedFile: File | null = null;
   successMessage: string = '';
   errorMessage: string = '';
-  selectedFile: File | null = null;
+
   constructor(private certificatesService: CertificationsService) {}
 
   ngOnInit(): void {
@@ -26,13 +28,6 @@ export class CertificationsComponent {
     this.getAllUsers();
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      // console.log('File selected:', this.selectedFile);
-    }
-  }
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -40,6 +35,14 @@ export class CertificationsComponent {
     }
     return errorMessage;
   }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
   addCertificate(): void {
     if (!this.selectedFile) {
       this.errorMessage = 'Please select an image to upload.';
@@ -54,13 +57,13 @@ export class CertificationsComponent {
       () => {
         this.index();
         this.newCertificate = {};
+        this.selectedFile = null;
         this.successMessage = 'Certificate added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding vity', error);
         this.errorMessage =
-          'Failed to add certificate' + this.extractErrorMessage(error);
+          'Failed to add certificate: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -90,10 +93,9 @@ export class CertificationsComponent {
     }
   }
 
-  getAllUsers() {
+  getAllUsers(): void {
     this.certificatesService.getAllUsers().subscribe((data) => {
       this.users = Object.values(data)[0];
-      // console.log(this.certificates);
     });
   }
 
@@ -106,18 +108,20 @@ export class CertificationsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting certificate', error);
         this.errorMessage =
-          'Failed to delete certificate' + this.extractErrorMessage(error);
+          'Failed to delete certificate: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditCertificateModal(certificate: Certificate): void {
+    this.editCertificateData = { ...certificate };
+  }
+
   editCertificate(id: number | undefined): void {
     if (!id) {
-      this.errorMessage = 'Invalid banner ID';
-      // console.error('Invalid banner ID:', id);
+      this.errorMessage = 'Invalid certificate ID';
       return;
     }
 
@@ -125,25 +129,24 @@ export class CertificationsComponent {
     if (this.selectedFile) {
       formData.append('file', this.selectedFile);
     }
-
-    if (this.newCertificate.serial_number) {
-      formData.append('serial_number', this.newCertificate.serial_number);
+    if (this.editCertificateData.serial_number) {
+      formData.append('serial_number', this.editCertificateData.serial_number);
+    }
+    if (this.editCertificateData.user_id) {
+      formData.append('user_id', this.editCertificateData.user_id);
     }
 
-    if (this.newCertificate.user_id) {
-      formData.append('user_id', this.newCertificate.user_id);
-    }
     this.certificatesService.update(id, formData).subscribe(
       () => {
         this.index();
-        this.newCertificate = {};
+        this.editCertificateData = {};
+        this.selectedFile = null;
         this.successMessage = 'Certificate updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating certificate', error);
         this.errorMessage =
-          'Error updating certificate' + this.extractErrorMessage(error);
+          'Error updating certificate: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

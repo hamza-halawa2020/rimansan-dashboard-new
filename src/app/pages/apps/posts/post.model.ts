@@ -11,4 +11,5 @@ export interface Post {
   image?: string;
   postComments?: string[];
   created_at?: Date | string;
+  status?: string;
 }

@@ -38,10 +38,10 @@
                   <th scope="col">name</th>
                   <th scope="col">description</th>
                   <th scope="col">discount</th>
-                  <th scope="col">max_uses</th>
-                  <th scope="col">uses_count</th>
-                  <th scope="col">start_date</th>
-                  <th scope="col">end_date</th>
+                  <th scope="col">max uses</th>
+                  <th scope="col">uses count</th>
+                  <th scope="col">start date</th>
+                  <th scope="col">end date</th>
                   <th scope="col">Status</th>
                   <th scope="col">createdBy</th>
                   <th scope="col">CreatedAt</th>
@@ -53,12 +53,12 @@
                 <tr *ngFor="let data of coupons; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
-                  <td>{{ data.code || "No Coupon" }}</td>
-                  <td>{{ data.name || "No Coupon" }}</td>
-                  <td>{{ data.description || "No Coupon" }}</td>
-                  <td>{{ data.discount || "No Coupon" }}</td>
-                  <td>{{ data.max_uses || "No Coupon" }}</td>
-                  <td>{{ data.uses_count || "No Coupon" }}</td>
+                  <td>{{ data.code || "No code" }}</td>
+                  <td>{{ data.name || "No name" }}</td>
+                  <td>{{ data.description || "No description" }}</td>
+                  <td>{{ data.discount || "No discount" }}</td>
+                  <td>{{ data.max_uses || "No max uses" }}</td>
+                  <td>{{ data.uses_count || "No uses count" }}</td>
                   <td>{{ data.start_date | date }}</td>
                   <td>{{ data.end_date | date }}</td>
                   <td>
@@ -83,7 +83,7 @@
                     </div>
                   </td>
 
-                  <td>{{ data.admin || "No Coupon" }}</td>
+                  <td>{{ data.admin || "No admin" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -379,7 +379,7 @@
               </div>
               <div class="col">
                 <label for="Couponname-input" class="form-label"
-                  >max_uses</label
+                  >max uses</label
                 >
 
                 <input
@@ -387,7 +387,7 @@
                   class="form-control"
                   id="Couponname-input"
                   autocomplete="off"
-                  placeholder="Enter Coupon max_uses"
+                  placeholder="Enter Coupon max uses"
                   [(ngModel)]="addNewCoupon.max_uses"
                 />
               </div>
@@ -396,7 +396,7 @@
             <div class="row mb-4">
               <div class="col">
                 <label for="Couponname-input" class="form-label"
-                  >start_date</label
+                  >start date</label
                 >
 
                 <input
@@ -404,20 +404,20 @@
                   class="form-control"
                   id="Couponname-input"
                   autocomplete="off"
-                  placeholder="Enter Coupon start_date"
+                  placeholder="Enter Coupon start date"
                   [(ngModel)]="addNewCoupon.start_date"
                 />
               </div>
               <div class="col">
                 <label for="Couponname-input" class="form-label"
-                  >end_date</label
+                  >end date</label
                 >
                 <input
                   type="date"
                   class="form-control"
                   id="Couponname-input"
                   autocomplete="off"
-                  placeholder="Enter Coupon end_date"
+                  placeholder="Enter Coupon end date"
                   [(ngModel)]="addNewCoupon.end_date"
                 />
               </div>

@@ -12,13 +12,16 @@ export class TagsComponent {
   currentPage: number = 1;
   tags: Tag[] = [];
   newTag: Tag = {};
+  editTagData: Tag = {};
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(private tagsService: TagsService) {}
 
   ngOnInit(): void {
     this.index();
   }
+
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -26,6 +29,7 @@ export class TagsComponent {
     }
     return errorMessage;
   }
+
   addTag(): void {
     this.tagsService.store(this.newTag).subscribe(
       () => {
@@ -35,9 +39,8 @@ export class TagsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding vity', error);
         this.errorMessage =
-          'Failed to add city' + this.extractErrorMessage(error);
+          'Failed to add tag: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -46,7 +49,6 @@ export class TagsComponent {
   index(): void {
     this.tagsService.index().subscribe((data) => {
       this.tags = Object.values(data)[0];
-      // console.log(this.countries);
     });
   }
 
@@ -73,26 +75,32 @@ export class TagsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting city', error);
         this.errorMessage =
-          'Failed to delete city' + this.extractErrorMessage(error);
+          'Failed to delete tag: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditTagModal(tag: Tag): void {
+    this.editTagData = { ...tag };
+  }
+
   editTag(id: number | undefined): void {
-    this.tagsService.update({ id, ...this.newTag }).subscribe(
+    if (!id) {
+      this.errorMessage = 'Invalid tag ID';
+      return;
+    }
+    this.tagsService.update({ id, ...this.editTagData }).subscribe(
       () => {
         this.index();
-        this.newTag = {};
+        this.editTagData = {};
         this.successMessage = 'Tag updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating city', error);
         this.errorMessage =
-          'Error updating city' + this.extractErrorMessage(error);
+          'Error updating tag: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

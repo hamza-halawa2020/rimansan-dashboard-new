@@ -11,47 +11,18 @@ import { environment } from 'src/environments/environment';
 export class AddSidebarBannersComponent {
   totalPages: number = 0;
   currentPage: number = 1;
-  selectedFile: File | null = null;
   sideBarBanners: SideBarBanner[] = [];
   newSideBarBanner: SideBarBanner = {};
+  editSideBarBannerData: SideBarBanner = {};
+  selectedFile: File | null = null;
+  image = environment.imgUrl + 'side-bar/';
   successMessage: string = '';
   errorMessage: string = '';
-  image = environment.imgUrl + 'side-bar/';
 
   constructor(private sideBarBannersService: AddSidebarBannerService) {}
 
   ngOnInit(): void {
     this.index();
-  }
-
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      // console.log('File selected:', this.selectedFile);
-    }
-  }
-
-  toggleStatus(data: any): void {
-    const formData = new FormData();
-
-    const updatedStatus = data.status === 'active' ? 'inactive' : 'active';
-
-    formData.append('status', updatedStatus);
-
-    this.sideBarBannersService.update(data.id, formData).subscribe(
-      () => {
-        data.status = updatedStatus;
-        this.successMessage = 'data status updated successfully!';
-        setTimeout(() => (this.successMessage = ''), 3000);
-      },
-      (error) => {
-        // console.error('Error updating data status', error);
-        this.errorMessage =
-          'Error updating data status: ' + this.extractErrorMessage(error);
-        setTimeout(() => (this.errorMessage = ''), 3000);
-      }
-    );
   }
 
   extractErrorMessage(error: any): string {
@@ -61,6 +32,14 @@ export class AddSidebarBannersComponent {
     }
     return errorMessage;
   }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
   addSideBarBanner(): void {
     if (!this.selectedFile) {
       this.errorMessage = 'Please select an image to upload.';
@@ -74,15 +53,15 @@ export class AddSidebarBannersComponent {
 
     this.sideBarBannersService.store(formData).subscribe(
       () => {
-        this.successMessage = 'SideBarBanner added successfully!';
         this.index();
         this.newSideBarBanner = {};
         this.selectedFile = null;
+        this.successMessage = 'Sidebar Banner added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding sidebar banner', error);
-        this.errorMessage = 'Failed to add sidebar banner.';
+        this.errorMessage =
+          'Failed to add Sidebar Banner: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -93,8 +72,8 @@ export class AddSidebarBannersComponent {
       .adminIndex(this.currentPage)
       .subscribe((response: any) => {
         this.sideBarBanners = response.data;
-        this.currentPage = response.meta.current_page;
-        this.totalPages = response.meta.last_page;
+        this.currentPage = response.meta?.current_page || 1;
+        this.totalPages = response.meta?.last_page || 1;
       });
   }
 
@@ -117,24 +96,24 @@ export class AddSidebarBannersComponent {
     this.sideBarBannersService.delete(id).subscribe(
       () => {
         this.index();
-        this.successMessage = 'SideBarBanner deleted successfully!';
+        this.successMessage = 'Sidebar Banner deleted successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting city', error);
         this.errorMessage =
-          'Failed to delete city' + this.extractErrorMessage(error);
+          'Failed to delete Sidebar Banner: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
-  editSideBarBanner(id: number | undefined): void {
-    // console.log('Data being passed before update:', id);
+  openEditSideBarBannerModal(banner: SideBarBanner): void {
+    this.editSideBarBannerData = { ...banner };
+  }
 
+  editSideBarBanner(id: number | undefined): void {
     if (!id) {
       this.errorMessage = 'Invalid banner ID';
-      // console.error('Invalid banner ID:', id);
       return;
     }
 
@@ -142,23 +121,40 @@ export class AddSidebarBannersComponent {
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
-
-    if (this.newSideBarBanner.link) {
-      formData.append('link', this.newSideBarBanner.link);
+    if (this.editSideBarBannerData.link) {
+      formData.append('link', this.editSideBarBannerData.link);
     }
 
     this.sideBarBannersService.update(id, formData).subscribe(
       () => {
-        this.successMessage = 'SideBarBanner updated successfully!';
         this.index();
-        this.newSideBarBanner = {};
+        this.editSideBarBannerData = {};
         this.selectedFile = null;
+        this.successMessage = 'Sidebar Banner updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating sidebar banner', error);
         this.errorMessage =
-          this.extractErrorMessage(error) || 'Failed to update sidebar banner.';
+          'Error updating Sidebar Banner: ' + this.extractErrorMessage(error);
+        setTimeout(() => (this.errorMessage = ''), 3000);
+      }
+    );
+  }
+
+  toggleStatus(banner: SideBarBanner): void {
+    const formData = new FormData();
+    const updatedStatus = banner.status === 'active' ? 'inactive' : 'active';
+    formData.append('status', updatedStatus);
+
+    this.sideBarBannersService.update(banner.id!, formData).subscribe(
+      () => {
+        banner.status = updatedStatus;
+        this.successMessage = 'Banner status updated successfully!';
+        setTimeout(() => (this.successMessage = ''), 3000);
+      },
+      (error) => {
+        this.errorMessage =
+          'Error updating banner status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

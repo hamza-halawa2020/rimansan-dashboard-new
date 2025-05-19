@@ -16,11 +16,11 @@
         </div>
 
         <button
-          class="btn btn-success w-100"
-          (click)="createCounryModal.show()"
-        >
-          <i class="ri-add-line align-bottom"></i> Add New Shipment
-        </button>
+        class="btn btn-success w-100"
+        (click)="createShipmentModal.show()"
+      >
+        <i class="ri-add-line align-bottom"></i> Add New Shipment
+      </button>
       </div>
 
       <div
@@ -60,7 +60,7 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateShipment.show()"
+                        (click)="openEditShipmentModal(data); updateShipment.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -124,100 +124,92 @@
 
                   <!-- update Modal -->
                   <div
-                    bsModal
-                    #updateShipment="bs-modal"
-                    class="modal fade"
-                    id="updateShipment"
-                    tabindex="-1"
-                    aria-labelledby="updateShipmentLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content border-0">
-                        <div class="modal-header p-3 bg-success-subtle">
-                          <h5 class="modal-title" id="updateShipmentLabel">
-                            UpdateShipment Info
-                          </h5>
+                  bsModal
+                  #updateShipment="bs-modal"
+                  class="modal fade"
+                  id="updateShipment"
+                  tabindex="-1"
+                  aria-labelledby="updateShipmentLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0">
+                      <div class="modal-header p-3 bg-success-subtle">
+                        <h5 class="modal-title" id="updateShipmentLabel">
+                          Update Shipment Info
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          (click)="updateShipment.hide()"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label for="shipment-title-input" class="form-label">Cost</label>
+                          <input
+                            type="text"
+                            id="shipment-title-input"
+                            class="form-control"
+                            placeholder="Enter Shipment cost"
+                            [(ngModel)]="editShipmentData.cost"
+                          />
+                        </div>
+              
+                        <div class="mb-4">
+                          <label for="country-select" class="form-label">Select Country</label>
+                          <select
+                            id="country-select"
+                            class="form-control"
+                            [(ngModel)]="editShipmentData.country_id"
+                            (change)="getCitiesByCountry(editShipmentData.country_id)"
+                          >
+                            <option
+                              *ngFor="let country of countries"
+                              [value]="country.id"
+                            >
+                              {{ country.name || "No Name" }}
+                            </option>
+                          </select>
+                        </div>
+              
+                        <div class="mb-4">
+                          <label for="city-select" class="form-label">Select City</label>
+                          <select
+                            id="city-select"
+                            class="form-control"
+                            [(ngModel)]="editShipmentData.city_id"
+                          >
+                            <option
+                              *ngFor="let city of cities"
+                              [value]="city.id"
+                            >
+                              {{ city.name || "No City" }}
+                            </option>
+                          </select>
+                        </div>
+              
+                        <div class="hstack gap-2 justify-content-end">
                           <button
                             type="button"
-                            class="btn-close"
+                            class="btn btn-ghost-success"
                             (click)="updateShipment.hide()"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="mb-3">
-                            <label for="shipment-title-input" class="form-label"
-                              >Shipment</label
-                            >
-                            <input
-                              type="text"
-                              id="shipment-title-input"
-                              class="form-control"
-                              placeholder="{{ data.cost }}"
-                              [(ngModel)]="newShipment.cost"
-                            />
-                          </div>
-
-                          <div class="mb-4">
-                            <label for="country-select" class="form-label"
-                              >Select Country</label
-                            >
-                            <select
-                              id="country-select"
-                              class="form-control"
-                              [(ngModel)]="newShipment.country_id"
-                              (change)="
-                                getCitiesByCountry(newShipment.country_id)
-                              "
-                            >
-                              <option
-                                *ngFor="let country of countries"
-                                [value]="country.id"
-                              >
-                                {{ country.name || "No Name" }}
-                              </option>
-                            </select>
-                          </div>
-
-                          <div class="mb-4">
-                            <label for="city-select" class="form-label"
-                              >Select City</label
-                            >
-                            <select
-                              id="city-select"
-                              class="form-control"
-                              [(ngModel)]="newShipment.city_id"
-                            >
-                              <option
-                                *ngFor="let city of cities"
-                                [value]="city.id"
-                              >
-                                {{ city.name || "No City" }}
-                              </option>
-                            </select>
-                          </div>
-
-                          <div class="hstack gap-2 justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-ghost-success"
-                              (click)="updateShipment.hide()"
-                            >
-                              <i class="ri-close-fill align-bottom"></i> Close
-                            </button>
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
-                              id="addNewShipment"
-                              (click)="editShipment(data.id)"
-                            >
-                              Update Shipment
-                            </button>
-                          </div>
+                          >
+                            <i class="ri-close-fill align-bottom"></i> Close
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="addNewShipment"
+                            (click)="editShipment(data.id); updateShipment.hide()"
+                          >
+                            Update Shipment
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                   <!--end update shipment-->
                 </tr>
               </tbody>
@@ -247,93 +239,88 @@
 
   <!-- Start Create Counry Modal -->
   <div
-    bsModal
-    #createCounryModal="bs-modal"
-    class="modal fade zoomIn"
-    id="createCounryModal"
-    tabindex="-1"
-    aria-labelledby="createCounryModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header p-3 bg-success-subtle">
-          <h5 class="modal-title" id="createCounryModalLabel">Create Counry</h5>
-          <button
-            type="button"
-            class="btn-close"
-            (click)="createCounryModal.hide()"
-            id="addCounryBtn-close"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <div class="mb-4">
-              <label for="Counryname-input" class="form-label">Shipment</label>
+  bsModal
+  #createShipmentModal="bs-modal"
+  class="modal fade zoomIn"
+  id="createShipmentModal"
+  tabindex="-1"
+  aria-labelledby="createShipmentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header p-3 bg-success-subtle">
+        <h5 class="modal-title" id="createShipmentModalLabel">Create Shipment</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="createShipmentModal.hide()"
+          id="addShipmentBtn-close"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="mb-4">
+            <label for="Shipmentname-input" class="form-label">Cost</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Shipmentname-input"
+              autocomplete="off"
+              placeholder="Enter Shipment cost"
+              [(ngModel)]="newShipment.cost"
+            />
+          </div>
 
-              <input
-                type="text"
-                class="form-control"
-                id="Shipmentname-input"
-                autocomplete="off"
-                placeholder="Enter Shipment name"
-                [(ngModel)]="newShipment.cost"
-              />
-            </div>
+          <div class="mb-4">
+            <label for="country-select" class="form-label">Select Country</label>
+            <select
+              id="country-select"
+              class="form-control"
+              [(ngModel)]="newShipment.country_id"
+              (change)="getCitiesByCountry(newShipment.country_id)"
+            >
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.name || "No Name" }}
+              </option>
+            </select>
+          </div>
 
-            <div class="mb-4">
-              <label for="country-select" class="form-label"
-                >Select Country</label
-              >
-              <select
-                id="country-select"
-                class="form-control"
-                [(ngModel)]="newShipment.country_id"
-                (change)="getCitiesByCountry(newShipment.country_id)"
-              >
-                <option *ngFor="let country of countries" [value]="country.id">
-                  {{ country.name || "No Name" }}
-                </option>
-              </select>
-            </div>
+          <div class="mb-4">
+            <label for="city-select" class="form-label">Select City</label>
+            <select
+              id="city-select"
+              class="form-control"
+              [(ngModel)]="newShipment.city_id"
+            >
+              <option *ngFor="let city of cities" [value]="city.id">
+                {{ city.name || "No City" }}
+              </option>
+            </select>
+          </div>
 
-            <div class="mb-4">
-              <label for="city-select" class="form-label">Select City</label>
-              <select
-                id="city-select"
-                class="form-control"
-                [(ngModel)]="newShipment.city_id"
-              >
-                <option *ngFor="let city of cities" [value]="city.id">
-                  {{ city.name || "No City" }}
-                </option>
-              </select>
-            </div>
-
-            <div class="hstack gap-2 justify-content-end">
-              <button
-                type="button"
-                class="btn btn-ghost-success"
-                (click)="createCounryModal.hide()"
-              >
-                <i class="ri-close-line align-bottom"></i> Close
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                (click)="addShipment()"
-                (click)="createCounryModal.hide()"
-              >
-                Add Shipment
-              </button>
-            </div>
+          <div class="hstack gap-2 justify-content-end">
+            <button
+              type="button"
+              class="btn btn-ghost-success"
+              (click)="createShipmentModal.hide()"
+            >
+              <i class="ri-close-line align-bottom"></i> Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="addShipment(); createShipmentModal.hide()"
+            >
+              Add Shipment
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
+</div>
   <!-- End Create Counry Modal -->
 
   <!-- /.modal -->

@@ -1,25 +1,22 @@
 <!-- Start Breadcrumbs -->
-<app-breadcrumbs title="mainSlider"></app-breadcrumbs>
+<app-breadcrumbs title="Main Sliders"></app-breadcrumbs>
 <!-- End Breadcrumbs -->
 
 <div *ngIf="mainSliders">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
-    <!--end side content-->
     <div class="mainSlider-content w-100 pb-0">
       <div class="col">
         <div *ngIf="successMessage" class="alert alert-success">
           {{ successMessage }}
         </div>
-
         <div *ngIf="errorMessage" class="alert alert-danger">
           {{ errorMessage }}
         </div>
-
         <button
           class="btn btn-success w-100"
-          (click)="createCounryModal.show()"
+          (click)="createMainSliderModal.show()"
         >
-          <i class="ri-add-line align-bottom"></i> Add New MainSlider
+          <i class="ri-add-line align-bottom"></i> Add New Main Slider
         </button>
       </div>
 
@@ -35,16 +32,15 @@
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
                   <th scope="col">Image</th>
-                  <th scope="col">title</th>
-                  <th scope="col">description</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
                   <th scope="col">Link</th>
                   <th scope="col">Status</th>
-                  <th scope="col">CreatedBy</th>
-                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Created By</th>
+                  <th scope="col">Created At</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-
               <tbody id="mainSlider-list">
                 <tr *ngFor="let data of mainSliders; let i = index">
                   <td>{{ i + 1 }}</td>
@@ -56,23 +52,21 @@
                       height="25px"
                     />
                   </td>
-                  <td>{{ data.title || "No title" }}</td>
-                  <td>{{ data.description || "No description" }}</td>
+                  <td>{{ data.title || "No Title" }}</td>
+                  <td>{{ data.description || "No Description" }}</td>
                   <td>{{ data.link || "No Link" }}</td>
-
                   <td>
                     <div class="form-check form-switch custom-switch me-2">
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        id="customSwitch"
+                        id="customSwitch_{{ data.id }}"
                         [checked]="data.status === 'active'"
                         (change)="toggleStatus(data)"
                       />
                     </div>
                   </td>
-
-                  <td>{{ data.admin || "No admin" }}</td>
+                  <td>{{ data.admin || "No Admin" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -84,14 +78,15 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateMainSlider.show()"
+                        (click)="
+                          openEditMainSliderModal(data); updateMainSlider.show()
+                        "
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
                     </div>
                   </td>
 
-                  <!-- removeFileItemModal -->
                   <div
                     bsModal
                     #removeMainSliderItemModal="bs-modal"
@@ -114,10 +109,10 @@
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this mainSlider
-                                ?
+                                Are you sure you want to remove this Main
+                                Slider?
                               </p>
                             </div>
                           </div>
@@ -142,12 +137,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
-                  <!-- update Modal -->
                   <div
                     bsModal
                     #updateMainSlider="bs-modal"
@@ -161,7 +153,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateMainSliderLabel">
-                            UpdateMainSlider Info
+                            Update Main Slider Info
                           </h5>
                           <button
                             type="button"
@@ -171,60 +163,55 @@
                         </div>
                         <div class="modal-body">
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
+                            <label for="image-input" class="form-label"
                               >Image</label
                             >
-
                             <input
                               type="file"
                               class="form-control"
+                              id="image-input"
+                              accept="image/*"
                               (change)="onFileSelected($event)"
                             />
                           </div>
-
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
-                              >title</label
+                            <label for="title-input" class="form-label"
+                              >Title</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="MainSlidername-input"
+                              id="title-input"
                               autocomplete="off"
-                              placeholder="Enter MainSlider name"
-                              [(ngModel)]="newMainSlider.title"
+                              placeholder="Enter Main Slider title"
+                              [(ngModel)]="editMainSliderData.title"
                             />
                           </div>
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
-                              >description</label
+                            <label for="description-input" class="form-label"
+                              >Description</label
                             >
-
-                            <input
-                              type="text"
+                            <textarea
                               class="form-control"
-                              id="MainSlidername-input"
+                              id="description-input"
                               autocomplete="off"
-                              placeholder="Enter MainSlider name"
-                              [(ngModel)]="newMainSlider.description"
-                            />
+                              placeholder="Enter Main Slider description"
+                              [(ngModel)]="editMainSliderData.description"
+                            ></textarea>
                           </div>
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
+                            <label for="link-input" class="form-label"
                               >Link</label
                             >
-
                             <input
-                              type="text"
+                              type="url"
                               class="form-control"
-                              id="MainSlidername-input"
+                              id="link-input"
                               autocomplete="off"
-                              placeholder="Enter MainSlider name"
-                              [(ngModel)]="newMainSlider.link"
+                              placeholder="Enter Main Slider link"
+                              [(ngModel)]="editMainSliderData.link"
                             />
                           </div>
-
                           <div class="hstack gap-2 justify-content-end">
                             <button
                               type="button"
@@ -236,17 +223,18 @@
                             <button
                               type="submit"
                               class="btn btn-primary"
-                              id="addNewMainSlider"
-                              (click)="editMainSlider(data.id)"
+                              id="updateMainSliderBtn"
+                              (click)="
+                                editMainSlider(data.id); updateMainSlider.hide()
+                              "
                             >
-                              Update MainSlider
+                              Update Main Slider
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <!--end update mainSlider-->
                 </tr>
               </tbody>
             </table>
@@ -273,107 +261,94 @@
     </div>
   </div>
 
-  <!-- Start Create Counry Modal -->
   <div
     bsModal
-    #createCounryModal="bs-modal"
+    #createMainSliderModal="bs-modal"
     class="modal fade zoomIn"
-    id="createCounryModal"
+    id="createMainSliderModal"
     tabindex="-1"
-    aria-labelledby="createCounryModalLabel"
+    aria-labelledby="createMainSliderModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header p-3 bg-success-subtle">
-          <h5 class="modal-title" id="createCounryModalLabel">
-            Create Ad SideBar
+          <h5 class="modal-title" id="createMainSliderModalLabel">
+            Create Main Slider
           </h5>
           <button
             type="button"
             class="btn-close"
-            (click)="createCounryModal.hide()"
-            id="addCounryBtn-close"
+            (click)="createMainSliderModal.hide()"
+            id="addMainSliderBtn-close"
             aria-label="Close"
           ></button>
         </div>
         <div class="modal-body">
           <div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">Image</label>
-
+              <label for="image-input" class="form-label">Image</label>
               <input
                 type="file"
                 class="form-control"
-                id="MainSlidername-input"
+                id="image-input"
+                accept="image/*"
                 (change)="onFileSelected($event)"
-                placeholder="Upload Image"
               />
             </div>
-
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">title</label>
-
+              <label for="title-input" class="form-label">Title</label>
               <input
                 type="text"
                 class="form-control"
-                id="MainSlidername-input"
+                id="title-input"
                 autocomplete="off"
-                placeholder="Enter MainSlider name"
+                placeholder="Enter Main Slider title"
                 [(ngModel)]="newMainSlider.title"
               />
             </div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label"
-                >description</label
+              <label for="description-input" class="form-label"
+                >Description</label
               >
-
-              <input
-                type="text"
+              <textarea
                 class="form-control"
-                id="MainSlidername-input"
+                id="description-input"
                 autocomplete="off"
-                placeholder="Enter MainSlider name"
+                placeholder="Enter Main Slider description"
                 [(ngModel)]="newMainSlider.description"
-              />
+              ></textarea>
             </div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">Link</label>
-
+              <label for="link-input" class="form-label">Link</label>
               <input
-                type="text"
+                type="url"
                 class="form-control"
-                id="MainSlidername-input"
+                id="link-input"
                 autocomplete="off"
-                placeholder="Enter MainSlider name"
+                placeholder="Enter Main Slider link"
                 [(ngModel)]="newMainSlider.link"
               />
             </div>
-
             <div class="hstack gap-2 justify-content-end">
               <button
                 type="button"
                 class="btn btn-ghost-success"
-                (click)="createCounryModal.hide()"
+                (click)="createMainSliderModal.hide()"
               >
                 <i class="ri-close-line align-bottom"></i> Close
               </button>
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="addMainSlider()"
-                (click)="createCounryModal.hide()"
+                (click)="addMainSlider(); createMainSliderModal.hide()"
               >
-                Add MainSlider
+                Add Main Slider
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
-  <!-- End Create Counry Modal -->
-
-  <!-- /.modal -->
 </div>

@@ -10,11 +10,11 @@ import { User } from './user.model';
 })
 export class UserComponent {
   image = environment.imgUrl + 'users/';
-
   totalPages: number = 0;
   currentPage: number = 1;
   users: User[] = [];
   newUser: User = {};
+  editUserData: User = {};
   successMessage: string = '';
   errorMessage: string = '';
   selectedFile: File | null = null;
@@ -24,6 +24,7 @@ export class UserComponent {
   ngOnInit(): void {
     this.index();
   }
+
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -36,7 +37,6 @@ export class UserComponent {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      // console.log('File selected:', this.selectedFile);
     }
   }
 
@@ -54,9 +54,8 @@ export class UserComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding vity', error);
         this.errorMessage =
-          'Failed to add city' + this.extractErrorMessage(error);
+          'Failed to add user: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -65,7 +64,6 @@ export class UserComponent {
   index(): void {
     this.usersService.index().subscribe((data) => {
       this.users = Object.values(data)[0];
-      // console.log(this.countries);
     });
   }
 
@@ -92,40 +90,45 @@ export class UserComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting city', error);
         this.errorMessage =
-          'Failed to delete city' + this.extractErrorMessage(error);
+          'Failed to delete user: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditUserModal(user: User): void {
+    this.editUserData = { ...user };
+  }
+
   editUser(id: number | undefined): void {
     if (!id) {
-      this.errorMessage = 'Invalid banner ID';
-      // console.error('Invalid banner ID:', id);
+      this.errorMessage = 'Invalid user ID';
       return;
     }
 
     const formData = new FormData();
     if (this.selectedFile) {
-      formData.append('icon', this.selectedFile);
+      formData.append('image', this.selectedFile);
     }
-    if (this.newUser.name) {
-      formData.append('name', this.newUser.name || '');
+    if (this.editUserData.name) {
+      formData.append('name', this.editUserData.name || '');
+    }
+    if (this.editUserData.phone) {
+      formData.append('phone', this.editUserData.phone || '');
     }
 
     this.usersService.updateUser(id, formData).subscribe(
       () => {
         this.index();
-        this.newUser = {};
+        this.editUserData = {};
+        this.selectedFile = null; 
         this.successMessage = 'User updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating city', error);
         this.errorMessage =
-          'Error updating city' + this.extractErrorMessage(error);
+          'Error updating user: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -141,11 +144,10 @@ export class UserComponent {
       .subscribe(
         () => {
           user.type = updatedType;
-          this.successMessage = 'user type updated successfully!';
+          this.successMessage = 'User type updated successfully!';
           setTimeout(() => (this.successMessage = ''), 3000);
         },
         (error) => {
-          // console.error('Error updating user type', error);
           this.errorMessage =
             'Error updating user type: ' + this.extractErrorMessage(error);
           setTimeout(() => (this.errorMessage = ''), 3000);

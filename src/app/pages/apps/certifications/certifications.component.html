@@ -4,20 +4,17 @@
 
 <div *ngIf="certificates">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
-    <!--end side content-->
     <div class="certificate-content w-100 pb-0">
       <div class="col">
         <div *ngIf="successMessage" class="alert alert-success">
           {{ successMessage }}
         </div>
-
         <div *ngIf="errorMessage" class="alert alert-danger">
           {{ errorMessage }}
         </div>
-
         <button
           class="btn btn-success w-100"
-          (click)="createCounryModal.show()"
+          (click)="createCertificateModal.show()"
         >
           <i class="ri-add-line align-bottom"></i> Add New Certificate
         </button>
@@ -34,14 +31,13 @@
                 <tr>
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
-                  <th scope="col">serial_number</th>
-                  <th scope="col">file</th>
-                  <th scope="col">user</th>
-                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Serial Number</th>
+                  <th scope="col">File</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Created At</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-
               <tbody id="certificate-list">
                 <tr *ngFor="let data of certificates; let i = index">
                   <td>{{ i + 1 }}</td>
@@ -54,7 +50,7 @@
                       height="25px"
                     />
                   </td>
-                  <td>{{ data.user || "No Country" }}</td>
+                  <td>{{ data.user || "No User" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -66,14 +62,16 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateCertificate.show()"
+                        (click)="
+                          openEditCertificateModal(data);
+                          updateCertificate.show()
+                        "
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
                     </div>
                   </td>
 
-                  <!-- removeFileItemModal -->
                   <div
                     bsModal
                     #removeCertificateItemModal="bs-modal"
@@ -96,10 +94,10 @@
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this certificate
-                                ?
+                                Are you sure you want to remove this
+                                certificate?
                               </p>
                             </div>
                           </div>
@@ -124,12 +122,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
-                  <!-- update Modal -->
                   <div
                     bsModal
                     #updateCertificate="bs-modal"
@@ -143,7 +138,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateCertificateLabel">
-                            UpdateCertificate Info
+                            Update Certificate Info
                           </h5>
                           <button
                             type="button"
@@ -153,29 +148,27 @@
                         </div>
                         <div class="modal-body">
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
-                              >serial_number</label
+                            <label for="serial-number-input" class="form-label"
+                              >Serial Number</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="Certificatename-input"
+                              id="serial-number-input"
                               autocomplete="off"
-                              placeholder="Enter Certificate name"
-                              [(ngModel)]="newCertificate.serial_number"
+                              placeholder="Enter Certificate serial number"
+                              [(ngModel)]="editCertificateData.serial_number"
                             />
                           </div>
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
-                              >file</label
+                            <label for="file-input" class="form-label"
+                              >File</label
                             >
                             <input
                               type="file"
                               class="form-control"
-                              id="Certificatename-input"
-                              autocomplete="off"
-                              placeholder="Enter Certificate name"
+                              id="file-input"
+                              accept="image/*"
                               (change)="onFileSelected($event)"
                             />
                           </div>
@@ -186,17 +179,16 @@
                             <select
                               id="user-select"
                               class="form-control"
-                              [(ngModel)]="newCertificate.user_id"
+                              [(ngModel)]="editCertificateData.user_id"
                             >
                               <option
-                                *ngFor="let user of users; let i = index"
+                                *ngFor="let user of users"
                                 [value]="user.id"
                               >
                                 {{ user.name || "No Name" }}
                               </option>
                             </select>
                           </div>
-
                           <div class="hstack gap-2 justify-content-end">
                             <button
                               type="button"
@@ -209,7 +201,10 @@
                               type="submit"
                               class="btn btn-primary"
                               id="addNewCertificate"
-                              (click)="editCertificate(data.id)"
+                              (click)="
+                                editCertificate(data.id);
+                                updateCertificate.hide()
+                              "
                             >
                               Update Certificate
                             </button>
@@ -218,7 +213,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--end update certificate-->
                 </tr>
               </tbody>
             </table>
@@ -245,52 +239,51 @@
     </div>
   </div>
 
-  <!-- Start Create Counry Modal -->
   <div
     bsModal
-    #createCounryModal="bs-modal"
+    #createCertificateModal="bs-modal"
     class="modal fade zoomIn"
-    id="createCounryModal"
+    id="createCertificateModal"
     tabindex="-1"
-    aria-labelledby="createCounryModalLabel"
+    aria-labelledby="createCertificateModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header p-3 bg-success-subtle">
-          <h5 class="modal-title" id="createCounryModalLabel">Create Counry</h5>
+          <h5 class="modal-title" id="createCertificateModalLabel">
+            Create Certificate
+          </h5>
           <button
             type="button"
             class="btn-close"
-            (click)="createCounryModal.hide()"
-            id="addCounryBtn-close"
+            (click)="createCertificateModal.hide()"
+            id="addCertificateBtn-close"
             aria-label="Close"
           ></button>
         </div>
         <div class="modal-body">
           <div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label"
-                >serial_number</label
+              <label for="serial-number-input" class="form-label"
+                >Serial Number</label
               >
-
               <input
                 type="text"
                 class="form-control"
-                id="Certificatename-input"
+                id="serial-number-input"
                 autocomplete="off"
-                placeholder="Enter Certificate name"
+                placeholder="Enter Certificate serial number"
                 [(ngModel)]="newCertificate.serial_number"
               />
             </div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">file</label>
+              <label for="file-input" class="form-label">File</label>
               <input
                 type="file"
                 class="form-control"
-                id="Certificatename-input"
-                autocomplete="off"
-                placeholder="Enter Certificate name"
+                id="file-input"
+                accept="image/*"
                 (change)="onFileSelected($event)"
               />
             </div>
@@ -301,10 +294,7 @@
                 class="form-control"
                 [(ngModel)]="newCertificate.user_id"
               >
-                <option
-                  *ngFor="let user of users; let i = index"
-                  [value]="user.id"
-                >
+                <option *ngFor="let user of users" [value]="user.id">
                   {{ user.name || "No Name" }}
                 </option>
               </select>
@@ -313,15 +303,14 @@
               <button
                 type="button"
                 class="btn btn-ghost-success"
-                (click)="createCounryModal.hide()"
+                (click)="createCertificateModal.hide()"
               >
                 <i class="ri-close-line align-bottom"></i> Close
               </button>
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="addCertificate()"
-                (click)="createCounryModal.hide()"
+                (click)="addCertificate(); createCertificateModal.hide()"
               >
                 Add Certificate
               </button>
@@ -330,9 +319,5 @@
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
-  <!-- End Create Counry Modal -->
-
-  <!-- /.modal -->
 </div>

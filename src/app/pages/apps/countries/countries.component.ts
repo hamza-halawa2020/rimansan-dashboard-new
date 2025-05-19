@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CountriesService } from 'src/app/core/services/countries.service';
 import { Country } from './country.model';
+
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',
@@ -11,12 +12,22 @@ export class CountriesComponent {
   totalPages: number = 0;
   currentPage: number = 1;
   newCountry: Country = {};
+  editCountryData: Country = {};
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(private countriesService: CountriesService) {}
 
   ngOnInit(): void {
     this.index();
+  }
+
+  extractErrorMessage(error: any): string {
+    let errorMessage = 'An error occurred';
+    if (error && error.error && error.error.errors) {
+      errorMessage = Object.values(error.error.errors).flat().join(', ');
+    }
+    return errorMessage;
   }
 
   addCountry(): void {
@@ -28,9 +39,8 @@ export class CountriesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding country', error);
         this.errorMessage =
-          'Failed to add country' + error.error.errors.name[0];
+          'Failed to add country: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -39,7 +49,6 @@ export class CountriesComponent {
   index(): void {
     this.countriesService.index().subscribe((data) => {
       this.Countries = Object.values(data)[0];
-      // console.log(this.countries);
     });
   }
 
@@ -66,26 +75,32 @@ export class CountriesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting country', error);
         this.errorMessage =
-          'Failed to delete country' + error.error.errors.name[0];
+          'Failed to delete country: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditCountryModal(country: Country): void {
+    this.editCountryData = { ...country };
+  }
+
   editCountry(id: number | undefined): void {
-    this.countriesService.update({ id, ...this.newCountry }).subscribe(
+    if (!id) {
+      this.errorMessage = 'Invalid country ID';
+      return;
+    }
+    this.countriesService.update({ id, ...this.editCountryData }).subscribe(
       () => {
         this.index();
-        this.newCountry = {};
+        this.editCountryData = {};
         this.successMessage = 'Country updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating country', error);
         this.errorMessage =
-          'Error updating country' + error.error.errors.name[0];
+          'Error updating country: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

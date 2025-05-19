@@ -4,17 +4,14 @@
 
 <div *ngIf="events">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
-    <!--end side content-->
     <div class="event-content w-100 pb-0">
       <div class="col">
         <div *ngIf="successMessage" class="alert alert-success">
           {{ successMessage }}
         </div>
-
         <div *ngIf="errorMessage" class="alert alert-danger">
           {{ errorMessage }}
         </div>
-
         <button class="btn btn-success w-100" (click)="createEventModal.show()">
           <i class="ri-add-line align-bottom"></i> Add New Event
         </button>
@@ -31,29 +28,28 @@
                 <tr>
                   <th scope="col">Index</th>
                   <th scope="col">ID</th>
-                  <th scope="col">category</th>
-                  <th scope="col">tag</th>
-                  <th scope="col">title</th>
-                  <th scope="col">content</th>
-                  <th scope="col">image</th>
-                  <th scope="col">createdBy</th>
-                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Tag</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Content</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Created By</th>
+                  <th scope="col">Created At</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-
               <tbody id="event-list">
                 <tr *ngFor="let data of events; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
-                  <td>{{ data.category || "No Event" }}</td>
-                  <td>{{ data.tag || "No Event" }}</td>
+                  <td>{{ data.category || "No Category" }}</td>
+                  <td>{{ data.tag || "No Tag" }}</td>
                   <td>
                     <a [routerLink]="['/apps/events', data.id]">
-                      {{ data.title || "No Event" }}
+                      {{ data.title || "No Title" }}
                     </a>
                   </td>
-                  <td>{{ data.content || "No Event" }}</td>
+                  <td>{{ data.content || "No Content" }}</td>
                   <td>
                     <img
                       src="{{ image + data.image }}"
@@ -61,8 +57,7 @@
                       height="25px"
                     />
                   </td>
-
-                  <td>{{ data.admin || "No Event" }}</td>
+                  <td>{{ data.admin || "No Admin" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -74,14 +69,13 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateEvent.show()"
+                        (click)="openEditEventModal(data); updateEvent.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
                     </div>
                   </td>
 
-                  <!-- removeFileItemModal -->
                   <div
                     bsModal
                     #removeEventItemModal="bs-modal"
@@ -104,9 +98,9 @@
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this event ?
+                                Are you sure you want to remove this event?
                               </p>
                             </div>
                           </div>
@@ -131,12 +125,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
-                  <!-- update Modal -->
                   <div
                     bsModal
                     #updateEvent="bs-modal"
@@ -150,7 +141,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateEventLabel">
-                            UpdateEvent Info
+                            Update Event Info
                           </h5>
                           <button
                             type="button"
@@ -162,85 +153,79 @@
                           <div class="row col">
                             <div class="col">
                               <label for="category-select" class="form-label"
-                                >Select category</label
+                                >Select Category</label
                               >
                               <select
                                 id="category-select"
                                 class="form-control"
-                                [(ngModel)]="addNewEvent.category_id"
+                                [(ngModel)]="editEventData.category_id"
                               >
                                 <option
                                   *ngFor="let category of categories"
                                   [value]="category.id"
                                 >
-                                  {{ category.name || "No category" }}
+                                  {{ category.name || "No Category" }}
                                 </option>
                               </select>
                             </div>
-
                             <div class="col">
                               <label for="tag-select" class="form-label"
-                                >Select tag</label
+                                >Select Tag</label
                               >
                               <select
                                 id="tag-select"
                                 class="form-control"
-                                [(ngModel)]="addNewEvent.tag_id"
+                                [(ngModel)]="editEventData.tag_id"
                               >
                                 <option
                                   *ngFor="let tag of tags"
                                   [value]="tag.id"
                                 >
-                                  {{ tag.name || "No tag" }}
+                                  {{ tag.name || "No Tag" }}
                                 </option>
                               </select>
                             </div>
                           </div>
-
                           <div class="row">
                             <div class="col">
-                              <label for="Eventname-input" class="form-label"
-                                >title</label
+                              <label for="title-input" class="form-label"
+                                >Title</label
                               >
                               <input
                                 type="text"
                                 class="form-control"
-                                id="Eventname-input"
+                                id="title-input"
                                 autocomplete="off"
                                 placeholder="Enter Event title"
-                                [(ngModel)]="addNewEvent.title"
+                                [(ngModel)]="editEventData.title"
                               />
                             </div>
                           </div>
                           <div class="col">
-                            <label for="Eventname-input" class="form-label"
-                              >content</label
+                            <label for="content-input" class="form-label"
+                              >Content</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="Eventname-input"
+                              id="content-input"
                               autocomplete="off"
                               placeholder="Enter Event content"
-                              [(ngModel)]="addNewEvent.content"
+                              [(ngModel)]="editEventData.content"
                             />
                           </div>
-
                           <div class="col">
-                            <label for="Eventname-input" class="form-label"
-                              >image</label
+                            <label for="image-input" class="form-label"
+                              >Image</label
                             >
                             <input
                               type="file"
                               class="form-control"
-                              id="Eventname-input"
-                              autocomplete="off"
-                              placeholder="Enter Event image"
+                              id="image-input"
+                              accept="image/*"
                               (change)="onFileSelected($event)"
                             />
                           </div>
-
                           <div class="hstack gap-2 justify-content-end">
                             <button
                               type="button"
@@ -253,7 +238,7 @@
                               type="submit"
                               class="btn btn-primary"
                               id="addNewEvent"
-                              (click)="editEvent(data.id)"
+                              (click)="editEvent(data.id); updateEvent.hide()"
                             >
                               Update Event
                             </button>
@@ -262,7 +247,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--end update event-->
                 </tr>
               </tbody>
             </table>
@@ -289,7 +273,6 @@
     </div>
   </div>
 
-  <!-- Start Create Event Modal -->
   <div
     bsModal
     #createEventModal="bs-modal"
@@ -316,7 +299,7 @@
             <div class="row col">
               <div class="col">
                 <label for="category-select" class="form-label"
-                  >Select category</label
+                  >Select Category</label
                 >
                 <select
                   id="category-select"
@@ -327,32 +310,30 @@
                     *ngFor="let category of categories"
                     [value]="category.id"
                   >
-                    {{ category.name || "No category" }}
+                    {{ category.name || "No Category" }}
                   </option>
                 </select>
               </div>
-
               <div class="col">
-                <label for="tag-select" class="form-label">Select tag</label>
+                <label for="tag-select" class="form-label">Select Tag</label>
                 <select
                   id="tag-select"
                   class="form-control"
                   [(ngModel)]="addNewEvent.tag_id"
                 >
                   <option *ngFor="let tag of tags" [value]="tag.id">
-                    {{ tag.name || "No tag" }}
+                    {{ tag.name || "No Tag" }}
                   </option>
                 </select>
               </div>
             </div>
-
             <div class="row">
               <div class="col">
-                <label for="Eventname-input" class="form-label">title</label>
+                <label for="title-input" class="form-label">Title</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="Eventname-input"
+                  id="title-input"
                   autocomplete="off"
                   placeholder="Enter Event title"
                   [(ngModel)]="addNewEvent.title"
@@ -360,30 +341,26 @@
               </div>
             </div>
             <div class="col">
-              <label for="Eventname-input" class="form-label">content</label>
-
+              <label for="content-input" class="form-label">Content</label>
               <input
                 type="text"
                 class="form-control"
-                id="Eventname-input"
+                id="content-input"
                 autocomplete="off"
                 placeholder="Enter Event content"
                 [(ngModel)]="addNewEvent.content"
               />
             </div>
-
             <div class="col">
-              <label for="Eventname-input" class="form-label">image</label>
+              <label for="image-input" class="form-label">Image</label>
               <input
                 type="file"
                 class="form-control"
-                id="Eventname-input"
-                autocomplete="off"
-                placeholder="Enter Event image"
+                id="image-input"
+                accept="image/*"
                 (change)="onFileSelected($event)"
               />
             </div>
-
             <div class="hstack gap-2 justify-content-end">
               <button
                 type="button"
@@ -392,13 +369,10 @@
               >
                 <i class="ri-close-line align-bottom"></i> Close
               </button>
-
               <button
-                type="submit"
+                type="button"
                 class="btn btn-primary"
-                id="addNewCategory"
-                (click)="addEvent()"
-                (click)="createEventModal.hide()"
+                (click)="addEvent(); createEventModal.hide()"
               >
                 Add Event
               </button>
@@ -407,9 +381,5 @@
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
-  <!-- End Create Event Modal -->
-
-  <!-- /.modal -->
 </div>

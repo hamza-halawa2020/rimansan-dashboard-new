@@ -4,7 +4,6 @@
 
 <div *ngIf="categories">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
-    <!--end side content-->
     <div class="city-content w-100 pb-0">
       <div class="col">
         <div *ngIf="successMessage" class="alert alert-success">
@@ -17,7 +16,7 @@
 
         <button
           class="btn btn-success w-100"
-          (click)="createCounryModal.show()"
+          (click)="createCategoryModal.show()"
         >
           <i class="ri-add-line align-bottom"></i> Add New Category
         </button>
@@ -50,7 +49,6 @@
                       height="25px"
                     />
                   </td>
-
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
@@ -62,14 +60,15 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateCategory.show()"
+                        (click)="
+                          openEditCategoryModal(data); updateCategory.show()
+                        "
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
                     </div>
                   </td>
 
-                  <!-- removeFileItemModal -->
                   <div
                     bsModal
                     #removeCategoryItemModal="bs-modal"
@@ -85,16 +84,16 @@
                             type="button"
                             class="btn-close"
                             (click)="removeCategoryItemModal.hide()"
-                            id="close-removecitymodal"
+                            id="close-removecategorymodal"
                           ></button>
                         </div>
                         <div class="modal-body">
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this city ?
+                                Are you sure you want to remove this category?
                               </p>
                             </div>
                           </div>
@@ -111,7 +110,7 @@
                             <button
                               type="button"
                               class="btn w-sm btn-danger"
-                              id="remove-cityitem"
+                              id="remove-categoryitem"
                               (click)="deleteCategory(data.id)"
                             >
                               Yes, Delete It!
@@ -119,12 +118,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
-                  <!-- update Modal -->
                   <div
                     bsModal
                     #updateCategory="bs-modal"
@@ -138,7 +134,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateCategoryLabel">
-                            UpdateCategory Info
+                            Update Category Info
                           </h5>
                           <button
                             type="button"
@@ -155,19 +151,21 @@
                               type="text"
                               id="city-title-input"
                               class="form-control"
-                              placeholder="{{ data.name }}"
-                              [(ngModel)]="newCategory.name"
+                              placeholder="Enter Category name"
+                              [(ngModel)]="editCategoryData.name"
                             />
                           </div>
                           <div class="mb-4">
-                            <label for="category-image-input" class="form-label"
+                            <label
+                              for="edit-category-image-input"
+                              class="form-label"
                               >Category Image</label
                             >
                             <input
                               type="file"
                               class="form-control"
                               id="edit-category-image-input"
-                              accept="image"
+                              accept="image/*"
                               (change)="onImageSelected($event)"
                             />
                           </div>
@@ -184,7 +182,9 @@
                               type="submit"
                               class="btn btn-primary"
                               id="addNewCategory"
-                              (click)="editCategory(data.id)"
+                              (click)="
+                                editCategory(data.id); updateCategory.hide()
+                              "
                             >
                               Update Category
                             </button>
@@ -193,7 +193,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--end update city-->
                 </tr>
               </tbody>
             </table>
@@ -220,27 +219,26 @@
     </div>
   </div>
 
-  <!-- Start Create Category Modal -->
   <div
     bsModal
-    #createCounryModal="bs-modal"
+    #createCategoryModal="bs-modal"
     class="modal fade zoomIn"
-    id="createCounryModal"
+    id="createCategoryModal"
     tabindex="-1"
-    aria-labelledby="createCounryModalLabel"
+    aria-labelledby="createCategoryModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header p-3 bg-success-subtle">
-          <h5 class="modal-title" id="createCounryModalLabel">
+          <h5 class="modal-title" id="createCategoryModalLabel">
             Create Category
           </h5>
           <button
             type="button"
             class="btn-close"
-            (click)="createCounryModal.hide()"
-            id="addCounryBtn-close"
+            (click)="createCategoryModal.hide()"
+            id="addCategoryBtn-close"
             aria-label="Close"
           ></button>
         </div>
@@ -271,27 +269,20 @@
                 accept="image/*"
                 (change)="onImageSelected($event)"
               />
-              <!-- <div *ngIf="imagePreview" class="mt-2">
-                <img
-                  [src]="imagePreview"
-                  alt="Preview"
-                  style="max-width: 200px; max-height: 200px"
-                />
-              </div> -->
             </div>
 
             <div class="hstack gap-2 justify-content-end">
               <button
                 type="button"
                 class="btn btn-ghost-success"
-                (click)="createCounryModal.hide()"
+                (click)="createCategoryModal.hide()"
               >
                 <i class="ri-close-line align-bottom"></i> Close
               </button>
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="addCategory(); createCounryModal.hide()"
+                (click)="addCategory(); createCategoryModal.hide()"
               >
                 Add Category
               </button>
@@ -301,7 +292,4 @@
       </div>
     </div>
   </div>
-  <!-- End Create Category Modal -->
-
-  <!-- /.modal -->
 </div>

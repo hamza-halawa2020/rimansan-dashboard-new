@@ -1,25 +1,19 @@
 <!-- Start Breadcrumbs -->
-<app-breadcrumbs title="Faqs"></app-breadcrumbs>
+<app-breadcrumbs title="FAQs"></app-breadcrumbs>
 <!-- End Breadcrumbs -->
 
 <div *ngIf="faqs">
   <div class="chat-wrapper d-lg-flex gap-3 gap-lg-4 p-xl-1 pt-md-5 p-lg-1">
-    <!--end side content-->
     <div class="faqs-content w-100 pb-0">
       <div class="col">
         <div *ngIf="successMessage" class="alert alert-success">
           {{ successMessage }}
         </div>
-
         <div *ngIf="errorMessage" class="alert alert-danger">
           {{ errorMessage }}
         </div>
-
-        <button
-          class="btn btn-success w-100"
-          (click)="createCounryModal.show()"
-        >
-          <i class="ri-add-line align-bottom"></i> Add New faqs
+        <button class="btn btn-success w-100" (click)="createFaqModal.show()">
+          <i class="ri-add-line align-bottom"></i> Add New FAQ
         </button>
       </div>
 
@@ -33,44 +27,40 @@
                   <th scope="col">ID</th>
                   <th scope="col">Question</th>
                   <th scope="col">Answer</th>
-                  <th scope="col">CreatedBy</th>
-                  <th scope="col">CreatedAt</th>
+                  <th scope="col">Created By</th>
+                  <th scope="col">Created At</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-
               <tbody id="faqs-list">
                 <tr *ngFor="let data of faqs; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ data.id }}</td>
-
-                  <td>{{ data.question || "No question" }}</td>
-                  <td>{{ data.answer || "No answer" }}</td>
-
-                  <td>{{ data.admin || "No admin" }}</td>
+                  <td>{{ data.question || "No Question" }}</td>
+                  <td>{{ data.answer || "No Answer" }}</td>
+                  <td>{{ data.admin || "No Admin" }}</td>
                   <td>{{ data.created_at | date }}</td>
                   <td>
                     <div class="hstack gap-2">
                       <button
                         class="btn btn-sm btn-subtle-danger remove-list"
-                        (click)="removefaqsItemModal.show()"
+                        (click)="removeFaqItemModal.show()"
                       >
                         <i class="ri-delete-bin-5-fill align-bottom"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updatefaqs.show()"
+                        (click)="openEditFaqModal(data); updateFaq.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
                     </div>
                   </td>
 
-                  <!-- removeFileItemModal -->
                   <div
                     bsModal
-                    #removefaqsItemModal="bs-modal"
-                    id="removefaqsItemModal"
+                    #removeFaqItemModal="bs-modal"
+                    id="removeFaqItemModal"
                     class="modal fade zoomIn"
                     tabindex="-1"
                     aria-hidden="true"
@@ -81,17 +71,17 @@
                           <button
                             type="button"
                             class="btn-close"
-                            (click)="removefaqsItemModal.hide()"
-                            id="close-removefaqsmodal"
+                            (click)="removeFaqItemModal.hide()"
+                            id="close-removefaqmodal"
                           ></button>
                         </div>
                         <div class="modal-body">
                           <div class="mt-2 text-center">
                             <i class="ti ti-trash fs-1 text-danger"></i>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                              <h5>Are you sure ?</h5>
+                              <h5>Are you sure?</h5>
                               <p class="text-muted mx-4 mb-0">
-                                Are you sure you want to remove this faqs ?
+                                Are you sure you want to remove this FAQ?
                               </p>
                             </div>
                           </div>
@@ -101,101 +91,92 @@
                             <button
                               type="button"
                               class="btn w-sm btn-light"
-                              (click)="removefaqsItemModal.hide()"
+                              (click)="removeFaqItemModal.hide()"
                             >
                               Close
                             </button>
                             <button
                               type="button"
                               class="btn w-sm btn-danger"
-                              id="remove-faqsitem"
-                              (click)="deleteFaqs(data.id)"
+                              id="remove-faqitem"
+                              (click)="deleteFaq(data.id)"
                             >
                               Yes, Delete It!
                             </button>
                           </div>
                         </div>
                       </div>
-                      <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
-                  <!-- update Modal -->
                   <div
                     bsModal
-                    #updatefaqs="bs-modal"
+                    #updateFaq="bs-modal"
                     class="modal fade"
-                    id="updatefaqs"
+                    id="updateFaq"
                     tabindex="-1"
-                    aria-labelledby="updatefaqsLabel"
+                    aria-labelledby="updateFaqLabel"
                     aria-hidden="true"
                   >
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
-                          <h5 class="modal-title" id="updatefaqsLabel">
-                            Updatefaqs Info
+                          <h5 class="modal-title" id="updateFaqLabel">
+                            Update FAQ Info
                           </h5>
                           <button
                             type="button"
                             class="btn-close"
-                            (click)="updatefaqs.hide()"
+                            (click)="updateFaq.hide()"
                           ></button>
                         </div>
                         <div class="modal-body">
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
-                              >question</label
+                            <label for="question-input" class="form-label"
+                              >Question</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
-                              id="faqsname-input"
+                              id="question-input"
                               autocomplete="off"
-                              placeholder="Enter faqs name"
-                              [(ngModel)]="newFaqs.question"
+                              placeholder="Enter FAQ question"
+                              [(ngModel)]="editFaqData.question"
                             />
                           </div>
-
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
-                              >answer</label
+                            <label for="answer-input" class="form-label"
+                              >Answer</label
                             >
-
-                            <input
-                              type="text"
+                            <textarea
                               class="form-control"
-                              id="faqsname-input"
+                              id="answer-input"
                               autocomplete="off"
-                              placeholder="Enter faqs name"
-                              [(ngModel)]="newFaqs.answer"
-                            />
+                              placeholder="Enter FAQ answer"
+                              [(ngModel)]="editFaqData.answer"
+                            ></textarea>
                           </div>
-
                           <div class="hstack gap-2 justify-content-end">
                             <button
                               type="button"
                               class="btn btn-ghost-success"
-                              (click)="updatefaqs.hide()"
+                              (click)="updateFaq.hide()"
                             >
                               <i class="ri-close-fill align-bottom"></i> Close
                             </button>
                             <button
                               type="submit"
                               class="btn btn-primary"
-                              id="addnewFaqs"
-                              (click)="editFaqs(data.id)"
+                              id="updateFaqBtn"
+                              (click)="editFaq(data.id); updateFaq.hide()"
                             >
-                              Update faqs
+                              Update FAQ
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <!--end update faqs-->
                 </tr>
               </tbody>
             </table>
@@ -222,81 +203,69 @@
     </div>
   </div>
 
-  <!-- Start Create Counry Modal -->
   <div
     bsModal
-    #createCounryModal="bs-modal"
+    #createFaqModal="bs-modal"
     class="modal fade zoomIn"
-    id="createCounryModal"
+    id="createFaqModal"
     tabindex="-1"
-    aria-labelledby="createCounryModalLabel"
+    aria-labelledby="createFaqModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header p-3 bg-success-subtle">
-          <h5 class="modal-title" id="createCounryModalLabel">
-            Create Ad SideBar
-          </h5>
+          <h5 class="modal-title" id="createFaqModalLabel">Create FAQ</h5>
           <button
             type="button"
             class="btn-close"
-            (click)="createCounryModal.hide()"
-            id="addCounryBtn-close"
+            (click)="createFaqModal.hide()"
+            id="addFaqBtn-close"
             aria-label="Close"
           ></button>
         </div>
         <div class="modal-body">
           <div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">question</label>
-
+              <label for="question-input" class="form-label">Question</label>
               <input
                 type="text"
                 class="form-control"
-                id="faqsname-input"
+                id="question-input"
                 autocomplete="off"
-                placeholder="Enter faqs name"
-                [(ngModel)]="newFaqs.question"
+                placeholder="Enter FAQ question"
+                [(ngModel)]="newFaq.question"
               />
             </div>
             <div class="mb-4">
-              <label for="Counryname-input" class="form-label">answer</label>
-
-              <input
-                type="text"
+              <label for="answer-input" class="form-label">Answer</label>
+              <textarea
                 class="form-control"
-                id="faqsname-input"
+                id="answer-input"
                 autocomplete="off"
-                placeholder="Enter faqs name"
-                [(ngModel)]="newFaqs.answer"
-              />
+                placeholder="Enter FAQ answer"
+                [(ngModel)]="newFaq.answer"
+              ></textarea>
             </div>
-
             <div class="hstack gap-2 justify-content-end">
               <button
                 type="button"
                 class="btn btn-ghost-success"
-                (click)="createCounryModal.hide()"
+                (click)="createFaqModal.hide()"
               >
                 <i class="ri-close-line align-bottom"></i> Close
               </button>
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="addFaqs()"
-                (click)="createCounryModal.hide()"
+                (click)="addFaq(); createFaqModal.hide()"
               >
-                Add faqs
+                Add FAQ
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end modal-dialog -->
   </div>
-  <!-- End Create Counry Modal -->
-
-  <!-- /.modal -->
 </div>

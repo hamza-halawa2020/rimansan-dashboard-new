@@ -56,7 +56,7 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateCountry.show()"
+                        (click)="openEditCountryModal(data); updateCountry.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -120,60 +120,58 @@
 
                   <!-- update Modal -->
                   <div
-                    bsModal
-                    #updateCountry="bs-modal"
-                    class="modal fade"
-                    id="updateCountry"
-                    tabindex="-1"
-                    aria-labelledby="updateCountryLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content border-0">
-                        <div class="modal-header p-3 bg-success-subtle">
-                          <h5 class="modal-title" id="updateCountryLabel">
-                            UpdateCountry Info
-                          </h5>
+                  bsModal
+                  #updateCountry="bs-modal"
+                  class="modal fade"
+                  id="updateCountry"
+                  tabindex="-1"
+                  aria-labelledby="updateCountryLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0">
+                      <div class="modal-header p-3 bg-success-subtle">
+                        <h5 class="modal-title" id="updateCountryLabel">
+                          Update Country Info
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          (click)="updateCountry.hide()"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label for="country-title-input" class="form-label">Country</label>
+                          <input
+                            type="text"
+                            id="country-title-input"
+                            class="form-control"
+                            placeholder="Enter Country name"
+                            [(ngModel)]="editCountryData.name"
+                          />
+                        </div>
+                        <div class="hstack gap-2 justify-content-end">
                           <button
                             type="button"
-                            class="btn-close"
+                            class="btn btn-ghost-success"
                             (click)="updateCountry.hide()"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="mb-3">
-                            <label for="country-title-input" class="form-label"
-                              >Country</label
-                            >
-                            <input
-                              type="text"
-                              id="country-title-input"
-                              class="form-control"
-                              placeholder="{{ data.name }}"
-                              [(ngModel)]="newCountry.name"
-                            />
-                          </div>
-                          <div class="hstack gap-2 justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-ghost-success"
-                              (click)="updateCountry.hide()"
-                            >
-                              <i class="ri-close-fill align-bottom"></i> Close
-                            </button>
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
-                              id="addNewCountry"
-                              (click)="editCountry(data.id)"
-                            >
-                              Update Country
-                            </button>
-                          </div>
+                          >
+                            <i class="ri-close-fill align-bottom"></i> Close
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="addNewCountry"
+                            (click)="editCountry(data.id); updateCountry.hide()"
+                          >
+                            Update Country
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                   <!--end update country-->
                 </tr>
               </tbody>

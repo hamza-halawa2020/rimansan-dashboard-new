@@ -61,10 +61,8 @@
                       size="small"
                       class="me-2"
                     >
-                    {{ data.type === 'admin' ? 'Admin' : 'User' }}
+                      {{ data.type === "admin" ? "Admin" : "User" }}
                     </ui-switch>
-
-                    
 
                     <div class="form-check form-switch custom-switch me-2">
                       <input
@@ -76,9 +74,6 @@
                       />
                     </div>
                   </td>
-
-
-
 
                   <td>
                     <img
@@ -105,7 +100,7 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateUser.show()"
+                        (click)="openEditUserModal(data); updateUser.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -181,7 +176,7 @@
                       <div class="modal-content border-0">
                         <div class="modal-header p-3 bg-success-subtle">
                           <h5 class="modal-title" id="updateUserLabel">
-                            UpdateUser Info
+                            Update User Info
                           </h5>
                           <button
                             type="button"
@@ -191,32 +186,30 @@
                         </div>
                         <div class="modal-body">
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
+                            <label for="Username-input" class="form-label"
                               >Name</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
                               id="Username-input"
                               autocomplete="off"
                               placeholder="Enter User name"
-                              [(ngModel)]="newUser.name"
+                              [(ngModel)]="editUserData.name"
                             />
                           </div>
 
                           <div class="mb-4">
-                            <label for="Counryname-input" class="form-label"
+                            <label for="Username-input" class="form-label"
                               >Phone</label
                             >
-
                             <input
                               type="text"
                               class="form-control"
                               id="Username-input"
                               autocomplete="off"
                               placeholder="Enter User phone"
-                              [(ngModel)]="newUser.phone"
+                              [(ngModel)]="editUserData.phone"
                             />
                           </div>
 
@@ -232,7 +225,7 @@
                               type="submit"
                               class="btn btn-primary"
                               id="addNewUser"
-                              (click)="editUser(data.id)"
+                              (click)="editUser(data.id); updateUser.hide()"
                             >
                               Update User
                             </button>
@@ -241,7 +234,7 @@
                       </div>
                     </div>
                   </div>
-                  <!--end update city-->
+                  <!--end update-->
                 </tr>
               </tbody>
             </table>

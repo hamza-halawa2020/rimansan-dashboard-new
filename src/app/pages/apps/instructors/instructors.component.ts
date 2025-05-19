@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { InstructorsService } from 'src/app/core/services/instructors.service';
 import { environment } from 'src/environments/environment';
 import { Instructor } from './instructor.model';
+
 @Component({
   selector: 'app-instructors',
   templateUrl: './instructors.component.html',
@@ -11,30 +12,32 @@ export class InstructorsComponent {
   totalPages: number = 0;
   currentPage: number = 1;
   instructors: Instructor[] = [];
+  addNewInstructor: Instructor = {};
+  editInstructorData: Instructor = {};
   selectedFile: File | null = null;
   image = environment.imgUrl + 'instructors/';
-  addNewInstructor: Instructor = {};
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(private InstructorsService: InstructorsService) {}
 
   ngOnInit(): void {
     this.index();
   }
 
-  onFileSelected(instructor: any): void {
-    const file = instructor.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      // console.log('File selected:', this.selectedFile);
-    }
-  }
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
       errorMessage = Object.values(error.error.errors).flat().join(', ');
     }
     return errorMessage;
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
   }
 
   addInstructor(): void {
@@ -55,23 +58,26 @@ export class InstructorsComponent {
       () => {
         this.index();
         this.addNewInstructor = {};
+        this.selectedFile = null;
         this.successMessage = 'Instructor added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
-      (error: any) => {
-        // console.error('Failed to add Instructor', error);
+      (error) => {
         this.errorMessage =
-          'Failed to add Instructor. ' + this.extractErrorMessage(error);
+          'Failed to add instructor: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
   index(): void {
-    this.InstructorsService.index().subscribe((data) => {
-      this.instructors = Object.values(data)[0];
-      // console.log(this.instructors);
-    });
+    this.InstructorsService.index(this.currentPage).subscribe(
+      (response: any) => {
+        this.instructors = response.data;
+        this.currentPage = response.meta?.current_page || 1;
+        this.totalPages = response.meta?.last_page || 1;
+      }
+    );
   }
 
   nextPage(): void {
@@ -97,18 +103,20 @@ export class InstructorsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting Instructor', error);
         this.errorMessage =
-          'Failed to delete Instructor' + this.extractErrorMessage(error);
+          'Failed to delete instructor: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditInstructorModal(instructor: Instructor): void {
+    this.editInstructorData = { ...instructor };
+  }
+
   editInstructor(id: number | undefined): void {
     if (!id) {
-      this.errorMessage = 'Invalid banner ID';
-      // console.error('Invalid banner ID:', id);
+      this.errorMessage = 'Invalid instructor ID';
       return;
     }
 
@@ -116,33 +124,33 @@ export class InstructorsComponent {
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
+    if (this.editInstructorData.name) {
+      formData.append('name', this.editInstructorData.name);
+    }
+    if (this.editInstructorData.email) {
+      formData.append('email', this.editInstructorData.email);
+    }
+    if (this.editInstructorData.phone) {
+      formData.append('phone', this.editInstructorData.phone);
+    }
+    if (this.editInstructorData.job_title) {
+      formData.append('job_title', this.editInstructorData.job_title);
+    }
+    if (this.editInstructorData.description) {
+      formData.append('description', this.editInstructorData.description);
+    }
 
-    if (this.addNewInstructor.name) {
-      formData.append('name', this.addNewInstructor.name || '');
-    }
-    if (this.addNewInstructor.email) {
-      formData.append('email', this.addNewInstructor.email || '');
-    }
-    if (this.addNewInstructor.phone) {
-      formData.append('phone', this.addNewInstructor.phone || '');
-    }
-    if (this.addNewInstructor.job_title) {
-      formData.append('job_title', this.addNewInstructor.job_title || '');
-    }
-    if (this.addNewInstructor.description) {
-      formData.append('description', this.addNewInstructor.description || '');
-    }
     this.InstructorsService.update(id, formData).subscribe(
       () => {
         this.index();
-        this.addNewInstructor = {};
+        this.editInstructorData = {};
+        this.selectedFile = null;
         this.successMessage = 'Instructor updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating Instructor:', error);
         this.errorMessage =
-          'Error updating Instructor: ' + this.extractErrorMessage(error);
+          'Error updating instructor: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

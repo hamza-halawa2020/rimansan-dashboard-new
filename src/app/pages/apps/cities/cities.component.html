@@ -55,7 +55,7 @@
                       </button>
                       <button
                         class="btn btn-sm btn-subtle-info edit-list"
-                        (click)="updateCity.show()"
+                        (click)="openEditCityModal(data); updateCity.show()"
                       >
                         <i class="ri-pencil-fill align-bottom"></i>
                       </button>
@@ -119,79 +119,73 @@
 
                   <!-- update Modal -->
                   <div
-                    bsModal
-                    #updateCity="bs-modal"
-                    class="modal fade"
-                    id="updateCity"
-                    tabindex="-1"
-                    aria-labelledby="updateCityLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content border-0">
-                        <div class="modal-header p-3 bg-success-subtle">
-                          <h5 class="modal-title" id="updateCityLabel">
-                            UpdateCity Info
-                          </h5>
+                  bsModal
+                  #updateCity="bs-modal"
+                  class="modal fade"
+                  id="updateCity"
+                  tabindex="-1"
+                  aria-labelledby="updateCityLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0">
+                      <div class="modal-header p-3 bg-success-subtle">
+                        <h5 class="modal-title" id="updateCityLabel">Update City Info</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          (click)="updateCity.hide()"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label for="city-title-input" class="form-label">City</label>
+                          <input
+                            type="text"
+                            id="city-title-input"
+                            class="form-control"
+                            placeholder="Enter City name"
+                            [(ngModel)]="editCityData.name"
+                          />
+                        </div>
+              
+                        <div class="mb-4">
+                          <label for="country-select" class="form-label">Select Country</label>
+                          <select
+                            id="country-select"
+                            class="form-control"
+                            [(ngModel)]="editCityData.country_id"
+                          >
+                            <option
+                              *ngFor="let country of countries; let i = index"
+                              [value]="country.id"
+                            >
+                              {{ country.name || "No Name" }}
+                            </option>
+                          </select>
+                        </div>
+              
+                        <div class="hstack gap-2 justify-content-end">
                           <button
                             type="button"
-                            class="btn-close"
+                            class="btn btn-ghost-success"
                             (click)="updateCity.hide()"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="mb-3">
-                            <label for="city-title-input" class="form-label"
-                              >City</label
-                            >
-                            <input
-                              type="text"
-                              id="city-title-input"
-                              class="form-control"
-                              placeholder="{{ data.name }}"
-                              [(ngModel)]="newCity.name"
-                            />
-                          </div>
-
-                          <div class="mb-4">
-                            <label for="country-select" class="form-label"
-                              >Select Country</label
-                            >
-                            <select
-                              id="country-select"
-                              class="form-control"
-                              [(ngModel)]="newCity.country_id"
-                            >
-                              <option
-                                *ngFor="let country of countries; let i = index"
-                                [value]="country.id"
-                              >
-                                {{ country.name || "No Name" }}
-                              </option>
-                            </select>
-                          </div>
-
-                          <div class="hstack gap-2 justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-ghost-success"
-                              (click)="updateCity.hide()"
-                            >
-                              <i class="ri-close-fill align-bottom"></i> Close
-                            </button>
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
-                              id="addNewCity"
-                              (click)="editCity(data.id)"
-                            >
-                              Update City
-                            </button>
-                          </div>
+                          >
+                            <i class="ri-close-fill align-bottom"></i> Close
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="addNewCity"
+                            (click)="editCity(data.id); updateCity.hide()"
+                          >
+                            Update City
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                   <!--end update city-->
                 </tr>
               </tbody>

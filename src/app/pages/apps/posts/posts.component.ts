@@ -16,12 +16,14 @@ export class PostsComponent {
   currentPage: number = 1;
   posts: Post[] = [];
   categories: Category[] = [];
-  selectedFile: File | null = null;
-  image = environment.imgUrl + 'posts/';
   tags: Tag[] = [];
   addNewPost: Post = {};
+  editPostData: Post = {};
+  selectedFile: File | null = null;
+  image = environment.imgUrl + 'posts/';
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(private PostsService: PostsService, private router: Router) {}
 
   ngOnInit(): void {
@@ -30,13 +32,6 @@ export class PostsComponent {
     this.getAllTags();
   }
 
-  onFileSelected(post: any): void {
-    const file = post.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      // console.log('File selected:', this.selectedFile);
-    }
-  }
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -45,17 +40,22 @@ export class PostsComponent {
     return errorMessage;
   }
 
-  getAllCategories() {
-    this.PostsService.getAllCategories().subscribe((data) => {
-      this.categories = Object.values(data)[0];
-      // console.log(this.countries);
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
+  getAllCategories(): void {
+    this.PostsService.getAllCategories().subscribe((response: any) => {
+      this.categories = response.data || Object.values(response)[0];
     });
   }
 
-  getAllTags() {
-    this.PostsService.getAllTags().subscribe((data) => {
-      this.tags = Object.values(data)[0];
-      // console.log(this.countries);
+  getAllTags(): void {
+    this.PostsService.getAllTags().subscribe((response: any) => {
+      this.tags = response.data || Object.values(response)[0];
     });
   }
 
@@ -76,22 +76,23 @@ export class PostsComponent {
       () => {
         this.index();
         this.addNewPost = {};
+        this.selectedFile = null;
         this.successMessage = 'Post added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
-      (error: any) => {
-        // console.error('Failed to add Post', error);
+      (error) => {
         this.errorMessage =
-          'Failed to add Post. ' + this.extractErrorMessage(error);
+          'Failed to add post: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
   index(): void {
-    this.PostsService.index().subscribe((data) => {
-      this.posts = Object.values(data)[0];
-      // console.log(this.posts);
+    this.PostsService.index(this.currentPage).subscribe((response: any) => {
+      this.posts = response.data;
+      this.currentPage = response.meta?.current_page || 1;
+      this.totalPages = response.meta?.last_page || 1;
     });
   }
 
@@ -118,18 +119,20 @@ export class PostsComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting Post', error);
         this.errorMessage =
-          'Failed to delete Post' + this.extractErrorMessage(error);
+          'Failed to delete post: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditPostModal(post: Post): void {
+    this.editPostData = { ...post };
+  }
+
   editPost(id: number | undefined): void {
     if (!id) {
       this.errorMessage = 'Invalid post ID';
-      // console.error('Invalid post ID:', id);
       return;
     }
 
@@ -137,55 +140,49 @@ export class PostsComponent {
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
-
-    if (this.addNewPost.category_id) {
-      formData.append('category_id', this.addNewPost.category_id || '');
+    if (this.editPostData.category_id) {
+      formData.append('category_id', this.editPostData.category_id);
     }
-    if (this.addNewPost.tag_id) {
-      formData.append('tag_id', this.addNewPost.tag_id || '');
+    if (this.editPostData.tag_id) {
+      formData.append('tag_id', this.editPostData.tag_id);
     }
-
-    if (this.addNewPost.title) {
-      formData.append('title', this.addNewPost.title || '');
+    if (this.editPostData.title) {
+      formData.append('title', this.editPostData.title);
     }
-
-    if (this.addNewPost.content) {
-      formData.append('content', this.addNewPost.content || '');
+    if (this.editPostData.content) {
+      formData.append('content', this.editPostData.content);
     }
 
     this.PostsService.update(id, formData).subscribe(
       () => {
         this.index();
-        this.addNewPost = {};
+        this.editPostData = {};
+        this.selectedFile = null;
         this.successMessage = 'Post updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating Post:', error);
         this.errorMessage =
-          'Error updating Post: ' + this.extractErrorMessage(error);
+          'Error updating post: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
-  toggleStatus(post: any): void {
+  toggleStatus(post: Post): void {
     const formData = new FormData();
+    const updatedStatus = post.status === 'active' ? '1' : 'active';
+    formData.append('status', updatedStatus);
 
-    const updatedPost = post.certifications == '1' ? '0' : '1';
-
-    formData.append('certifications', updatedPost);
-
-    this.PostsService.update(post.id, formData).subscribe(
+    this.PostsService.update(post.id!, formData).subscribe(
       () => {
-        post.certifications = updatedPost;
+        post.status = updatedStatus;
         this.successMessage = 'Post status updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating Post status', error);
         this.errorMessage =
-          'Error updating Post status: ' + this.extractErrorMessage(error);
+          'Error updating post status: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

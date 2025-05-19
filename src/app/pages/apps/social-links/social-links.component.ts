@@ -10,20 +10,21 @@ import { environment } from 'src/environments/environment';
 })
 export class SocialLinksComponent {
   image = environment.imgUrl + 'socials/';
-
   totalPages: number = 0;
   currentPage: number = 1;
   socialLinks: Social[] = [];
   newSocialLink: Social = {};
+  editSocialLinkData: Social = {};
+  selectedFile: File | null = null;
   successMessage: string = '';
   errorMessage: string = '';
-  selectedFile: File | null = null;
 
   constructor(private socialLinksService: SocialLinksService) {}
 
   ngOnInit(): void {
     this.index();
   }
+
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -36,13 +37,12 @@ export class SocialLinksComponent {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      // console.log('File selected:', this.selectedFile);
     }
   }
 
   addSocialLink(): void {
     if (!this.selectedFile) {
-      this.errorMessage = 'Please select an image to upload.';
+      this.errorMessage = 'Please select an icon to upload.';
       return;
     }
 
@@ -55,23 +55,26 @@ export class SocialLinksComponent {
       () => {
         this.index();
         this.newSocialLink = {};
-        this.successMessage = 'SocialLink added successfully!';
+        this.selectedFile = null;
+        this.successMessage = 'Social Link added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding vity', error);
         this.errorMessage =
-          'Failed to add city' + this.extractErrorMessage(error);
+          'Failed to add Social Link: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
   index(): void {
-    this.socialLinksService.index().subscribe((data) => {
-      this.socialLinks = Object.values(data)[0];
-      // console.log(this.countries);
-    });
+    this.socialLinksService
+      .index(this.currentPage)
+      .subscribe((response: any) => {
+        this.socialLinks = response.data;
+        this.currentPage = response.meta?.current_page || 1;
+        this.totalPages = response.meta?.last_page || 1;
+      });
   }
 
   nextPage(): void {
@@ -93,22 +96,24 @@ export class SocialLinksComponent {
     this.socialLinksService.delete(id).subscribe(
       () => {
         this.index();
-        this.successMessage = 'SocialLink deleted successfully!';
+        this.successMessage = 'Social Link deleted successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting city', error);
         this.errorMessage =
-          'Failed to delete city' + this.extractErrorMessage(error);
+          'Failed to delete Social Link: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditSocialLinkModal(socialLink: Social): void {
+    this.editSocialLinkData = { ...socialLink };
+  }
+
   editSocialLink(id: number | undefined): void {
     if (!id) {
-      this.errorMessage = 'Invalid banner ID';
-      // console.error('Invalid banner ID:', id);
+      this.errorMessage = 'Invalid Social Link ID';
       return;
     }
 
@@ -116,24 +121,24 @@ export class SocialLinksComponent {
     if (this.selectedFile) {
       formData.append('icon', this.selectedFile);
     }
-    if (this.newSocialLink.name) {
-      formData.append('name', this.newSocialLink.name || '');
+    if (this.editSocialLinkData.name) {
+      formData.append('name', this.editSocialLinkData.name);
     }
-    if (this.newSocialLink.url) {
-      formData.append('url', this.newSocialLink.url || '');
+    if (this.editSocialLinkData.url) {
+      formData.append('url', this.editSocialLinkData.url);
     }
 
     this.socialLinksService.update(id, formData).subscribe(
       () => {
         this.index();
-        this.newSocialLink = {};
-        this.successMessage = 'SocialLink updated successfully!';
+        this.editSocialLinkData = {};
+        this.selectedFile = null;
+        this.successMessage = 'Social Link updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating city', error);
         this.errorMessage =
-          'Error updating city' + this.extractErrorMessage(error);
+          'Error updating Social Link: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );

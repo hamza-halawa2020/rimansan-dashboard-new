@@ -13,31 +13,16 @@ export class CategoriesComponent {
   currentPage: number = 1;
   categories: Category[] = [];
   newCategory: Category = {};
+  editCategoryData: Category = {};
   successMessage: string = '';
   errorMessage: string = '';
   image = environment.imgUrl + 'categories/';
-
-  imagePreview: string | null = null; // Add preview property
+  selectedFile: File | null = null;
 
   constructor(private categoriesService: CategoriesService) {}
 
   ngOnInit(): void {
     this.index();
-  }
-
-  // Handle image selection
-  onImageSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.newCategory.image = file;
-
-      // Generate preview
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
   }
 
   extractErrorMessage(error: any): string {
@@ -48,20 +33,27 @@ export class CategoriesComponent {
     return errorMessage;
   }
 
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
   addCategory(): void {
     const formData = new FormData();
     if (this.newCategory.name) {
       formData.append('name', this.newCategory.name);
     }
-    if (this.newCategory.image instanceof File) {
-      formData.append('image', this.newCategory.image);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
     }
 
     this.categoriesService.store(formData).subscribe(
       () => {
         this.index();
         this.newCategory = {};
-        this.imagePreview = null;
+        this.selectedFile = null;
         this.successMessage = 'Category added successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
@@ -95,6 +87,7 @@ export class CategoriesComponent {
 
   deleteCategory(id: number | undefined): void {
     if (!id) return;
+   
     this.categoriesService.delete(id).subscribe(
       () => {
         this.index();
@@ -109,22 +102,28 @@ export class CategoriesComponent {
     );
   }
 
-  editCategory(id: number | undefined): void {
-    if (!id) return;
+  openEditCategoryModal(category: Category): void {
+    this.editCategoryData = { ...category };
+  }
 
-    const formData = new FormData();
-    if (this.newCategory.name) {
-      formData.append('name', this.newCategory.name);
+  editCategory(id: number | undefined): void {
+    if (!id) {
+      this.errorMessage = 'Invalid category ID';
+      return;
     }
-    if (this.newCategory.image instanceof File) {
-      formData.append('image', this.newCategory.image);
+    const formData = new FormData();
+    if (this.editCategoryData.name) {
+      formData.append('name', this.editCategoryData.name);
+    }
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
     }
 
     this.categoriesService.update(id, formData).subscribe(
       () => {
         this.index();
-        this.newCategory = {};
-        this.imagePreview = null;
+        this.editCategoryData = {};
+        this.selectedFile = null;
         this.successMessage = 'Category updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },

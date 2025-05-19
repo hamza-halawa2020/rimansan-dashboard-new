@@ -14,27 +14,17 @@ export class CitiesComponent {
   cities: City[] = [];
   countries: Country[] = [];
   newCity: City = {};
+  editCityData: City = {};
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(private citiesService: CitiesService) {}
 
   ngOnInit(): void {
     this.index();
     this.getAllCountries();
   }
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.index();
-    }
-  }
 
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.index();
-    }
-  }
   extractErrorMessage(error: any): string {
     let errorMessage = 'An error occurred';
     if (error && error.error && error.error.errors) {
@@ -42,6 +32,7 @@ export class CitiesComponent {
     }
     return errorMessage;
   }
+
   addCity(): void {
     this.citiesService.store(this.newCity).subscribe(
       () => {
@@ -51,9 +42,8 @@ export class CitiesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error adding vity', error);
         this.errorMessage =
-          'Failed to add city' + this.extractErrorMessage(error);
+          'Failed to add city: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
@@ -70,8 +60,21 @@ export class CitiesComponent {
   getAllCountries() {
     this.citiesService.getAllCountries().subscribe((data) => {
       this.countries = Object.values(data)[0];
-      // console.log(this.countries);
     });
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.index();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.index();
+    }
   }
 
   deleteCity(id: number | undefined): void {
@@ -83,26 +86,32 @@ export class CitiesComponent {
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error deleting city', error);
         this.errorMessage =
-          'Failed to delete city' + this.extractErrorMessage(error);
+          'Failed to delete city: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
   }
 
+  openEditCityModal(city: City): void {
+    this.editCityData = { ...city };
+  }
+
   editCity(id: number | undefined): void {
-    this.citiesService.update({ id, ...this.newCity }).subscribe(
+    if (!id) {
+      this.errorMessage = 'Invalid city ID';
+      return;
+    }
+    this.citiesService.update({ id, ...this.editCityData }).subscribe(
       () => {
         this.index();
-        this.newCity = {};
+        this.editCityData = {};
         this.successMessage = 'City updated successfully!';
         setTimeout(() => (this.successMessage = ''), 3000);
       },
       (error) => {
-        // console.error('Error updating city', error);
         this.errorMessage =
-          'Error updating city' + this.extractErrorMessage(error);
+          'Error updating city: ' + this.extractErrorMessage(error);
         setTimeout(() => (this.errorMessage = ''), 3000);
       }
     );
