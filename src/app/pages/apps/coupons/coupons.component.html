@@ -56,7 +56,12 @@
                   <td>{{ data.code || "No code" }}</td>
                   <td>{{ data.name || "No name" }}</td>
                   <td>{{ data.description || "No description" }}</td>
-                  <td>{{ data.discount || "No discount" }}</td>
+                  <td>
+                    <span *ngIf="data.discount">
+                      {{ data.discount | number:'1.0-0' }}%
+                    </span>
+                    <span *ngIf="!data.discount">No discount</span>
+                  </td>
                   <td>{{ data.max_uses || "No max uses" }}</td>
                   <td>{{ data.uses_count || "No uses count" }}</td>
                   <td>{{ data.start_date | date }}</td>
